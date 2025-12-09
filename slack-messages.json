@@ -1,0 +1,4613 @@
+{
+  "fetched_at": "2025-12-09T01:09:26.245Z",
+  "period": {
+    "from": "2025-10-10T01:09:23.000Z",
+    "to": "2025-12-09T01:09:26.246Z"
+  },
+  "channel": {
+    "id": "C09UBEXBD8C",
+    "name": "mpdm-hossein.m--asghar--farzin964--abbas--workformlocalhossein--workformstage-1",
+    "type": "mpim"
+  },
+  "total_users": 4,
+  "users": {
+    "U05SL9R85PF": {
+      "id": "U05SL9R85PF",
+      "name": "asghar",
+      "real_name": "Asghar Mirzaie",
+      "display_name": "Asghar",
+      "is_bot": false
+    },
+    "U09JDS5EZ41": {
+      "id": "U09JDS5EZ41",
+      "name": "abbas",
+      "real_name": "Abbas Hasanzadeh",
+      "display_name": "Abbas",
+      "is_bot": false
+    },
+    "U09FLV6BPQB": {
+      "id": "U09FLV6BPQB",
+      "name": "farzin964",
+      "real_name": "Farzin",
+      "display_name": "Farzin",
+      "is_bot": false
+    },
+    "U093YSSUWBG": {
+      "id": "U093YSSUWBG",
+      "name": "hossein.m",
+      "real_name": "Hossein Molavi",
+      "display_name": "Hossein Molavi",
+      "is_bot": false
+    }
+  },
+  "messages": [
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764027950.005119",
+      "client_msg_id": "6fb0dffc-3073-4358-bf5c-66f12300912d",
+      "text": "دوستان بجای برنچ stage لطفا از برنچ dev استفاده کنید رو روی dev پول ریکوست بزند",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "PXjr3",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "دوستان بجای برنچ stage لطفا از برنچ dev استفاده کنید رو روی dev پول ریکوست بزند"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764027953.793299",
+      "client_msg_id": "a842aee8-17a4-4ca9-8a8b-6c82ccdfa85b",
+      "text": "done",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "pKsrh",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028125.290429",
+      "client_msg_id": "724380c5-f047-4c43-b62f-a6b4016c6b32",
+      "text": "*Abbas*  [3:32 PM]\n. /api/v1/integration returns empty\n\n*Farzin*  [3:48 PM]\nاحتمالا بخاطر اکانت google هست\nچه حطایی میده ؟\n[3:48 PM] آیا گوگل oauth به دامنه ربط داره ؟\n\n*Hossein Molavi*  [3:49 PM]\nدیتابیس پره؟\n\n*Farzin*  [3:49 PM]\nپر یعنی چی ؟\n[3:49 PM] سید اضاف شده\n\n*Hossein Molavi*  [4:34 PM]\nقطعا مشکل دیتابیسه\nچک کردم اینور همه چی اوکیه\n[4:37 PM] لاگین مشکل داره.\n\n*Farzin*  [4:43 PM]\nرو استیج؟",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "v9exD",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:32 PM]\n. /api/v1/integration returns empty\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:48 PM]\nاحتمالا بخاطر اکانت google هست\nچه حطایی میده ؟\n[3:48 PM] آیا گوگل oauth به دامنه ربط داره ؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:49 PM]\nدیتابیس پره؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:49 PM]\nپر یعنی چی ؟\n[3:49 PM] سید اضاف شده\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [4:34 PM]\nقطعا مشکل دیتابیسه\nچک کردم اینور همه چی اوکیه\n[4:37 PM] لاگین مشکل داره.\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [4:43 PM]\nرو استیج؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028143.703229",
+      "client_msg_id": "2195a66a-d05a-4757-ae2a-04866ed005e3",
+      "text": "اینو فردا روش کار کنیم. مرسی بچه ها",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "tlKA0",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "اینو فردا روش کار کنیم. مرسی بچه ها"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028500.550389",
+      "client_msg_id": "13133c1a-60f8-4436-ad22-048597b3c632",
+      "text": "Here’s a clean Slack report draft based on what you wrote. I’ll keep it crisp but complete, and I’ll fix the messy parts you had (because yeah, your raw notes were pretty chaotic).\n\n*Weekly Update / Change Report — Slack OAuth Refactor*\n*What changed*\n• Major refactor: Slack OAuth no longer uses Composio.\n• OAuth flow has been moved into the Slack adapter, aligning with our existing source-adapter architecture.\n*Why*\n• We needed to filter webhook messages to only process events from integrations whose authenticating user is actually a member of the relevant Slack channel.\n• To do that, we must store the Slack _user ID_ of the person who authenticated the connection.\n• With Composio bot-token auth:\n    ◦ We couldn’t reliably fetch the authenticating user’s identity.\n    ◦ Composio doesn’t support mixed scopes (user + bot) in a single auth config.\n    ◦ I tried multiple approaches to work around this limitation, but none were viable.\n*Solution*\n• Implemented Slack OAuth flow directly (manual OAuth), independent of Composio.\n• Added storage of the authenticating Slack user ID during the OAuth process.\n• Relocated all OAuth logic into the Slack adapter (where it belongs given our architecture).\n*Impact*\n• Behavior remains the same for users: everything works like before.\n• Internally, Slack auth is now fully owned by us, removing Composio constraints.\n• Enables correct channel-membership filtering for webhook events.\n*Status*\n• Refactor completed.\n• Implementation covered with tests and verified end-to-end.\n*Next steps / follow-ups*\n• Monitor for any edge cases in Slack OAuth (token refresh, reinstall flow).\n• Consider documenting adapter-owned OAuth as standard for other sources if they hit similar mixed-scope limitations.\nIf you want this to be _even tighter_ for Slack (like 5–6 lines max), tell me the target format/style in your team channel and I’ll compress it. But this version is solid and won’t get you follow-up questions.",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "xcG4o",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Here’s a clean Slack report draft based on what you wrote. I’ll keep it crisp but complete, and I’ll fix the messy parts you had (because yeah, your raw notes were pretty chaotic).\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Weekly Update / Change Report — Slack OAuth Refactor",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "text",
+                  "text": "What changed",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Major refactor: Slack OAuth no longer uses Composio."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "OAuth flow has been moved into the Slack adapter, aligning with our existing source-adapter architecture."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Why",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "We needed to filter webhook messages to only process events from integrations whose authenticating user is actually a member of the relevant Slack channel."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "To do that, we must store the Slack "
+                    },
+                    {
+                      "type": "text",
+                      "text": "user ID",
+                      "style": {
+                        "italic": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " of the person who authenticated the connection."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "With Composio bot-token auth:"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "We couldn’t reliably fetch the authenticating user’s identity."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Composio doesn’t support mixed scopes (user + bot) in a single auth config."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "I tried multiple approaches to work around this limitation, but none were viable."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 1,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Solution",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implemented Slack OAuth flow directly (manual OAuth), independent of Composio."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Added storage of the authenticating Slack user ID during the OAuth process."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Relocated all OAuth logic into the Slack adapter (where it belongs given our architecture)."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Impact",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Behavior remains the same for users: everything works like before."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Internally, Slack auth is now fully owned by us, removing Composio constraints."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Enables correct channel-membership filtering for webhook events."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Status",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Refactor completed."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implementation covered with tests and verified end-to-end."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Next steps / follow-ups",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Monitor for any edge cases in Slack OAuth (token refresh, reinstall flow)."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Consider documenting adapter-owned OAuth as standard for other sources if they hit similar mixed-scope limitations."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\nIf you want this to be "
+                },
+                {
+                  "type": "text",
+                  "text": "even tighter",
+                  "style": {
+                    "italic": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " for Slack (like 5–6 lines max), tell me the target format/style in your team channel and I’ll compress it. But this version is solid and won’t get you follow-up questions."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028506.744779",
+      "client_msg_id": "41292a91-e955-4e19-a633-d673794eeaf8",
+      "text": "ممنون",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "v/MQ1",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ممنون"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028587.162499",
+      "client_msg_id": "bc7482b3-ff82-4a54-9b5f-18a5c66f9c5c",
+      "text": "*Asghar*  [8:55 PM]\nreplied to a thread:\n\n\nعباستو مشکل خاصی موقع تست ندیدی؟\n\n*Asghar*  [9:03 PM]\nبچه ها اگه مشکلی توی تست ها ندیدید میخوام به سعید هم اطلاع بدم دلیوری این فاز رو\n\n*Hossein Molavi*  [9:04 PM]\nمن تست کردم خودم چیزی ندیدم\n[9:04 PM] امیدوارم چیز عجیبی پیش نیاد\n\n*Asghar*  [9:04 PM]\nمنم همینطور\n\n*Abbas*  [9:09 PM]\nمنم مشکلی ندیدم\n[9:10 PM] ولی نگران قانون مورفی‌ام :joy:\n\n*Hossein Molavi*  [9:11 PM]\nreplied to a thread:\n\n\nایشالا باطنشم خوب باشه :palms_up_together::skin-tone-2:\n\n\n\n*Abbas*  [9:11 PM]",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "vnpWJ",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [8:55 PM]\nreplied to a thread:\n\n\nعباستو مشکل خاصی موقع تست ندیدی؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:03 PM]\nبچه ها اگه مشکلی توی تست ها ندیدید میخوام به سعید هم اطلاع بدم دلیوری این فاز رو\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:04 PM]\nمن تست کردم خودم چیزی ندیدم\n[9:04 PM] امیدوارم چیز عجیبی پیش نیاد\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:04 PM]\nمنم همینطور\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:09 PM]\nمنم مشکلی ندیدم\n[9:10 PM] ولی نگران قانون مورفی‌ام "
+                },
+                {
+                  "type": "emoji",
+                  "name": "joy",
+                  "unicode": "1f602"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:11 PM]\nreplied to a thread:\n\n\nایشالا باطنشم خوب باشه "
+                },
+                {
+                  "type": "emoji",
+                  "name": "palms_up_together",
+                  "unicode": "1f932-1f3fb",
+                  "skin_tone": 2
+                },
+                {
+                  "type": "text",
+                  "text": "\n\n\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:11 PM]"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028603.788569",
+      "client_msg_id": "abac830b-24e2-4586-bb4d-4a54a5f84d86",
+      "text": "ایول. دمتون گرم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "ACFve",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ایول. دمتون گرم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028910.343539",
+      "client_msg_id": "ecbf8955-6a9a-4e0b-bb8f-c79761fb0388",
+      "text": "*Hossein Molavi*  [3:02 AM]\n• Rebuild Slack message ingestion using the new architecture\n• Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts\n• Add endpoints for re-processing and discarding events\n• Add an organized LLM request layer (vercel sdk)\n• Evaluate moving tracing to BetterStack due to current limitations\n[3:05 AM] this is our plans for the next 7 days. thanks you all\n\n*Hossein Molavi*  [3:11 AM]\n• Rebuild Slack message ingestion using the new architecture\n• Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts\n• Add endpoints for re-processing and discarding events\n• Add an organized LLM request layer (vercel sdk)\n• Evaluate moving tracing to BetterStack due to current limitations\n[3:11 AM] thanks\n• [3:13 AM] Rebuild Slack message ingestion using the new architecture\n• Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts\n• Add endpoints for re-processing and discarding events\n• Add an organized LLM request layer (vercel sdk)\n• Evaluate moving tracing to BetterStack due to current limitations\n[3:05 AM] this is our plans for the next 7 days. thanks you all\n*Hossein Molavi*  [3:11 AM]\n• Rebuild Slack message ingestion using the new architecture\n• Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts\n• Add endpoints for re-processing and discarding events\n• Add an organized LLM request layer (vercel sdk)\n• Evaluate moving tracing to BetterStack due to current limitations\n[3:11 AM] thanks\n[3:13 AM] thanks\n[3:15 AM] دوستان بجای برنچ stage لطفا از برنچ dev استفاده کنید رو روی dev پول ریکوست بزند\n[3:15 AM] done\n[3:18 AM] *Abbas*  [3:32 PM]\n. /api/v1/integration returns empty\n\n*Farzin*  [3:48 PM]\nاحتمالا بخاطر اکانت google هست\nچه حطایی میده ؟\n[3:48 PM] آیا گوگل oauth به دامنه ربط داره ؟\n\n*Hossein Molavi*  [3:49 PM]\nدیتابیس پره؟\n\n*Farzin*  [3:49 PM]\nپر یعنی چی ؟\n[3:49 PM] سید اضاف شده\n\n*Hossein Molavi*  [4:34 PM]\nقطعا مشکل دیتابیسه\nچک کردم اینور همه چی اوکیه\n[4:37 PM] لاگین مشکل داره.\n\n*Farzin*  [4:43 PM]\nرو استیج؟\n[3:19 AM] اینو فردا روش کار کنیم. مرسی بچه ها\n\n*Hossein Molavi*  [3:25 AM]\nHere’s a clean Slack report draft based on what you wrote. I’ll keep it crisp but complete, and I’ll fix the messy parts you had (because yeah, your raw notes were pretty chaotic).\n\n*Weekly Update / Change Report — Slack OAuth Refactor*\n*What changed*\n• Major refactor: Slack OAuth no longer uses Composio.\n• OAuth flow has been moved into the Slack adapter, aligning with our existing source-adapter architecture.\n*Why*\n• We needed to filter webhook messages to only process events from integrations whose authenticating user is actually a member of the relevant Slack channel.\n• To do that, we must store the Slack _user ID_ of the person who authenticated the connection.\n• With Composio bot-token auth:\n    ◦ We couldn’t reliably fetch the authenticating user’s identity.\n    ◦ Composio doesn’t support mixed scopes (user + bot) in a single auth config.\n    ◦ I tried multiple approaches to work around this limitation, but none were viable.\n*Solution*\n• Implemented Slack OAuth flow directly (manual OAuth), independent of Composio.\n• Added storage of the authenticating Slack user ID during the OAuth process.\n• Relocated all OAuth logic into the Slack adapter (where it belongs given our architecture).\n*Impact*\n• Behavior remains the same for users: everything works like before.\n• Internally, Slack auth is now fully owned by us, removing Composio constraints.\n• Enables correct channel-membership filtering for webhook events.\n*Status*\n• Refactor completed.\n• Implementation covered with tests and verified end-to-end.\n*Next steps / follow-ups*\n• Monitor for any edge cases in Slack OAuth (token refresh, reinstall flow).\n• Consider documenting adapter-owned OAuth as standard for other sources if they hit similar mixed-scope limitations.\nIf you want this to be _even tighter_ for Slack (like 5–6 lines max), tell me the target format/style in your team channel and I’ll compress it. But this version is solid and won’t get you follow-up questions.\n[3:25 AM] ممنون\n[3:26 AM] *Asghar*  [8:55 PM]\nreplied to a thread:\n\n\n\nعباستو مشکل خاصی موقع تست ندیدی؟\n\n*Asghar*  [9:03 PM]\nبچه ها اگه مشکلی توی تست ها ندیدید میخوام به سعید هم اطلاع بدم دلیوری این فاز رو\n\n*Hossein Molavi*  [9:04 PM]\nمن تست کردم خودم چیزی ندیدم\n[9:04 PM] امیدوارم چیز عجیبی پیش نیاد\n\n*Asghar*  [9:04 PM]\nمنم همینطور\n\n*Abbas*  [9:09 PM]\nمنم مشکلی ندیدم\n[9:10 PM] ولی نگران قانون مورفی‌ام :joy:\n\n*Hossein Molavi*  [9:11 PM]\nreplied to a thread:\n\n\n\nایشالا باطنشم خوب باشه :palms_up_together::skin-tone-2:\n\n\n\n\n\n*Abbas*  [9:11 PM]\n[3:26 AM]",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "F4ge/",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:02 AM]\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Rebuild Slack message ingestion using the new architecture"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add endpoints for re-processing and discarding events"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add an organized LLM request layer (vercel sdk)"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Evaluate moving tracing to BetterStack due to current limitations"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[3:05 AM] this is our plans for the next 7 days. thanks you all\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:11 AM]\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Rebuild Slack message ingestion using the new architecture"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add endpoints for re-processing and discarding events"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add an organized LLM request layer (vercel sdk)"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Evaluate moving tracing to BetterStack due to current limitations"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[3:11 AM] thanks\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "[3:13 AM] Rebuild Slack message ingestion using the new architecture"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add endpoints for re-processing and discarding events"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add an organized LLM request layer (vercel sdk)"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Evaluate moving tracing to BetterStack due to current limitations"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[3:05 AM] this is our plans for the next 7 days. thanks you all\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:11 AM]\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Rebuild Slack message ingestion using the new architecture"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Improve the project brief—especially the scanning process, table structure (teamMembers), and prompts"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add endpoints for re-processing and discarding events"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add an organized LLM request layer (vercel sdk)"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Evaluate moving tracing to BetterStack due to current limitations"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[3:11 AM] thanks\n[3:13 AM] thanks\n[3:15 AM] دوستان بجای برنچ stage لطفا از برنچ dev استفاده کنید رو روی dev پول ریکوست بزند\n[3:15 AM] done\n[3:18 AM] "
+                },
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:32 PM]\n. /api/v1/integration returns empty\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:48 PM]\nاحتمالا بخاطر اکانت google هست\nچه حطایی میده ؟\n[3:48 PM] آیا گوگل oauth به دامنه ربط داره ؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:49 PM]\nدیتابیس پره؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:49 PM]\nپر یعنی چی ؟\n[3:49 PM] سید اضاف شده\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [4:34 PM]\nقطعا مشکل دیتابیسه\nچک کردم اینور همه چی اوکیه\n[4:37 PM] لاگین مشکل داره.\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Farzin",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [4:43 PM]\nرو استیج؟\n[3:19 AM] اینو فردا روش کار کنیم. مرسی بچه ها\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [3:25 AM]\nHere’s a clean Slack report draft based on what you wrote. I’ll keep it crisp but complete, and I’ll fix the messy parts you had (because yeah, your raw notes were pretty chaotic).\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Weekly Update / Change Report — Slack OAuth Refactor",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "text",
+                  "text": "What changed",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Major refactor: Slack OAuth no longer uses Composio."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "OAuth flow has been moved into the Slack adapter, aligning with our existing source-adapter architecture."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Why",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "We needed to filter webhook messages to only process events from integrations whose authenticating user is actually a member of the relevant Slack channel."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "To do that, we must store the Slack "
+                    },
+                    {
+                      "type": "text",
+                      "text": "user ID",
+                      "style": {
+                        "italic": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " of the person who authenticated the connection."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "With Composio bot-token auth:"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "We couldn’t reliably fetch the authenticating user’s identity."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Composio doesn’t support mixed scopes (user + bot) in a single auth config."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "I tried multiple approaches to work around this limitation, but none were viable."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 1,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Solution",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implemented Slack OAuth flow directly (manual OAuth), independent of Composio."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Added storage of the authenticating Slack user ID during the OAuth process."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Relocated all OAuth logic into the Slack adapter (where it belongs given our architecture)."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Impact",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Behavior remains the same for users: everything works like before."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Internally, Slack auth is now fully owned by us, removing Composio constraints."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Enables correct channel-membership filtering for webhook events."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Status",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Refactor completed."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implementation covered with tests and verified end-to-end."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Next steps / follow-ups",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Monitor for any edge cases in Slack OAuth (token refresh, reinstall flow)."
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Consider documenting adapter-owned OAuth as standard for other sources if they hit similar mixed-scope limitations."
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\nIf you want this to be "
+                },
+                {
+                  "type": "text",
+                  "text": "even tighter",
+                  "style": {
+                    "italic": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " for Slack (like 5–6 lines max), tell me the target format/style in your team channel and I’ll compress it. But this version is solid and won’t get you follow-up questions.\n[3:25 AM] ممنون\n[3:26 AM] "
+                },
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [8:55 PM]\nreplied to a thread:\n\n\n\nعباستو مشکل خاصی موقع تست ندیدی؟\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:03 PM]\nبچه ها اگه مشکلی توی تست ها ندیدید میخوام به سعید هم اطلاع بدم دلیوری این فاز رو\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:04 PM]\nمن تست کردم خودم چیزی ندیدم\n[9:04 PM] امیدوارم چیز عجیبی پیش نیاد\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Asghar",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:04 PM]\nمنم همینطور\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:09 PM]\nمنم مشکلی ندیدم\n[9:10 PM] ولی نگران قانون مورفی‌ام "
+                },
+                {
+                  "type": "emoji",
+                  "name": "joy",
+                  "unicode": "1f602"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Hossein Molavi",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:11 PM]\nreplied to a thread:\n\n\n\nایشالا باطنشم خوب باشه "
+                },
+                {
+                  "type": "emoji",
+                  "name": "palms_up_together",
+                  "unicode": "1f932-1f3fb",
+                  "skin_tone": 2
+                },
+                {
+                  "type": "text",
+                  "text": "\n\n\n\n\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Abbas",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  [9:11 PM]\n[3:26 AM]"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764028922.306259",
+      "client_msg_id": "26963c97-7dd8-4a3b-ad92-8da5ab518186",
+      "text": "amazing, thanks guys",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "417tk",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "amazing, thanks guys"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764067845.880859",
+      "client_msg_id": "3c53e18d-e4e7-47cc-b5a5-3fa811cf0262",
+      "text": "Hello I'm back again :sunglasses:",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Qgp3S",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Hello I'm back again "
+                },
+                {
+                  "type": "emoji",
+                  "name": "sunglasses",
+                  "unicode": "1f60e"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764078532.433759",
+      "client_msg_id": "9be31bd8-7b47-430d-bd6a-580074d3ec0b",
+      "text": "hi",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "a8bcU",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "hi"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764078568.346759",
+      "client_msg_id": "5ea79300-fde7-4318-8362-aefcecf00ec2",
+      "text": "Hello I'm back again",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "NuhCn",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Hello I'm back again"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764078640.593679",
+      "client_msg_id": "75cc0c1e-a94c-4d0a-aa2f-c9a2e4b703d4",
+      "text": "I think it is a good idea to create an account, connect our board to it, and actually use what we have built.",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "iIq9+",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "I think it is a good idea to create an account, connect our board to it, and actually use what we have built."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764078847.083569",
+      "client_msg_id": "09c27a8e-4cbb-4ab8-a757-17bbab099ef5",
+      "text": "stage is down",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "vEuF/",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "stage is down"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764079033.953679",
+      "client_msg_id": "17c7f838-b30b-4992-bc21-e6dd37ff9764",
+      "text": "no it is not",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "z1nml",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "no it is not"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764081420.849939",
+      "client_msg_id": "c85dd93d-6131-48d8-af32-54b66e32f3c4",
+      "text": "we should r &amp; D about the db scaling",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "d8L56",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "we should r & D about the db scaling"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764081519.505909",
+      "client_msg_id": "172da435-20fb-455a-b49a-92649fd2ac0c",
+      "text": "we should r &amp; D about the db scaling",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "d8L56",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "we should r & D about the db scaling"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764082546.270419",
+      "client_msg_id": "a7cffa0f-8d2b-48f0-9e00-6f87a2594c5c",
+      "text": "Slack Topic-Based Message Processing - Implementation Roadmap",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "B/qsq",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Slack Topic-Based Message Processing - Implementation Roadmap"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764262445.767259",
+      "client_msg_id": "94BE608B-C24F-4832-9E17-197BD7D4A5BF",
+      "text": "<!channel> \nاینجا مناسبه فقط \n\nمن از چت قبلی لفت میدم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "BbI7y",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "broadcast",
+                  "range": "channel"
+                },
+                {
+                  "type": "text",
+                  "text": " \nاینجا مناسبه فقط \n\nمن از چت قبلی لفت میدم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764262589.576889",
+      "client_msg_id": "33099ED0-B870-4DE5-B696-FDCFBD4802F8",
+      "text": "اصغر جان الان بنظرم میتونیم اسلک رو ببریم روی استیج\n\nاون پول ریکوئست رو ریووو و مرج کن لطفا ممنون میشم \n<@U05SL9R85PF> ",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764262589.576889",
+      "reply_count": 8,
+      "reply_users_count": 2,
+      "latest_reply": "1764266230.963659",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "kpRMK",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "اصغر جان الان بنظرم میتونیم اسلک رو ببریم روی استیج\n\nاون پول ریکوئست رو ریووو و مرج کن لطفا ممنون میشم \n"
+                },
+                {
+                  "type": "user",
+                  "user_id": "U05SL9R85PF"
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764271274.496009",
+      "client_msg_id": "d1dc98fc-f3a2-4c9a-9ac7-461c26bdc99f",
+      "text": "<!here>\nبچه ها میزان مصرف\nCalude API\nبرای ریکوست های جیمیل و میتینگ که با کلاد۴.۵ داره پردازش میشه با مجموع ریکوست های روی استیج و پروداکشن اصلا همخونی نداره\nبرای همین من یه کلید\nAPI\nجدید ساختم که توی پروژه جایگزین کنیم",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764271274.496009",
+      "reply_count": 3,
+      "reply_users_count": 1,
+      "latest_reply": "1764271462.187699",
+      "reply_users": [
+        "U05SL9R85PF"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "+vzYN",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "broadcast",
+                  "range": "here"
+                },
+                {
+                  "type": "text",
+                  "text": "\nبچه ها میزان مصرف\nCalude API\nبرای ریکوست های جیمیل و میتینگ که با کلاد۴.۵ داره پردازش میشه با مجموع ریکوست های روی استیج و پروداکشن اصلا همخونی نداره\nبرای همین من یه کلید\nAPI\nجدید ساختم که توی پروژه جایگزین کنیم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1764305616.414939",
+      "edited": {
+        "user": "U09JDS5EZ41",
+        "ts": "1764305665.000000"
+      },
+      "client_msg_id": "1ab22841-aeb1-47d3-8bb1-22b0c5c892f8",
+      "text": "This routes:\n<https://phase1-stage.workform.ai/api-docs#/Executions%20-%20V1/ExecutionV1Controller_bulkConfirmActions|/api/v1/executions/{executionId}/actions/bulk-confirm>\n<https://phase1-stage.workform.ai/api-docs#/Executions%20-%20V1/ExecutionV1Controller_bulkRejectActions|/api/v1/executions/{executionId}/actions/bulk-reject>\nShould get an array of action Id's which are selected by user, Not all the actions in an execution.",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764305616.414939",
+      "reply_count": 1,
+      "reply_users_count": 1,
+      "latest_reply": "1764404905.587929",
+      "reply_users": [
+        "U09JDS5EZ41"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "EvBMk",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "This routes:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://phase1-stage.workform.ai/api-docs#/Executions%20-%20V1/ExecutionV1Controller_bulkConfirmActions",
+                  "text": "/api/v1/executions/{executionId}/actions/bulk-confirm"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://phase1-stage.workform.ai/api-docs#/Executions%20-%20V1/ExecutionV1Controller_bulkRejectActions",
+                  "text": "/api/v1/executions/{executionId}/actions/bulk-reject"
+                },
+                {
+                  "type": "text",
+                  "text": "\nShould get an array of action Id's which are selected by user, Not all the actions in an execution."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1764315534.702499",
+      "client_msg_id": "a120a552-9395-48cb-9289-6b9be4d34f0c",
+      "text": "What is this Unknown Team Member? :thinking_face:\n\n{\n    \"data\": {\n        \"teamMembers\": [\n            {\n                \"id\": \"1211781049056264\",\n                \"name\": \"<mailto:abbas.h90@gmail.com|abbas.h90@gmail.com>\"\n            },\n            {\n                \"id\": \"cmi461s5r003ipb01j32f4411\",\n                \"name\": \"Unknown Team Member\",\n                \"email\": \"<mailto:unknown@unknown.com|unknown@unknown.com>\"\n            }\n        ],\n        \"total\": 2\n    }\n}\n\nProject id: cmi474sns003wpb01t0hf2wmq",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764315534.702499",
+      "reply_count": 10,
+      "reply_users_count": 2,
+      "latest_reply": "1764317071.735789",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U09JDS5EZ41"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "tSsJU",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "What is this Unknown Team Member? "
+                },
+                {
+                  "type": "emoji",
+                  "name": "thinking_face",
+                  "unicode": "1f914"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\n{\n    \"data\": {\n        \"teamMembers\": [\n            {\n                \"id\": \"1211781049056264\",\n                \"name\": \""
+                },
+                {
+                  "type": "link",
+                  "url": "mailto:abbas.h90@gmail.com",
+                  "text": "abbas.h90@gmail.com"
+                },
+                {
+                  "type": "text",
+                  "text": "\"\n            },\n            {\n                \"id\": \"cmi461s5r003ipb01j32f4411\",\n                \"name\": \"Unknown Team Member\",\n                \"email\": \""
+                },
+                {
+                  "type": "link",
+                  "url": "mailto:unknown@unknown.com",
+                  "text": "unknown@unknown.com"
+                },
+                {
+                  "type": "text",
+                  "text": "\"\n            }\n        ],\n        \"total\": 2\n    }\n}\n\nProject id: cmi474sns003wpb01t0hf2wmq"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764316950.906969",
+      "client_msg_id": "a9ff5afa-caab-41f3-a3f3-9138801a9736",
+      "text": "<@U09JDS5EZ41>\nاستتوس بریف رو الان میتونی بگیری",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764316950.906969",
+      "reply_count": 1,
+      "reply_users_count": 1,
+      "latest_reply": "1764316990.928779",
+      "reply_users": [
+        "U05SL9R85PF"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "V7iBy",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09JDS5EZ41"
+                },
+                {
+                  "type": "text",
+                  "text": "\nاستتوس بریف رو الان میتونی بگیری"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "raised_hands",
+          "users": [
+            "U09JDS5EZ41"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764402928.130339",
+      "client_msg_id": "850D0A9E-FFE5-4221-A184-7BF58700C92F",
+      "text": "سلام دوستان صبح بخیر. عذرخواهی میکنم نتونستم جوین شم میت صبح رو.\n\nامروز بریم برای تست اسلک ؟\n<@U05SL9R85PF> ",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764402928.130339",
+      "reply_count": 10,
+      "reply_users_count": 2,
+      "latest_reply": "1764405878.361669",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "SaInN",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "سلام دوستان صبح بخیر. عذرخواهی میکنم نتونستم جوین شم میت صبح رو.\n\nامروز بریم برای تست اسلک ؟\n"
+                },
+                {
+                  "type": "user",
+                  "user_id": "U05SL9R85PF"
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764403823.342869",
+      "client_msg_id": "9B5A714B-EA31-4D65-ABBA-B2A2855D1CAF",
+      "text": "<@U09JDS5EZ41> میخاستی اپ رو نصب کنی.\n\nApprove کردم\nالان میتونی مانکت کنی",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "BOCeW",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09JDS5EZ41"
+                },
+                {
+                  "type": "text",
+                  "text": " میخاستی اپ رو نصب کنی.\n\nApprove کردم\nالان میتونی مانکت کنی"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "raised_hands",
+          "users": [
+            "U09JDS5EZ41"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1764404812.888479",
+      "client_msg_id": "c7e37bac-b957-473f-85bb-72502a8705d7",
+      "text": "کانکت شد مرسی",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "IfhHu",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "کانکت شد مرسی"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1764407977.332289",
+      "client_msg_id": "71c0617b-21c0-4529-b11b-631acea9db04",
+      "text": "<@U09FLV6BPQB>\nفرزین جان الان سورس و pm tool رو داریم توی لیست اگزکیوشن ها؟",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764407977.332289",
+      "reply_count": 3,
+      "reply_users_count": 2,
+      "latest_reply": "1764408880.567849",
+      "reply_users": [
+        "U09FLV6BPQB",
+        "U09JDS5EZ41"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "szfj6",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09FLV6BPQB"
+                },
+                {
+                  "type": "text",
+                  "text": "\nفرزین جان الان سورس و pm tool رو داریم توی لیست اگزکیوشن ها؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764417724.000389",
+      "client_msg_id": "53b712c3-113b-448d-a5d4-c1e0975d632d",
+      "text": "من چجوری میتونم به ردیس استیج وصل شم با GUI?\n\nممیشه بهم url بدید؟",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764417724.000389",
+      "reply_count": 2,
+      "reply_users_count": 2,
+      "latest_reply": "1764417907.397609",
+      "reply_users": [
+        "U093YSSUWBG",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "LjxZo",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "من چجوری میتونم به ردیس استیج وصل شم با GUI?\n\nممیشه بهم url بدید؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764420432.099849",
+      "client_msg_id": "f8db25bb-8c01-4da9-a0ca-6a1671fea802",
+      "text": "عباس جان. ما دکمه reject all هم نیاز داریم\n\n<@U09JDS5EZ41>",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764420432.099849",
+      "reply_count": 7,
+      "reply_users_count": 2,
+      "latest_reply": "1764422321.063419",
+      "reply_users": [
+        "U09JDS5EZ41",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "b8iHj",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "عباس جان. ما دکمه reject all هم نیاز داریم\n\n"
+                },
+                {
+                  "type": "user",
+                  "user_id": "U09JDS5EZ41"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764442241.091169",
+      "client_msg_id": "8979c166-0732-4a16-b202-104b9d303ff8",
+      "text": "بچه ها این هفته ۴شنبه و ۵شنبه آف هستیم :heart:",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "6L01n",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "بچه ها این هفته ۴شنبه و ۵شنبه آف هستیم "
+                },
+                {
+                  "type": "emoji",
+                  "name": "heart",
+                  "unicode": "2764-fe0f"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "heart",
+          "users": [
+            "U09FLV6BPQB"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764442259.085629",
+      "client_msg_id": "194c3eaa-4908-4b9a-99a9-a8bef586cc9c",
+      "text": "تاریخ آف هامون امسال ایناست:\n• *Dec 3–4*\n• *Jan 20–22*\n• *Mar 20–23 (Nowruz Holidays)*\n",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "F0L+o",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "تاریخ آف هامون امسال ایناست:\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Dec 3–4",
+                      "style": {
+                        "bold": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Jan 20–22",
+                      "style": {
+                        "bold": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Mar 20–23 (Nowruz Holidays)",
+                      "style": {
+                        "bold": true
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": []
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1764442278.427549",
+      "client_msg_id": "c84ea003-7118-462f-851a-034f6ee3adf8",
+      "text": "دمت گرم",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764442278.427549",
+      "reply_count": 1,
+      "reply_users_count": 1,
+      "latest_reply": "1764442295.549939",
+      "reply_users": [
+        "U05SL9R85PF"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "XDP1b",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "دمت گرم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764449847.997909",
+      "client_msg_id": "7AC64035-EEF3-48BA-9BFF-6FE852DB467D",
+      "text": "هورا",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "m4F9t",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "هورا"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764484025.093189",
+      "edited": {
+        "user": "U05SL9R85PF",
+        "ts": "1764484449.000000"
+      },
+      "client_msg_id": "481e4f9e-ac73-4dfb-943f-56dc9dfc65a2",
+      "text": "R&D\n\nEmbeding DBs\n<https://supabase.com/>\n<https://neon.com/>\n<https://github.com/milvus-io/milvus>\n<https://github.com/qdrant/qdrant>\n<https://github.com/chroma-core/chroma>\n<https://github.com/weaviate/weaviate>\n<https://www.cloudflare.com/developer-platform/products/vectorize/>\n<https://github.com/vespa-engine/vespa/>\n\nModels:\n<https://www.voyageai.com/>\n\nRAG Strategies:\n<https://github.com/coleam00/ottomator-agents/tree/main/all-rag-strategies>",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "15kDq",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "R&D\n\nEmbeding DBs\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://supabase.com/"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://neon.com/"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/milvus-io/milvus"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/qdrant/qdrant"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/chroma-core/chroma"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/weaviate/weaviate"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://www.cloudflare.com/developer-platform/products/vectorize/"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/vespa-engine/vespa/"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\nModels:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://www.voyageai.com/"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\nRAG Strategies:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/coleam00/ottomator-agents/tree/main/all-rag-strategies"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764490364.115659",
+      "client_msg_id": "308b3dad-30dc-4503-b763-de076d1f1901",
+      "text": "<@U09FLV6BPQB> <@U093YSSUWBG>\nمیت مون رو برای ساعت ۱۶:۳۰ ست کردم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "A+m+E",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09FLV6BPQB"
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "user",
+                  "user_id": "U093YSSUWBG"
+                },
+                {
+                  "type": "text",
+                  "text": "\nمیت مون رو برای ساعت ۱۶:۳۰ ست کردم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U09FLV6BPQB",
+            "U093YSSUWBG"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764504186.693179",
+      "client_msg_id": "156c0b28-d8ad-4127-a0bf-a8ce8ff87e52",
+      "text": "فرزین جان روی لوکال من نمیتونم با\n```<http://localhost:3000/v1/auth/google>```\nتوی بک اند لاگین بشم. یعنی جیمیل خطای میسمچ یوآرال میده:\n```\nError 400: redirect_uri_mismatch\nRequest details: redirect_uri=<http://localhost:3000/v1/auth/callback/google> flowName=GeneralOAuthFlow```\n",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764504186.693179",
+      "reply_count": 9,
+      "reply_users_count": 2,
+      "latest_reply": "1764505846.417149",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Yi1xk",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "فرزین جان روی لوکال من نمیتونم با\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "link",
+                  "url": "http://localhost:3000/v1/auth/google"
+                }
+              ],
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "توی بک اند لاگین بشم. یعنی جیمیل خطای میسمچ یوآرال میده:\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\nError 400: redirect_uri_mismatch\nRequest details: redirect_uri="
+                },
+                {
+                  "type": "link",
+                  "url": "http://localhost:3000/v1/auth/callback/google"
+                },
+                {
+                  "type": "text",
+                  "text": " flowName=GeneralOAuthFlow"
+                }
+              ],
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": []
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1764506424.244389",
+      "client_msg_id": "78e14016-9dce-4bef-b37c-354898c07b75",
+      "text": "این مکالمه ای که داشتید تبدیل به تسک میتونه بشه.\n\n\nAsghar reported an UNRESOLVED technical blocker preventing local development environment from running. He tested multiple APP_DOMAIN configurations (localhost:3000, localhost) without success. Farzin provided troubleshooting guidance (use APP_DOMAIN=localhost, check getAppUrl method in config service, APP_URL takes precedence over APP_DOMAIN) but issue remains unresolved after 27 minutes of back-and-forth. Asghar requested a huddle to resolve it. This is blocking local development work. Assigning to Farzin as he has infrastructure/backend expertise and was actively troubleshooting. Priority 2 (High) as it's blocking Asghar's ability to work locally but not affecting production. Moderate confidence (65) because root cause isn't yet identified - they need the proposed huddle to diagnose further.",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "9n3TO",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "این مکالمه ای که داشتید تبدیل به تسک میتونه بشه.\n\n\nAsghar reported an UNRESOLVED technical blocker preventing local development environment from running. He tested multiple APP_DOMAIN configurations (localhost:3000, localhost) without success. Farzin provided troubleshooting guidance (use APP_DOMAIN=localhost, check getAppUrl method in config service, APP_URL takes precedence over APP_DOMAIN) but issue remains unresolved after 27 minutes of back-and-forth. Asghar requested a huddle to resolve it. This is blocking local development work. Assigning to Farzin as he has infrastructure/backend expertise and was actively troubleshooting. Priority 2 (High) as it's blocking Asghar's ability to work locally but not affecting production. Moderate confidence (65) because root cause isn't yet identified - they need the proposed huddle to diagnose further."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "text": "<https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&amp;ouid=115703701729321015639&amp;rtpof=true&amp;sd=true>",
+      "files": [
+        {
+          "id": "F0A1FA7B5SL",
+          "created": 1764509893,
+          "timestamp": 1764509893,
+          "name": "Kamaji_Vector_Database_Decision.docx",
+          "title": "Kamaji_Vector_Database_Decision.docx",
+          "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filetype": "docx",
+          "pretty_type": "Word Document",
+          "user": "U093YSSUWBG",
+          "user_team": "T46P0EFR8",
+          "editable": false,
+          "size": 41703,
+          "mode": "external",
+          "is_external": true,
+          "external_type": "gdrive",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "external_id": "1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g",
+          "external_url": "https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&ouid=115703701729321015639&rtpof=true&sd=true",
+          "url_private": "https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&ouid=115703701729321015639&rtpof=true&sd=true",
+          "media_display_type": "unknown",
+          "thumb_64": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_64.png",
+          "thumb_80": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_80.png",
+          "thumb_360": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_360.png",
+          "thumb_360_w": 255,
+          "thumb_360_h": 360,
+          "thumb_480": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_480.png",
+          "thumb_480_w": 340,
+          "thumb_480_h": 480,
+          "thumb_160": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_160.png",
+          "thumb_720": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_720.png",
+          "thumb_720_w": 509,
+          "thumb_720_h": 720,
+          "thumb_800": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_800.png",
+          "thumb_800_w": 800,
+          "thumb_800_h": 1131,
+          "thumb_960": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_960.png",
+          "thumb_960_w": 679,
+          "thumb_960_h": 960,
+          "thumb_1024": "https://files.slack.com/files-tmb/T46P0EFR8-F0A1FA7B5SL-d80b67730d/kamaji_vector_database_decision_1024.png",
+          "thumb_1024_w": 724,
+          "thumb_1024_h": 1024,
+          "original_w": 800,
+          "original_h": 1131,
+          "thumb_tiny": "AwAwACLToopn7zcemMcfL/8AXoAefrijHvTDvGOQfXj3+tPHT0oAKKKKACk2jI68e9LQeR1xQAmBjvzz1pQMDAz+JzQOABnPvRQAUUUUAFFFFABRRRQAUUUUAf/Z",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A1FA7B5SL/kamaji_vector_database_decision.docx",
+          "is_starred": false,
+          "skipped_shares": true,
+          "app_id": "A6NL8MJ6Q",
+          "has_rich_preview": true,
+          "file_access": "visible",
+          "entity_id": "W:A6NL8MJ6Q:1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g",
+          "full_size_preview_supported": true
+        }
+      ],
+      "upload": false,
+      "user": "U093YSSUWBG",
+      "display_as_bot": false,
+      "x_files": [
+        "F0A1FA7B5SL"
+      ],
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "otKHG",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "link",
+                  "url": "https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&ouid=115703701729321015639&rtpof=true&sd=true"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "message",
+      "ts": "1764509874.674039",
+      "client_msg_id": "8e8f590b-143f-430d-9fcf-302a384ea7fe",
+      "attachments": [
+        {
+          "from_url": "https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&ouid=115703701729321015639&rtpof=true&sd=true",
+          "id": 1893657458,
+          "bot_id": "B9SGKL0UA",
+          "is_app_unfurl": true,
+          "app_unfurl_url": "https://docs.google.com/document/d/1pYe2A6Zbz6_yX5-15r7Gy3cE8EPhPe2g/edit?usp=sharing&ouid=115703701729321015639&rtpof=true&sd=true"
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1764510006.227819",
+      "client_msg_id": "0464a842-249b-415d-98d2-ec9ee2f724ba",
+      "text": "<https://apxml.com/posts/best-databases-for-rag>\n<https://www.digitalocean.com/community/conceptual-articles/how-to-choose-the-right-vector-database>",
+      "team": "T46P0EFR8",
+      "attachments": [
+        {
+          "image_url": "https://apxml.com/api/og?title=How%20to%20Choose%20The%20Best%20Databases%20for%20RAG%3A%20Developer%27s%20Guide",
+          "image_width": 1200,
+          "image_height": 630,
+          "image_bytes": 40304,
+          "from_url": "https://apxml.com/posts/best-databases-for-rag",
+          "service_icon": "https://apxml.com/favicon.ico",
+          "id": 1,
+          "original_url": "https://apxml.com/posts/best-databases-for-rag",
+          "fallback": "How to Choose The Best Databases for RAG: Developer's Guide",
+          "text": "Selecting the right database is fundamental for building high-performing RAG applications. This guide explores essential criteria, compares database types (vector-native vs. extended traditional DBs), and provides insights to help developers and ML engineers choose the optimal solution for vector search, scalability, and low-latency retrieval.",
+          "title": "How to Choose The Best Databases for RAG: Developer's Guide",
+          "title_link": "https://apxml.com/posts/best-databases-for-rag",
+          "service_name": "apxml.com"
+        },
+        {
+          "from_url": "https://www.digitalocean.com/community/conceptual-articles/how-to-choose-the-right-vector-database",
+          "service_icon": "https://www.digitalocean.com/_next/static/media/apple-touch-icon.d7edaa01.png",
+          "thumb_url": "https://www.digitalocean.com/_next/static/media/intro-to-cloud.d49bc5f7.jpeg",
+          "thumb_width": 750,
+          "thumb_height": 357,
+          "id": 2,
+          "original_url": "https://www.digitalocean.com/community/conceptual-articles/how-to-choose-the-right-vector-database",
+          "fallback": "How to Choose the Right Vector Database for Your RAG Architecture | DigitalOcean",
+          "text": "A guide to selecting the right vector database for your RAG architecture, focusing on scalability, performance, and compatibility with retrieval-augmented ge…",
+          "title": "How to Choose the Right Vector Database for Your RAG Architecture | DigitalOcean",
+          "title_link": "https://www.digitalocean.com/community/conceptual-articles/how-to-choose-the-right-vector-database",
+          "service_name": "digitalocean.com"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "f/ng+",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "link",
+                  "url": "https://apxml.com/posts/best-databases-for-rag"
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://www.digitalocean.com/community/conceptual-articles/how-to-choose-the-right-vector-database"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764653563.339889",
+      "client_msg_id": "230fd8a2-4f0b-49dd-b2ec-bf1183fe8c85",
+      "text": "<@U093YSSUWBG> we are in the meeting",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "swKgm",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U093YSSUWBG"
+                },
+                {
+                  "type": "text",
+                  "text": " we are in the meeting"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U093YSSUWBG"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "text": "",
+      "files": [
+        {
+          "id": "F0A0WFJPVFY",
+          "created": 1764654691,
+          "timestamp": 1764654691,
+          "name": "Weaviate-Context-Engineering-ebook.pdf",
+          "title": "Weaviate-Context-Engineering-ebook.pdf",
+          "mimetype": "application/pdf",
+          "filetype": "pdf",
+          "pretty_type": "PDF",
+          "user": "U09FLV6BPQB",
+          "user_team": "T46P0EFR8",
+          "editable": false,
+          "size": 20631193,
+          "mode": "hosted",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A0WFJPVFY/weaviate-context-engineering-ebook.pdf",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A0WFJPVFY/download/weaviate-context-engineering-ebook.pdf",
+          "media_display_type": "unknown",
+          "thumb_pdf": "https://files.slack.com/files-tmb/T46P0EFR8-F0A0WFJPVFY-86a1c00b17/weaviate-context-engineering-ebook_thumb_pdf.png",
+          "thumb_pdf_w": 1818,
+          "thumb_pdf_h": 1286,
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A0WFJPVFY/weaviate-context-engineering-ebook.pdf",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A0WFJPVFY-a43ddf135d",
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        }
+      ],
+      "upload": false,
+      "user": "U09FLV6BPQB",
+      "display_as_bot": false,
+      "type": "message",
+      "ts": "1764655021.931039",
+      "client_msg_id": "b4936688-b4cc-42ad-a416-88a1e17f9538",
+      "reactions": [
+        {
+          "name": "pray",
+          "users": [
+            "U05SL9R85PF",
+            "U093YSSUWBG"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1764951115.947299",
+      "edited": {
+        "user": "U05SL9R85PF",
+        "ts": "1764951367.000000"
+      },
+      "client_msg_id": "40c780fc-b63d-4ed9-99a6-c110833312b9",
+      "text": "بچه ها سلام و شب همگی بخیر\nامیدوارم حالتون خوب باشه\n\nفرزین و حسین جان دیلی فردا صبح مون قراره طولانی تر از حد معمول باشه\nچون فردا عصر پلنینگ رو داریم باید کمی بیشتر در مورد استوری ها و جزییات فنی بعضی آیتم ها صحبت کنیم و تسک ها رو برای جلسه پلنینگ اماده کنیم\n\nجزییات بیشتر:\nاپیک ها و استوری ها:\n<https://linear.app/workform/team/WF/cycle/1>\n\nتوضیحات بیشتر:\n<https://docs.google.com/document/d/1EEL4kzRHajGe_OTy2XDg8uj4Bv0pH4rhn1-V5PoCHGk/edit?tab=t.0#heading=h.4or9xz4s95ih>\n\nچارت رودمپ و ترک دقیقتر تسک ها:\n<https://docs.google.com/spreadsheets/d/1hVTeliD2oHPGudw9frXdQ9S633TkvSK7kr_FMqB9xgg/edit?gid=1646704360#gid=1646704360>\n\ncc: <@U093YSSUWBG> <@U09FLV6BPQB>",
+      "team": "T46P0EFR8",
+      "thread_ts": "1764951115.947299",
+      "reply_count": 16,
+      "reply_users_count": 3,
+      "latest_reply": "1765027889.730099",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "95o5I",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "بچه ها سلام و شب همگی بخیر\nامیدوارم حالتون خوب باشه\n\nفرزین و حسین جان دیلی فردا صبح مون قراره طولانی تر از حد معمول باشه\nچون فردا عصر پلنینگ رو داریم باید کمی بیشتر در مورد استوری ها و جزییات فنی بعضی آیتم ها صحبت کنیم و تسک ها رو برای جلسه پلنینگ اماده کنیم\n\nجزییات بیشتر:\nاپیک ها و استوری ها:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://linear.app/workform/team/WF/cycle/1"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\nتوضیحات بیشتر:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://docs.google.com/document/d/1EEL4kzRHajGe_OTy2XDg8uj4Bv0pH4rhn1-V5PoCHGk/edit?tab=t.0#heading=h.4or9xz4s95ih"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\nچارت رودمپ و ترک دقیقتر تسک ها:\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://docs.google.com/spreadsheets/d/1hVTeliD2oHPGudw9frXdQ9S633TkvSK7kr_FMqB9xgg/edit?gid=1646704360#gid=1646704360"
+                },
+                {
+                  "type": "text",
+                  "text": "\n\ncc: "
+                },
+                {
+                  "type": "user",
+                  "user_id": "U093YSSUWBG"
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "user",
+                  "user_id": "U09FLV6BPQB"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U093YSSUWBG",
+            "U09FLV6BPQB"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765005486.386409",
+      "client_msg_id": "6e4f7e73-391a-4536-a436-e3b13ec7c49a",
+      "text": "ساعت ۱۱\n<https://meet.google.com/ahq-znqn-bfa>",
+      "team": "T46P0EFR8",
+      "attachments": [
+        {
+          "from_url": "https://meet.google.com/ahq-znqn-bfa",
+          "thumb_url": "https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png",
+          "thumb_width": 192,
+          "thumb_height": 192,
+          "service_icon": "http://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-24dp/logo_meet_2020q4_color_1x_web_24dp.png",
+          "id": 1,
+          "original_url": "https://meet.google.com/ahq-znqn-bfa",
+          "fallback": "Meet",
+          "text": "Real-time meetings by Google. Using your browser, share your video, desktop, and presentations with teammates and customers.",
+          "title": "Meet",
+          "title_link": "https://meet.google.com/ahq-znqn-bfa",
+          "service_name": "meet.google.com"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "vJNd3",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ساعت ۱۱\n"
+                },
+                {
+                  "type": "link",
+                  "url": "https://meet.google.com/ahq-znqn-bfa"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "subtype": "thread_broadcast",
+      "user": "U05SL9R85PF",
+      "thread_ts": "1764951115.947299",
+      "root": {
+        "user": "U05SL9R85PF",
+        "type": "message",
+        "ts": "1764951115.947299",
+        "edited": {
+          "user": "U05SL9R85PF",
+          "ts": "1764951367.000000"
+        },
+        "client_msg_id": "40c780fc-b63d-4ed9-99a6-c110833312b9",
+        "text": "بچه ها سلام و شب همگی بخیر\nامیدوارم حالتون خوب باشه\n\nفرزین و حسین جان دیلی فردا صبح مون قراره طولانی تر از حد معمول باشه\nچون فردا عصر پلنینگ رو داریم باید کمی بیشتر در مورد استوری ها و جزییات فنی بعضی آیتم ها صحبت کنیم و تسک ها رو برای جلسه پلنینگ اماده کنیم\n\nجزییات بیشتر:\nاپیک ها و استوری ها:\n<https://linear.app/workform/team/WF/cycle/1>\n\nتوضیحات بیشتر:\n<https://docs.google.com/document/d/1EEL4kzRHajGe_OTy2XDg8uj4Bv0pH4rhn1-V5PoCHGk/edit?tab=t.0#heading=h.4or9xz4s95ih>\n\nچارت رودمپ و ترک دقیقتر تسک ها:\n<https://docs.google.com/spreadsheets/d/1hVTeliD2oHPGudw9frXdQ9S633TkvSK7kr_FMqB9xgg/edit?gid=1646704360#gid=1646704360>\n\ncc: <@U093YSSUWBG> <@U09FLV6BPQB>",
+        "team": "T46P0EFR8",
+        "thread_ts": "1764951115.947299",
+        "reply_count": 16,
+        "reply_users_count": 3,
+        "latest_reply": "1765027889.730099",
+        "reply_users": [
+          "U05SL9R85PF",
+          "U093YSSUWBG",
+          "U09FLV6BPQB"
+        ],
+        "is_locked": false,
+        "subscribed": false,
+        "blocks": [
+          {
+            "type": "rich_text",
+            "block_id": "95o5I",
+            "elements": [
+              {
+                "type": "rich_text_section",
+                "elements": [
+                  {
+                    "type": "text",
+                    "text": "بچه ها سلام و شب همگی بخیر\nامیدوارم حالتون خوب باشه\n\nفرزین و حسین جان دیلی فردا صبح مون قراره طولانی تر از حد معمول باشه\nچون فردا عصر پلنینگ رو داریم باید کمی بیشتر در مورد استوری ها و جزییات فنی بعضی آیتم ها صحبت کنیم و تسک ها رو برای جلسه پلنینگ اماده کنیم\n\nجزییات بیشتر:\nاپیک ها و استوری ها:\n"
+                  },
+                  {
+                    "type": "link",
+                    "url": "https://linear.app/workform/team/WF/cycle/1"
+                  },
+                  {
+                    "type": "text",
+                    "text": "\n\nتوضیحات بیشتر:\n"
+                  },
+                  {
+                    "type": "link",
+                    "url": "https://docs.google.com/document/d/1EEL4kzRHajGe_OTy2XDg8uj4Bv0pH4rhn1-V5PoCHGk/edit?tab=t.0#heading=h.4or9xz4s95ih"
+                  },
+                  {
+                    "type": "text",
+                    "text": "\n\nچارت رودمپ و ترک دقیقتر تسک ها:\n"
+                  },
+                  {
+                    "type": "link",
+                    "url": "https://docs.google.com/spreadsheets/d/1hVTeliD2oHPGudw9frXdQ9S633TkvSK7kr_FMqB9xgg/edit?gid=1646704360#gid=1646704360"
+                  },
+                  {
+                    "type": "text",
+                    "text": "\n\ncc: "
+                  },
+                  {
+                    "type": "user",
+                    "user_id": "U093YSSUWBG"
+                  },
+                  {
+                    "type": "text",
+                    "text": " "
+                  },
+                  {
+                    "type": "user",
+                    "user_id": "U09FLV6BPQB"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "type": "message",
+      "ts": "1765013295.564109",
+      "client_msg_id": "f529da57-c4eb-40b3-a5e1-0b17cb303fa4",
+      "text": "<@U09FLV6BPQB> <@U093YSSUWBG>\nعلیرضا برای ساعت ۲ نمیتونه میت رو باشه\nپیشنهاد داده برای ساعت ۳\nبرای شما اکی هست؟",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "UA2O/",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09FLV6BPQB"
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "user",
+                  "user_id": "U093YSSUWBG"
+                },
+                {
+                  "type": "text",
+                  "text": "\nعلیرضا برای ساعت ۲ نمیتونه میت رو باشه\nپیشنهاد داده برای ساعت ۳\nبرای شما اکی هست؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765013324.781049",
+      "client_msg_id": "7C6D4CAD-6F12-4172-AFD5-A90AD9D06594",
+      "text": "اره",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "OtSBf",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "اره"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765013403.905329",
+      "client_msg_id": "52482869-6955-4194-af8d-8bf7d3bb7b5a",
+      "text": "علیرضا میگه ساعت ۵ هم اکی هست",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "rvNCX",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "علیرضا میگه ساعت ۵ هم اکی هست"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765013739.916169",
+      "client_msg_id": "5492388C-CC80-4AED-9751-DB119444F584",
+      "text": "۵ بنظرم خوبه ",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "2Cz8+",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "۵ بنظرم خوبه "
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765013952.684379",
+      "client_msg_id": "06266a09-a9b2-4bb7-932f-db1e67a42176",
+      "text": "<@U09FLV6BPQB>",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "JyrNe",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U09FLV6BPQB"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765014252.988879",
+      "client_msg_id": "3f143184-a85d-4452-bc04-2c097a32fbc7",
+      "text": "are",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "zx98O",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "are"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765014270.934039",
+      "client_msg_id": "3484407f-14bb-4ead-b832-2a2011847bdd",
+      "text": "5 khube",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "JsNkD",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "5 khube"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765091162.177639",
+      "client_msg_id": "5f3ed4d5-4743-4cf7-afe5-ccae5ccf4f41",
+      "text": "*US-100: Core Infrastructure Update*\n*Technical Tasks:*\n• Update Database Schema\n• Decouple PM Module for Independent Operation\n• Extract Integrations into a Standalone Module\n• Implement Event-Emitter Notifications for PM and Integration Modules\n\n*US-101: Cross-Platform Context Onboarding*\n*Technical Tasks:*\n1. Add core agent and agentic loop\n2. Implement project brief agent (Gather data from all connected sources to create the project brief)\n\n*US-102: Process Incoming Event*\n1. Add embedding module as a standalone service (Use Weaviate as Vector db and , Voyage as embedding Model)\n    a. Design database schema: embedding, metadata\n    b. Decide on RAG strategies per integration source (chunking, multiple similar query embedding, LLM re-ranking, etc)\n2. Add messages to proper clusters / create new cluster\n\n*US-103: Smart Context Retrieval for Action Suggestions*\n*Technical Tasks:*\n1. Do hybrid search to find most similar clusters\n\t•\t\t2.\tScore and Re-rank the search results",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Cf10s",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "US-100: Core Infrastructure Update",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Technical Tasks:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Update Database Schema"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Decouple PM Module for Independent Operation"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Extract Integrations into a Standalone Module"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implement Event-Emitter Notifications for PM and Integration Modules"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "US-101: Cross-Platform Context Onboarding",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Technical Tasks:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add core agent and agentic loop"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Implement project brief agent (Gather data from all connected sources to create the project brief)"
+                    }
+                  ]
+                }
+              ],
+              "style": "ordered",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "US-102: Process Incoming Event",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add embedding module as a standalone service (Use Weaviate as Vector db and , Voyage as embedding Model)"
+                    }
+                  ]
+                }
+              ],
+              "style": "ordered",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Design database schema: embedding, metadata"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Decide on RAG strategies per integration source (chunking, multiple similar query embedding, LLM re-ranking, etc)"
+                    }
+                  ]
+                }
+              ],
+              "style": "ordered",
+              "indent": 1,
+              "border": 0
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Add messages to proper clusters / create new cluster"
+                    }
+                  ]
+                }
+              ],
+              "style": "ordered",
+              "indent": 0,
+              "offset": 1,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\n\n"
+                },
+                {
+                  "type": "text",
+                  "text": "US-103: Smart Context Retrieval for Action Suggestions",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                },
+                {
+                  "type": "text",
+                  "text": "Technical Tasks:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Do hybrid search to find most similar clusters"
+                    }
+                  ]
+                }
+              ],
+              "style": "ordered",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "\t•\t\t2.\tScore and Re-rank the search results"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765094933.806859",
+      "client_msg_id": "a7ff9146-ea42-4c69-8848-3dd8f2a41b46",
+      "text": "<@U093YSSUWBG>\nحسین جان من یه بررسی روی استاپ شدن پراسس جیمیل داشتم\nظاهرا دلیلش این هست که اگه توی یکی از پیام ها مشکلی پیش بیاد و ۴۰۴ بده\nکل پروسه پردازش ایمیل های بعدی هم به مشکل میخوره",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765094933.806859",
+      "reply_count": 6,
+      "reply_users_count": 2,
+      "latest_reply": "1765095783.286589",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "WXo1j",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "user",
+                  "user_id": "U093YSSUWBG"
+                },
+                {
+                  "type": "text",
+                  "text": "\nحسین جان من یه بررسی روی استاپ شدن پراسس جیمیل داشتم\nظاهرا دلیلش این هست که اگه توی یکی از پیام ها مشکلی پیش بیاد و ۴۰۴ بده\nکل پروسه پردازش ایمیل های بعدی هم به مشکل میخوره"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "text": "",
+      "files": [
+        {
+          "id": "F0A1YLD9NA1",
+          "created": 1765102878,
+          "timestamp": 1765102878,
+          "name": "ARCHITECTURE.md",
+          "title": "ARCHITECTURE.md",
+          "mimetype": "application/octet-stream",
+          "filetype": "binary",
+          "pretty_type": "Binary",
+          "user": "U09FLV6BPQB",
+          "user_team": "T46P0EFR8",
+          "editable": false,
+          "size": 46211,
+          "mode": "hosted",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A1YLD9NA1/architecture.md",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A1YLD9NA1/download/architecture.md",
+          "media_display_type": "unknown",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A1YLD9NA1/architecture.md",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A1YLD9NA1-019f77d3ce",
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        }
+      ],
+      "upload": false,
+      "user": "U09FLV6BPQB",
+      "display_as_bot": false,
+      "type": "message",
+      "ts": "1765102898.277669",
+      "client_msg_id": "b9fd2b50-e57a-4d81-8414-252ab1340261",
+      "reactions": [
+        {
+          "name": "raised_hands",
+          "users": [
+            "U05SL9R85PF",
+            "U093YSSUWBG"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765102955.794729",
+      "client_msg_id": "f35bfc2a-1147-4a37-8e6f-992bc88b01f4",
+      "text": "واسه اینکه دیاگراماش رو ببینید لطفا این اکتنشن رو نصب کنید\nیا هر جوری دوس دارید mermaid رو کامپایل کنید",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "m2rQP",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "واسه اینکه دیاگراماش رو ببینید لطفا این اکتنشن رو نصب کنید\nیا هر جوری دوس دارید mermaid رو کامپایل کنید"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765102973.409629",
+      "client_msg_id": "f8f56a35-80f0-42e3-a193-b10dd75ec965",
+      "text": "<https://marketplace.cursorapi.com/items/?itemName=bierner.markdown-mermaid>",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "5tqnN",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "link",
+                  "url": "https://marketplace.cursorapi.com/items/?itemName=bierner.markdown-mermaid"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765103006.231429",
+      "client_msg_id": "bd6a082f-652a-4f04-b4b1-709c599dc419",
+      "text": "این یک کلایت هست و فرمت کلی داره در بررسی کنید در موردش بیشتر صحبت کنیم مخصوصا جزییات",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "EGHNB",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "این یک کلایت هست و فرمت کلی داره در بررسی کنید در موردش بیشتر صحبت کنیم مخصوصا جزییات"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "pray",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765103029.435859",
+      "client_msg_id": "7e40536f-25f6-4917-adfd-cd6ec28d956f",
+      "text": "ممنون فرزین جان\nدمت گرم. خسته نباشی",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "5NCEK",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ممنون فرزین جان\nدمت گرم. خسته نباشی"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765103039.369119",
+      "client_msg_id": "FCB76FA4-E8DD-4D47-B270-0C8F5B26EA0E",
+      "text": "ایول :ok_hand::skin-tone-2::ok_hand::skin-tone-2:",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "39ppp",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ایول "
+                },
+                {
+                  "type": "emoji",
+                  "name": "ok_hand",
+                  "unicode": "1f44c-1f3fb",
+                  "skin_tone": 2
+                },
+                {
+                  "type": "emoji",
+                  "name": "ok_hand",
+                  "unicode": "1f44c-1f3fb",
+                  "skin_tone": 2
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765103353.744329",
+      "client_msg_id": "86567bdc-c83a-4c9f-bf75-5d2b45ceec84",
+      "text": "من و حسین هم یه مرور روی معماری داشته باشیم و بعد میت رو بگزار کنیم.\nساعت ۴ برگزار کنیم میت رو یا زودتر؟",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "oBZv3",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "من و حسین هم یه مرور روی معماری داشته باشیم و بعد میت رو بگزار کنیم.\nساعت ۴ برگزار کنیم میت رو یا زودتر؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765103374.665929",
+      "client_msg_id": "F01A5594-458C-477A-838A-930724228899",
+      "text": "4 خوبه ",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "d4GR9",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "4 خوبه "
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U09FLV6BPQB",
+            "U05SL9R85PF"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765103449.400159",
+      "client_msg_id": "901e9849-b6eb-4ff9-b6d2-80f011df233e",
+      "text": "ساعت ۴ میت مون رو شروع میکنیم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "dRvHa",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ساعت ۴ میت مون رو شروع میکنیم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U093YSSUWBG",
+            "U09FLV6BPQB"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765110572.566839",
+      "client_msg_id": "082561d2-6438-45a5-b3ee-64ada5721f15",
+      "text": "<http://meet.google.com/qvu-tcfr-odc|meet.google.com/qvu-tcfr-odc>",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "gWd4K",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "link",
+                  "url": "http://meet.google.com/qvu-tcfr-odc",
+                  "text": "meet.google.com/qvu-tcfr-odc"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765121067.562149",
+      "client_msg_id": "ea6cb089-9bf5-4a12-8c3d-7dad482eb579",
+      "text": "دوستان بنظرم یکی دوتا از اون ورک فلو های مربوط ایجنت رو برای جلسه اگه داشتیم خیلی خوب می شد",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "9Nys3",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "دوستان بنظرم یکی دوتا از اون ورک فلو های مربوط ایجنت رو برای جلسه اگه داشتیم خیلی خوب می شد"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765123112.115599",
+      "client_msg_id": "c31effff-6869-4f14-b868-d74a0d5dc0e3",
+      "text": "آقا جلسه لینک میت نداره",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Akm5N",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "آقا جلسه لینک میت نداره"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765127593.270419",
+      "client_msg_id": "df295e76-4cd1-4b97-bc06-7550a80d954f",
+      "text": "حسین برای اپدیت پروداکشن یه تسک سمت من هست که امشب اکی میکنم\nبیزحمت اون مورد جیمیل رو هم تا فردا صبح داشته باشیم\nکه توی جلسه صبح مون مرج بزنیم به پروداکشن",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "0xCgg",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "حسین برای اپدیت پروداکشن یه تسک سمت من هست که امشب اکی میکنم\nبیزحمت اون مورد جیمیل رو هم تا فردا صبح داشته باشیم\nکه توی جلسه صبح مون مرج بزنیم به پروداکشن"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765129758.638399",
+      "client_msg_id": "E73BD4A2-9AAD-428D-BF80-A6419C57A97A",
+      "text": "حله اوکی میکنم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "6j043",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "حله اوکی میکنم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "pray",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1765208425.572999",
+      "client_msg_id": "bf9cb2ee-06b1-44e4-ba6d-707eeeae22d7",
+      "text": "دوستان این خطا چیه\n```{\"statusCode\":404,\"message\":\"Cannot GET /api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&amp;return_tokens=true\",\"error\":\"Not Found\",\"timestamp\":\"2025-12-08T15:39:32.542Z\",\"path\":\"/api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&amp;return_tokens=true\"}```\n",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765208425.572999",
+      "reply_count": 3,
+      "reply_users_count": 2,
+      "latest_reply": "1765208731.684689",
+      "reply_users": [
+        "U093YSSUWBG",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "/VlAS",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "دوستان این خطا چیه\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "{\"statusCode\":404,\"message\":\"Cannot GET /api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&return_tokens=true\",\"error\":\"Not Found\",\"timestamp\":\"2025-12-08T15:39:32.542Z\",\"path\":\"/api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&return_tokens=true\"}"
+                }
+              ],
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": []
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "subtype": "thread_broadcast",
+      "user": "U09FLV6BPQB",
+      "thread_ts": "1765208425.572999",
+      "root": {
+        "user": "U09JDS5EZ41",
+        "type": "message",
+        "ts": "1765208425.572999",
+        "client_msg_id": "bf9cb2ee-06b1-44e4-ba6d-707eeeae22d7",
+        "text": "دوستان این خطا چیه\n```{\"statusCode\":404,\"message\":\"Cannot GET /api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&amp;return_tokens=true\",\"error\":\"Not Found\",\"timestamp\":\"2025-12-08T15:39:32.542Z\",\"path\":\"/api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&amp;return_tokens=true\"}```\n",
+        "team": "T46P0EFR8",
+        "thread_ts": "1765208425.572999",
+        "reply_count": 3,
+        "reply_users_count": 2,
+        "latest_reply": "1765208731.684689",
+        "reply_users": [
+          "U093YSSUWBG",
+          "U09FLV6BPQB"
+        ],
+        "is_locked": false,
+        "subscribed": false,
+        "blocks": [
+          {
+            "type": "rich_text",
+            "block_id": "/VlAS",
+            "elements": [
+              {
+                "type": "rich_text_section",
+                "elements": [
+                  {
+                    "type": "text",
+                    "text": "دوستان این خطا چیه\n"
+                  }
+                ]
+              },
+              {
+                "type": "rich_text_preformatted",
+                "elements": [
+                  {
+                    "type": "text",
+                    "text": "{\"statusCode\":404,\"message\":\"Cannot GET /api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&return_tokens=true\",\"error\":\"Not Found\",\"timestamp\":\"2025-12-08T15:39:32.542Z\",\"path\":\"/api/v1/auth/google?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fcallback&return_tokens=true\"}"
+                  }
+                ],
+                "border": 0
+              },
+              {
+                "type": "rich_text_section",
+                "elements": []
+              }
+            ]
+          }
+        ]
+      },
+      "type": "message",
+      "ts": "1765208700.343699",
+      "client_msg_id": "7812aa80-90b0-41ea-98e7-efccf8b962b9",
+      "text": "تو کال بک عوض کردی ؟",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "p6zs8",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "تو کال بک عوض کردی ؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09JDS5EZ41",
+      "type": "message",
+      "ts": "1765208741.659389",
+      "client_msg_id": "e310c654-76d4-4a66-904b-ee0fb36fc394",
+      "text": "نه چیزی تغییر ندادم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "YQ9zO",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "نه چیزی تغییر ندادم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Abbas",
+      "user_real_name": "Abbas Hasanzadeh",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765220517.037009",
+      "client_msg_id": "08EB75AA-A020-4A0D-8CD5-9AEDB22F27CA",
+      "text": "",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765220517.037009",
+      "reply_count": 3,
+      "reply_users_count": 2,
+      "latest_reply": "1765221739.925229",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "attachments": [
+        {
+          "ts": "1765218146.341819",
+          "author_id": "U039WK9NWA0",
+          "channel_id": "D05T1TQKJHX",
+          "channel_team": "T46P0EFR8",
+          "is_msg_unfurl": true,
+          "message_blocks": [
+            {
+              "team": "T46P0EFR8",
+              "channel": "D05T1TQKJHX",
+              "ts": "1765218146.341819",
+              "message": {
+                "blocks": [
+                  {
+                    "type": "rich_text",
+                    "block_id": "pkyVK",
+                    "elements": [
+                      {
+                        "type": "rich_text_section",
+                        "elements": [
+                          {
+                            "type": "text",
+                            "text": "جلساتمم حتی نمیاره دیگه ظاهرا"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "private_channel_prompt": true,
+          "color": "D0D0D0",
+          "from_url": "https://refactco.slack.com/archives/D05T1TQKJHX/p1765218146341819",
+          "is_share": true,
+          "fallback": "[December 8th, 2025 9:22 PM] parnia: جلساتمم حتی نمیاره دیگه ظاهرا",
+          "text": "جلساتمم حتی نمیاره دیگه ظاهرا",
+          "author_name": "Parnia Sebti",
+          "author_link": "https://refactco.slack.com/team/U039WK9NWA0",
+          "author_icon": "https://avatars.slack-edge.com/2024-03-01/6723628910805_01d1d8cdeac49c130ef8_48.png",
+          "author_subname": "Parnia Sebti",
+          "mrkdwn_in": [
+            "text"
+          ],
+          "footer": "Slack Conversation"
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    }
+  ]
+}

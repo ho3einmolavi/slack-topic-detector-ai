@@ -1,0 +1,46 @@
+{
+  "name": "slack-topic-categorizer",
+  "version": "1.0.0",
+  "description": "Categorize Slack messages into topics using Weaviate vector database",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node weaviate-setup.js",
+    "reset": "node weaviate-setup.js reset",
+    "reset-all": "node weaviate-setup.js reset-and-setup",
+    "process": "node webhook-simulator.js",
+    "query": "node query-topics.js",
+    "start": "npm run setup && npm run process",
+    "test": "node webhook-simulator.js --max=10",
+    "test:matching": "node test-topic-matching.js",
+    "weaviate:start": "docker-compose up -d",
+    "weaviate:stop": "docker-compose down",
+    "weaviate:status": "./weaviate-manager.sh status",
+    "weaviate:logs": "docker logs -f weaviate",
+    "dashboard": "open dashboard.html",
+    "chat": "node agent-search.js",
+    "search": "node agent-search.js",
+    "process:smart": "CATEGORIZER_MODE=smart node webhook-simulator.js",
+    "process:agentic": "CATEGORIZER_MODE=agentic node webhook-simulator.js",
+    "process:simple": "CATEGORIZER_MODE=simple node webhook-simulator.js",
+    "topics:health": "node -e \"import('./src/topic-matching/index.js').then(m => m.getTopicHealth().then(h => console.log(JSON.stringify(h, null, 2))))\"",
+    "topics:merge-analysis": "node -e \"import('./src/topic-matching/index.js').then(m => m.analyzeAllTopicsForMerge().then(r => console.log(JSON.stringify(r, null, 2))))\"",
+    "topics:update-embeddings": "node -e \"import('./src/topic-matching/index.js').then(m => m.updateAllTopicEmbeddings())\""
+  },
+  "dependencies": {
+    "weaviate-ts-client": "^2.0.0",
+    "openai": "^4.20.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "weaviate",
+    "vectordb",
+    "slack",
+    "topic-categorization",
+    "topic-matching",
+    "semantic-search"
+  ],
+  "author": "",
+  "license": "MIT"
+}
