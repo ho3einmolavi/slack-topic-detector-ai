@@ -1,33 +1,14 @@
+/**
+ * Webhook Simulator
+ * Processes Slack messages from a JSON file and categorizes them
+ */
 import fs from 'fs/promises';
 import dotenv from 'dotenv';
+import { categorizeMessage, getAllTopics } from './src/index.js';
 
 dotenv.config();
 
-// Choose categorizer mode:
-// - 'smart' (default): Conversation-aware with context tracking
-// - 'agentic': Per-message LLM analysis
-// - 'simple': Fast vector similarity only
-const CATEGORIZER_MODE = process.env.CATEGORIZER_MODE || 'smart';
-
-// Dynamic import based on mode
-let categorizeMessage, getAllTopics;
-
-if (CATEGORIZER_MODE === 'smart') {
-  const smartModule = await import('./smart-categorizer.js');
-  categorizeMessage = smartModule.categorizeMessage;
-  getAllTopics = smartModule.getAllTopics;
-  console.log('🧠 Using SMART categorizer (conversation-aware with context)\n');
-} else if (CATEGORIZER_MODE === 'agentic') {
-  const agenticModule = await import('./agentic-categorizer.js');
-  categorizeMessage = agenticModule.categorizeMessage;
-  getAllTopics = agenticModule.getAllTopics;
-  console.log('🤖 Using AGENTIC categorizer (per-message LLM analysis)\n');
-} else {
-  const simpleModule = await import('./topic-categorizer.js');
-  categorizeMessage = simpleModule.categorizeMessage;
-  getAllTopics = simpleModule.getAllTopics;
-  console.log('⚡ Using SIMPLE categorizer (vector similarity)\n');
-}
+console.log('🧠 Using SMART categorizer (modular architecture)\n');
 
 /**
  * Simulate webhook delay (optional)
