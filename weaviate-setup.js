@@ -23,7 +23,6 @@ async function resetDatabase() {
     const schema = await client.schema.getter().do();
     const existingClasses = schema.classes.map(c => c.class);
 
-    // Delete existing classes if they exist
     if (existingClasses.includes('Topic')) {
       console.log('   Deleting Topic class and all its data...');
       await client.schema.classDeleter().withClassName('Topic').do();
@@ -42,14 +41,12 @@ async function resetDatabase() {
 }
 
 async function setupSchema() {
-  console.log('🚀 Setting up Weaviate schema...\n');
+  console.log('🚀 Setting up Weaviate schema (OPTIMIZED)...\n');
 
   try {
-    // Check if classes already exist
     const schema = await client.schema.getter().do();
     const existingClasses = schema.classes.map(c => c.class);
 
-    // Delete existing classes if they exist (for clean setup)
     if (existingClasses.includes('Topic')) {
       console.log('🗑️  Deleting existing Topic class...');
       await client.schema.classDeleter().withClassName('Topic').do();
@@ -59,7 +56,9 @@ async function setupSchema() {
       await client.schema.classDeleter().withClassName('SlackMessage').do();
     }
 
-    // Create Topic class
+    // =========================================================================
+    // TOPIC CLASS - Optimized for single-field vectorization
+    // =========================================================================
     const topicClass = {
       class: 'Topic',
       description: 'A conversation topic derived from Slack messages',
@@ -67,18 +66,33 @@ async function setupSchema() {
       moduleConfig: {
         'text2vec-openai': {
           model: 'text-embedding-3-small',
-          modelVersion: '002',
           type: 'text',
+          // Removed modelVersion - not needed for embedding-3 models
         },
       },
+      // Configure inverted index for BM25
+      invertedIndexConfig: {
+        bm25: {
+          b: 0.75,   // Document length normalization (default)
+          k1: 1.2,   // Term frequency saturation (default)
+        },
+        indexTimestamps: true,
+        indexNullState: true,
+        indexPropertyLength: true,
+      },
       properties: [
+        // =====================================================================
+        // STORED FIELDS (not vectorized - used for display/filtering)
+        // =====================================================================
         {
           name: 'name',
           dataType: ['text'],
           description: 'The topic name/title',
+          indexFilterable: true,
+          indexSearchable: true,  // Enable BM25 search on name
           moduleConfig: {
             'text2vec-openai': {
-              skip: false,
+              skip: true,  // ✅ DON'T vectorize - included in combinedSearchText
               vectorizePropertyName: false,
             },
           },
@@ -87,9 +101,11 @@ async function setupSchema() {
           name: 'description',
           dataType: ['text'],
           description: 'A description of what this topic is about',
+          indexFilterable: false,
+          indexSearchable: true,  // Enable BM25 search on description
           moduleConfig: {
             'text2vec-openai': {
-              skip: false,
+              skip: true,  // ✅ DON'T vectorize - included in combinedSearchText
               vectorizePropertyName: false,
             },
           },
@@ -98,9 +114,11 @@ async function setupSchema() {
           name: 'keywords',
           dataType: ['text[]'],
           description: 'Keywords associated with this topic',
+          indexFilterable: true,
+          indexSearchable: true,  // Enable BM25 search on keywords
           moduleConfig: {
             'text2vec-openai': {
-              skip: true, // Don't vectorize keywords separately
+              skip: true,
             },
           },
         },
@@ -108,45 +126,75 @@ async function setupSchema() {
           name: 'users',
           dataType: ['text[]'],
           description: 'List of user names associated with this topic',
+          indexFilterable: true,
+          indexSearchable: false,
           moduleConfig: {
             'text2vec-openai': {
-              skip: true, // Don't vectorize users
+              skip: true,
             },
           },
         },
         {
-          name: 'combinedSearchText',
-          dataType: ['text'],
-          description: 'Combined text of name, description, and keywords for enhanced semantic search',
+          name: 'sampleMessages',
+          dataType: ['text[]'],
+          description: 'Sample messages from this topic for context',
+          indexFilterable: false,
+          indexSearchable: true,  // Enable BM25 on sample messages
           moduleConfig: {
             'text2vec-openai': {
-              skip: false,
+              skip: true,
+            },
+          },
+        },
+        // =====================================================================
+        // VECTORIZED FIELD (single source of truth for embeddings)
+        // =====================================================================
+        {
+          name: 'combinedSearchText',
+          dataType: ['text'],
+          description: 'SINGLE vectorized field: TOPIC + DESCRIPTION + KEYWORDS + EXAMPLES',
+          indexFilterable: false,
+          indexSearchable: true,  // Also enable BM25 on this
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: false,  // ✅ ONLY this field gets vectorized
               vectorizePropertyName: false,
             },
           },
         },
+        // =====================================================================
+        // METADATA FIELDS (not vectorized, not searchable)
+        // =====================================================================
         {
           name: 'messageCount',
           dataType: ['int'],
           description: 'Number of messages categorized under this topic',
+          indexFilterable: true,
+          indexSearchable: false,
         },
         {
           name: 'createdAt',
           dataType: ['date'],
           description: 'When this topic was first created',
+          indexFilterable: true,
+          indexSearchable: false,
         },
         {
           name: 'updatedAt',
           dataType: ['date'],
           description: 'When this topic was last updated',
+          indexFilterable: true,
+          indexSearchable: false,
         },
       ],
     };
 
-    console.log('✅ Creating Topic class...');
+    console.log('✅ Creating Topic class (single-field vectorization)...');
     await client.schema.classCreator().withClass(topicClass).do();
 
-    // Create SlackMessage class
+    // =========================================================================
+    // SLACK MESSAGE CLASS
+    // =========================================================================
     const messageClass = {
       class: 'SlackMessage',
       description: 'A Slack message with its metadata',
@@ -154,18 +202,26 @@ async function setupSchema() {
       moduleConfig: {
         'text2vec-openai': {
           model: 'text-embedding-3-small',
-          modelVersion: '002',
           type: 'text',
         },
+      },
+      invertedIndexConfig: {
+        bm25: {
+          b: 0.75,
+          k1: 1.2,
+        },
+        indexTimestamps: true,
       },
       properties: [
         {
           name: 'text',
           dataType: ['text'],
           description: 'The message text content',
+          indexFilterable: false,
+          indexSearchable: true,
           moduleConfig: {
             'text2vec-openai': {
-              skip: false,
+              skip: false,  // ✅ Vectorize message text
               vectorizePropertyName: false,
             },
           },
@@ -174,26 +230,73 @@ async function setupSchema() {
           name: 'user',
           dataType: ['text'],
           description: 'User ID who sent the message',
+          indexFilterable: true,
+          indexSearchable: false,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
+        },
+        {
+          name: 'userName',
+          dataType: ['text'],
+          description: 'User display name',
+          indexFilterable: true,
+          indexSearchable: true,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
         },
         {
           name: 'timestamp',
           dataType: ['text'],
-          description: 'Message timestamp',
+          description: 'Message timestamp (Slack ts format)',
+          indexFilterable: true,
+          indexSearchable: false,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
         },
         {
           name: 'channelId',
           dataType: ['text'],
           description: 'Channel ID where message was sent',
+          indexFilterable: true,
+          indexSearchable: false,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
         },
         {
           name: 'channelName',
           dataType: ['text'],
           description: 'Channel name',
+          indexFilterable: true,
+          indexSearchable: true,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
         },
         {
           name: 'threadTs',
           dataType: ['text'],
           description: 'Thread timestamp if part of a thread',
+          indexFilterable: true,
+          indexSearchable: false,
+          moduleConfig: {
+            'text2vec-openai': {
+              skip: true,
+            },
+          },
         },
         {
           name: 'topic',
@@ -204,6 +307,8 @@ async function setupSchema() {
           name: 'processedAt',
           dataType: ['date'],
           description: 'When this message was processed',
+          indexFilterable: true,
+          indexSearchable: false,
         },
       ],
     };
@@ -212,9 +317,12 @@ async function setupSchema() {
     await client.schema.classCreator().withClass(messageClass).do();
 
     console.log('\n✨ Schema setup completed successfully!\n');
-    console.log('Created classes:');
-    console.log('  - Topic: Stores conversation topics');
-    console.log('  - SlackMessage: Stores individual messages with topic references\n');
+    console.log('Vectorization strategy:');
+    console.log('  - Topic: ONLY "combinedSearchText" is vectorized');
+    console.log('  - SlackMessage: ONLY "text" is vectorized');
+    console.log('\nBM25 searchable fields:');
+    console.log('  - Topic: name, description, keywords, sampleMessages, combinedSearchText');
+    console.log('  - SlackMessage: text, userName, channelName\n');
 
     return true;
   } catch (error) {
@@ -229,7 +337,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const command = args[0];
 
   if (command === 'reset') {
-    // Reset database only
     resetDatabase()
       .then(() => {
         console.log('💡 Database has been reset. Run "npm run setup" to recreate the schema.');
@@ -240,11 +347,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         process.exit(1);
       });
   } else if (command === 'reset-and-setup') {
-    // Reset and setup in one command
     resetDatabase()
       .then(() => setupSchema())
       .then(() => {
-        console.log('🎉 Database reset and setup complete! You can now run the webhook simulator.');
+        console.log('🎉 Database reset and setup complete!');
         process.exit(0);
       })
       .catch((error) => {
@@ -252,10 +358,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         process.exit(1);
       });
   } else {
-    // Default: just setup
     setupSchema()
       .then(() => {
-        console.log('🎉 Setup complete! You can now run the webhook simulator.');
+        console.log('🎉 Setup complete!');
         process.exit(0);
       })
       .catch((error) => {

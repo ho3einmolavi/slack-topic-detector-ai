@@ -21,8 +21,6 @@
     "chat": "node agent-search.js",
     "search": "node agent-search.js",
     "process:smart": "CATEGORIZER_MODE=smart node webhook-simulator.js",
-    "process:agentic": "CATEGORIZER_MODE=agentic node webhook-simulator.js",
-    "process:simple": "CATEGORIZER_MODE=simple node webhook-simulator.js",
     "topics:health": "node -e \"import('./src/topic-matching/index.js').then(m => m.getTopicHealth().then(h => console.log(JSON.stringify(h, null, 2))))\"",
     "topics:merge-analysis": "node -e \"import('./src/topic-matching/index.js').then(m => m.analyzeAllTopicsForMerge().then(r => console.log(JSON.stringify(r, null, 2))))\"",
     "topics:update-embeddings": "node -e \"import('./src/topic-matching/index.js').then(m => m.updateAllTopicEmbeddings())\""

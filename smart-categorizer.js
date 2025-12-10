@@ -1,12 +1,6 @@
 import { client } from './weaviate-setup.js';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
-import {
-  hybridSearchMessages,
-  semanticSearchMessages,
-  keywordSearchMessages,
-  getMessagesByTopic,
-} from './search-tools.js';
 
 dotenv.config();
 
@@ -20,9 +14,44 @@ const MODEL = 'gpt-4o';
 const SLACK_API_KEY = process.env.SLACK_API_KEY;
 const SLACK_API_BASE = 'https://slack.com/api';
 
-/**
- * Make a call to Slack API
- */
+// ============================================================================
+// Constants
+// ============================================================================
+
+const CONVERSATION_TIMEOUT_MINUTES = 10;
+const TEXT_PREVIEW_LENGTH = 150;
+const MAX_TOPICS_LIMIT = 50;
+const RRF_K = 60; // Reciprocal Rank Fusion constant
+
+const TOPIC_FIELDS = `
+  name
+  description
+  keywords
+  users
+  sampleMessages
+  combinedSearchText
+  messageCount
+  _additional { id }
+`;
+
+const MESSAGE_WITH_TOPIC_FIELDS = `
+  text
+  user
+  userName
+  timestamp
+  topic {
+    ... on Topic {
+      name
+      users
+      _additional { id }
+    }
+  }
+`;
+
+// ============================================================================
+// Slack API Helpers
+// ============================================================================
+
 async function slackApiCall(endpoint, params = {}) {
   const url = new URL(`${SLACK_API_BASE}/${endpoint}`);
   Object.entries(params).forEach(([key, value]) => {
@@ -47,19 +76,14 @@ async function slackApiCall(endpoint, params = {}) {
   return data;
 }
 
-/**
- * Fetch messages from Slack channel history before a specific timestamp
- */
 async function fetchMessagesBefore(channelId, beforeTs, count = 5) {
   try {
     const response = await slackApiCall('conversations.history', {
       channel: channelId,
-      latest: beforeTs,  // Get messages before this timestamp
+      latest: beforeTs,
       limit: count,
-      inclusive: false,  // Don't include the message at 'latest'
+      inclusive: false,
     });
-    
-    // Messages come newest first, reverse to get chronological order
     return response.messages.reverse();
   } catch (error) {
     console.error(`Error fetching Slack messages: ${error.message}`);
@@ -67,18 +91,13 @@ async function fetchMessagesBefore(channelId, beforeTs, count = 5) {
   }
 }
 
-/**
- * Fetch all messages in a thread (including the parent message)
- */
 async function fetchThreadMessages(channelId, threadTs) {
   try {
     const response = await slackApiCall('conversations.replies', {
       channel: channelId,
       ts: threadTs,
-      limit: 100,  // Get up to 100 messages in the thread
+      limit: 100,
     });
-    
-    // Returns messages in chronological order (parent first, then replies)
     return response.messages || [];
   } catch (error) {
     console.error(`Error fetching thread messages: ${error.message}`);
@@ -86,29 +105,28 @@ async function fetchThreadMessages(channelId, threadTs) {
   }
 }
 
-/**
- * In-memory conversation context tracker
- * Tracks recent messages per channel for context
- */
-const conversationContext = {
-  // channelId -> { recentMessages: [], currentTopicId: string, currentTopicName: string }
-};
+// ============================================================================
+// In-memory Conversation Context
+// ============================================================================
 
-/**
- * Tool definitions for the smart categorizer agent
- */
+const conversationContext = {};
+
+// ============================================================================
+// OPTIMIZED: 3 Tool Definitions
+// ============================================================================
+
 const tools = [
   {
     type: 'function',
     function: {
-      name: 'get_conversation_context',
-      description: 'Fetch the N most recent messages from Slack API that came BEFORE the current message. Use this to understand what the conversation is about and whether this message is a reply/confirmation to a previous message.',
+      name: 'get_context',
+      description: 'Get all relevant context for the current message in a single call. Always call this FIRST.',
       parameters: {
         type: 'object',
         properties: {
-          count: {
-            type: 'number',
-            description: 'How many recent messages to retrieve (default 5)',
+          message_count: {
+            type: 'integer',
+            description: 'Number of recent messages to fetch (default: 5, max: 10)',
             default: 5,
           },
         },
@@ -118,41 +136,19 @@ const tools = [
   {
     type: 'function',
     function: {
-      name: 'get_thread_parent',
-      description: 'If this message is a thread reply, get the parent message and other replies in the thread. This helps understand the context of a reply.',
-      parameters: {
-        type: 'object',
-        properties: {},
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_current_channel_topic',
-      description: 'Get the topic that was assigned to the most recent message in this channel. Useful to see if the current message continues the same conversation.',
-      parameters: {
-        type: 'object',
-        properties: {},
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'search_existing_topics',
-      description: 'Search for existing topics that might match this message content. Returns topics with their descriptions and message counts.',
+      name: 'find_topics',
+      description: 'Search for matching topics using the message content. Uses hybrid search (semantic + keyword) with automatic ranking.',
       parameters: {
         type: 'object',
         properties: {
           query: {
             type: 'string',
-            description: 'Search query based on message content or subject',
+            description: 'Search query - use the message text or extracted keywords',
           },
-          limit: {
-            type: 'number',
-            description: 'Max results (default 5)',
-            default: 5,
+          include_all: {
+            type: 'boolean',
+            description: 'If true, also returns all topics (for overview). Default: false',
+            default: false,
           },
         },
         required: ['query'],
@@ -162,459 +158,255 @@ const tools = [
   {
     type: 'function',
     function: {
-      name: 'get_all_topics',
-      description: 'Get a list of ALL existing topics. Use this to see what topics already exist before creating a new one.',
-      parameters: {
-        type: 'object',
-        properties: {},
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'hybrid_search',
-      description: 'Search ALL stored messages using hybrid search (keyword + semantic). Find similar messages to understand how they were categorized.',
+      name: 'categorize',
+      description: 'Make the final categorization decision. Call this LAST after gathering context and finding topics.',
       parameters: {
         type: 'object',
         properties: {
-          query: {
+          action: {
             type: 'string',
-            description: 'Search query',
+            enum: ['assign', 'create'],
+            description: 'Whether to assign to existing topic or create new one',
           },
-          limit: {
-            type: 'number',
-            description: 'Max results (default 10)',
-            default: 10,
-          },
-        },
-        required: ['query'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'semantic_search',
-      description: 'Search messages by meaning/concept. Find messages with similar meaning even if they use different words.',
-      parameters: {
-        type: 'object',
-        properties: {
-          query: {
-            type: 'string',
-            description: 'Describe the concept you are looking for',
-          },
-          limit: {
-            type: 'number',
-            description: 'Max results (default 10)',
-            default: 10,
-          },
-        },
-        required: ['query'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'keyword_search',
-      description: 'Search messages by exact keywords (BM25). Best for specific terms, names, or technical words.',
-      parameters: {
-        type: 'object',
-        properties: {
-          query: {
-            type: 'string',
-            description: 'Keywords to search for',
-          },
-          limit: {
-            type: 'number',
-            description: 'Max results (default 10)',
-            default: 10,
-          },
-        },
-        required: ['query'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_topic_messages',
-      description: 'Get sample messages from a specific topic to understand what kind of messages belong there.',
-      parameters: {
-        type: 'object',
-        properties: {
           topic_id: {
             type: 'string',
-            description: 'Topic UUID',
-          },
-          limit: {
-            type: 'number',
-            description: 'Max messages to retrieve (default 5)',
-            default: 5,
-          },
-        },
-        required: ['topic_id'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'assign_to_topic',
-      description: 'FINAL DECISION: Assign this message to an existing topic. Use this when you have determined which topic the message belongs to.',
-      parameters: {
-        type: 'object',
-        properties: {
-          topic_id: {
-            type: 'string',
-            description: 'The UUID of the topic to assign to',
+            description: 'Required if action="assign". The UUID of the existing topic',
           },
           topic_name: {
             type: 'string',
-            description: 'The name of the topic (for logging)',
+            description: 'Required if action="assign". The name of the topic (for logging)',
+          },
+          new_topic: {
+            type: 'object',
+            description: 'Required if action="create". The new topic details',
+            properties: {
+              name: { type: 'string' },
+              description: { type: 'string' },
+              keywords: { type: 'array', items: { type: 'string' } },
+            },
           },
           reasoning: {
             type: 'string',
-            description: 'Brief explanation of why this topic was chosen',
+            description: 'Brief explanation of why this categorization was chosen',
           },
         },
-        required: ['topic_id', 'topic_name', 'reasoning'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'create_new_topic',
-      description: 'FINAL DECISION: Create a new topic for this message. ONLY use this when no existing topic fits AND this message starts a new subject/conversation. IMPORTANT: Always call validate_new_topic first to check for duplicates!',
-      parameters: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-            description: 'Short topic name (2-5 words)',
-          },
-          description: {
-            type: 'string',
-            description: 'One sentence describing what this topic covers',
-          },
-          keywords: {
-            type: 'array',
-            items: { type: 'string' },
-            description: '3-5 relevant keywords',
-          },
-          reasoning: {
-            type: 'string',
-            description: 'Brief explanation of why a new topic is needed',
-          },
-        },
-        required: ['name', 'description', 'keywords', 'reasoning'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'find_best_topic_match',
-      description: 'RECOMMENDED: Find the best matching topic using advanced multi-strategy matching (semantic similarity + fuzzy name matching + keyword overlap). Returns confidence scores and recommendations. Use this BEFORE deciding to create a new topic.',
-      parameters: {
-        type: 'object',
-        properties: {
-          message_text: {
-            type: 'string',
-            description: 'The message text to find a matching topic for (defaults to current message if not provided)',
-          },
-        },
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'validate_new_topic',
-      description: 'REQUIRED before creating a new topic: Check if the proposed topic name/description would be a duplicate of existing topics. Detects similar names like "DB Performance" vs "Database Performance", abbreviation matches, and keyword overlaps.',
-      parameters: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-            description: 'Proposed topic name',
-          },
-          description: {
-            type: 'string',
-            description: 'Proposed topic description',
-          },
-          keywords: {
-            type: 'array',
-            items: { type: 'string' },
-            description: 'Proposed keywords for the topic',
-          },
-        },
-        required: ['name'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'evaluate_topic_specificity',
-      description: `Check if an existing topic is specific enough or if it's actually a broad category. 
-                    Use this before assigning to a topic that seems generic.
-                    Returns whether the topic is specific (good) or categorical (too broad).`,
-      parameters: {
-        type: 'object',
-        properties: {
-          topic_id: {
-            type: 'string',
-            description: 'Topic UUID to evaluate',
-          },
-          proposed_message: {
-            type: 'string',
-            description: 'The message you want to assign to this topic',
-          },
-        },
-        required: ['topic_id', 'proposed_message'],
+        required: ['action', 'reasoning'],
       },
     },
   },
 ];
 
-
-const SYSTEM_PROMPT = `You are an expert at understanding workplace conversations and organizing them into specific, actionable topics.
-
-# CRITICAL: WHAT IS A TOPIC?
-
-A topic is NOT a category or tag. A topic is a **specific discussion, issue, or thread of work**.
-
-## ❌ BAD TOPICS (Too Broad)
-These are categories, not topics:
-- "API Integration and Database Issues" ← This is a folder, not a topic
-- "Backend Development" ← Too vague
-- "Bug Fixes" ← Could contain 100 unrelated bugs
-- "Team Discussions" ← Meaningless
-
-## ✅ GOOD TOPICS (Specific)
-These are actual topics:
-- "Integration API returning empty - Dec 9 bug"
-- "Slack OAuth refactor to remove Composio"
-- "Staging environment outage Dec 9"
-- "Gmail processor stops on 404 error"
-- "Local dev OAuth redirect_uri mismatch"
-- "Claude API usage cost investigation"
-- "Redis GUI access setup"
-
-## The Test: Is This a Topic or a Category?
-
-Ask yourself:
-1. **Could this contain multiple unrelated issues?** → It's a category, not a topic
-2. **Would someone create a Jira ticket for this exact thing?** → Good topic
-3. **Is this something that can be "resolved" or "completed"?** → Good topic
-4. **Would two messages about this naturally be part of the same conversation?** → Good topic
-
----
-
-# TOPIC GRANULARITY RULES
-
-## Rule 1: One Issue = One Topic
-
-If message A is about "API returning empty" and message B is about "OAuth redirect error", these are TWO different topics, even if both involve APIs.
-
-## Rule 2: Topics Should Be Resolvable
-
-A good topic is something that:
-- Has a beginning (when it was raised)
-- Has an end (when it's resolved or concluded)
-- Can be summarized as a specific thing
-
-## Rule 3: Time-Bound When Appropriate
-
-If an issue recurs, it might be a new topic:
-- "Staging outage - Dec 5" vs "Staging outage - Dec 9" could be separate
-- Unless they're clearly the same ongoing issue
-
-## Rule 4: Conversations Are Topics
-
-A back-and-forth discussion about ONE thing is ONE topic:
-\`\`\`
-Ali: "The integration API is returning empty"
-Sara: "Is the database populated?"
-Ali: "Let me check"
-Ali: "Database is fine, must be elsewhere"
-Sara: "Check the OAuth config"
-\`\`\`
-→ All of this is ONE topic: "Integration API returning empty"
-
-But if Sara then says:
-\`\`\`
-Sara: "By the way, staging is down"
-\`\`\`
-→ This starts a NEW topic: "Staging environment down"
-
----
-
-# EXAMPLES OF CORRECT TOPIC ASSIGNMENT
-
-## Example 1: Specific Bug
-**Message:** "The /api/v1/integration endpoint returns empty"
-**Wrong:** Assign to "API Integration and Database Issues"
-**Right:** Create "Integration API returning empty response"
-
-## Example 2: Specific Investigation  
-**Message:** "Claude API usage doesn't match our request volume"
-**Wrong:** Assign to "API Issues"
-**Right:** Create "Claude API usage/billing discrepancy"
-
-## Example 3: Specific Question
-**Message:** "How do I connect to staging Redis with a GUI?"
-**Wrong:** Assign to "Infrastructure Questions"
-**Right:** Create "Redis GUI access for staging" OR find existing topic if someone asked this before
-
-## Example 4: Specific Outage
-**Message:** "stage is down"
-**Wrong:** Assign to "Infrastructure Issues"
-**Right:** Create "Staging environment outage [date]" OR find existing active outage topic
-
-## Example 5: Specific Feature Work
-**Message:** "Slack OAuth refactor is complete - here's the summary..."
-**Wrong:** Assign to "Slack Integration Development"
-**Right:** Create "Slack OAuth refactor - Composio removal" OR find existing topic for this work
-
----
-
-# WHEN TO USE AN EXISTING TOPIC
-
-Use an existing topic when:
-1. **Same specific issue:** Message is clearly about the same bug/task/discussion
-2. **Direct continuation:** This message directly responds to or continues that topic
-3. **Same scope:** The existing topic is specific enough that this message belongs
-
-Do NOT use an existing topic when:
-1. **Same category, different issue:** Both are "API bugs" but they're different bugs
-2. **Topic is too broad:** The existing topic is a category, not a specific issue
-3. **Different scope:** Message is about a new aspect that deserves its own topic
-
----
-
-# WHEN TO CREATE A NEW TOPIC
-
-Create a new topic when:
-1. **New issue:** This is a distinct bug/task/question not covered by existing topics
-2. **New discussion:** This starts a new thread of conversation
-3. **Specificity needed:** Existing topics are too broad to accurately represent this
-
-When creating, be specific:
-- Include the actual problem/task in the name
-- Make it clear what this topic is about
-- Someone reading just the topic name should understand the issue
-
----
-
-# REASONING PROCESS FOR SPECIFICITY
-
-For each message, ask:
-
-1. **What is the specific thing being discussed?**
-   - Not "API stuff" but "integration endpoint returning empty"
-   - Not "deployment" but "staging environment outage"
-
-2. **Is there an existing topic for this EXACT issue?**
-   - Not "a related topic" — the EXACT issue
-   - If existing topic is too broad, this needs a new specific topic
-
-3. **Would combining this with other messages make sense?**
-   - "ok, let me check" following a bug report → same topic
-   - "by the way, different thing is broken" → new topic
-
-4. **What would I name a Jira ticket for this?**
-   - Use that as your topic name
-   - If you'd create separate tickets, they're separate topics
-
----
-
-# TOPIC NAMING CONVENTION
-
-Format: **[Specific issue/task] - [Context if needed]**
-
-Good names:
-- "Integration API empty response bug"
-- "Slack OAuth refactor - remove Composio dependency"
-- "Gmail processor 404 error handling"
-- "Local OAuth redirect_uri configuration"
-- "Claude API usage tracking discrepancy"
-- "Staging Redis GUI access"
-
-Bad names:
-- "API Issues" ← too broad
-- "Bug" ← meaningless
-- "Slack stuff" ← vague
-- "Questions" ← category not topic
-
----
-
-Remember: You're organizing a workspace, not filing into folders. Each topic should represent ONE specific thing that the team is discussing, investigating, or working on. When in doubt, be MORE specific rather than less.`;
-/**
- * Current message being processed (set by categorizeMessage)
- */
-let currentMessage = null;
-let currentChannelInfo = null;
-
-/**
- * Tool implementations
- */
 // ============================================================================
-// Constants
+// OPTIMIZED System Prompt
 // ============================================================================
 
-const CONVERSATION_TIMEOUT_MINUTES = 10;
-const TEXT_PREVIEW_LENGTH = 150;
-const MAX_TOPICS_LIMIT = 50;
+const SYSTEM_PROMPT = `You are an expert message categorization agent. Your job is to accurately assign Slack messages to specific, actionable topics.
 
-const TOPIC_FIELDS = `
-  name
-  description
-  keywords
-  users
-  combinedSearchText
-  messageCount
-  _additional { id }
-`;
+## CORE PRINCIPLE
 
-const MESSAGE_WITH_TOPIC_FIELDS = `
-  text
-  user
-  userName
-  timestamp
-  topic {
-    ... on Topic {
-      name
-      users
-      _additional { id }
-    }
-  }
-`;
+**Iterate until confident.** Do not rush to a decision. Gather context, search thoroughly, and only categorize when you have high confidence. It's better to make one extra tool call than to miscategorize.
 
+## TOOLS AVAILABLE
+
+1. **get_context** - Fetches conversation history, thread info, and channel state
+2. **find_topics** - Searches existing topics using semantic + keyword matching
+3. **categorize** - Makes final decision (assign to existing OR create new)
+
+## DECISION FRAMEWORK
+
+\`\`\`
+START
+  │
+  ▼
+┌─────────────────────────────────────┐
+│ 1. ALWAYS call get_context first    │
+└─────────────────────────────────────┘
+  │
+  ▼
+┌─────────────────────────────────────┐
+│ Is this a THREAD REPLY?             │
+│ (thread_parent exists with topic)   │
+└─────────────────────────────────────┘
+  │
+  ├─YES──▶ ASSIGN to parent's topic (done)
+  │
+  ▼ NO
+┌─────────────────────────────────────┐
+│ Is message SHORT (< 15 chars)?      │
+│ Examples: "ok", "حله", "done", "👍" │
+└─────────────────────────────────────┘
+  │
+  ├─YES──▶ Look at recent_messages and channel.current_topic
+  │        If recent activity on a topic → ASSIGN to that topic
+  │        If no recent context → Call find_topics with context from recent messages
+  │
+  ▼ NO (substantive message)
+┌─────────────────────────────────────┐
+│ 2. Call find_topics                 │
+│    Query: Use key terms from msg    │
+└─────────────────────────────────────┘
+  │
+  ▼
+┌─────────────────────────────────────┐
+│ Evaluate matches:                   │
+│                                     │
+│ confidence ≥ 0.80  → ASSIGN         │
+│ confidence 0.50-0.79 → REVIEW       │
+│ confidence < 0.50  → likely CREATE  │
+└─────────────────────────────────────┘
+  │
+  ▼
+┌─────────────────────────────────────┐
+│ If REVIEW needed:                   │
+│ - Check if message truly fits       │
+│ - Look at sample_messages           │
+│ - Consider if topic is too broad    │
+│ - If uncertain, CREATE new topic    │
+└─────────────────────────────────────┘
+  │
+  ▼
+┌─────────────────────────────────────┐
+│ 3. Call categorize with decision    │
+└─────────────────────────────────────┘
+\`\`\`
+
+## WHEN TO ITERATE MORE
+
+Call additional tools when:
+- Short message but no clear context → get_context with more messages
+- find_topics returns ambiguous results → try different query terms
+- Multiple topics seem relevant → examine sample_messages to differentiate
+- Message contains multiple subjects → focus on the PRIMARY subject
+
+## SEARCH QUERY STRATEGY
+
+**Good queries** extract the core subject:
+- Message: "the OAuth token refresh is failing on staging"
+  Query: "OAuth token refresh staging" ✅
+  
+- Message: "can someone look at the dashboard loading issue?"
+  Query: "dashboard loading performance" ✅
+
+- Message: "حله، مرسی"
+  Query: DON'T search. Use context from recent messages instead.
+
+**Bad queries:**
+- Using the entire message verbatim (too noisy)
+- Single generic words like "issue" or "bug"
+- Including filler words
+
+## TOPIC CREATION RULES
+
+### Topics are SPECIFIC ISSUES, not categories
+
+\`\`\`
+WRONG (Categories):           RIGHT (Specific Topics):
+─────────────────────────────────────────────────────────
+"API Issues"                  "Payment API timeout errors"
+"Bug Fixes"                   "User signup email not sending"
+"Backend Work"                "Redis cache invalidation bug"
+"Frontend Tasks"              "Dashboard charts not loading on Safari"
+"Database"                    "PostgreSQL migration from MySQL"
+"Deployment"                  "CI pipeline failing on Node 20 upgrade"
+"Infrastructure"              "AWS Lambda cold start optimization"
+\`\`\`
+
+### Good topic names include:
+- The specific component/feature affected
+- The nature of the issue or task
+- Relevant context (environment, date, user impact)
+
+### Topic name patterns:
+- "[Component] [Problem/Action]" → "Stripe webhook signature verification"
+- "[Feature] [Specific Issue]" → "User onboarding email delay"
+- "[Task] - [Context]" → "API rate limiting - v2 implementation"
+
+### Before creating a topic, verify:
+1. No existing topic covers this (check find_topics results carefully)
+2. The name is specific enough that future messages can match it
+3. It's not a category that would absorb unrelated messages
+
+## HANDLING AMBIGUOUS MESSAGES
+
+### Message seems to fit multiple topics:
+→ Choose the MORE SPECIFIC topic, not a broader one
+→ If truly ambiguous, prefer the topic with recent activity
+
+### Message is a reply/continuation but not in a thread:
+→ Check recent_messages for context
+→ If discussing same subject as recent messages, use that topic
+
+### Message introduces a new aspect of existing topic:
+→ Still assign to existing topic (topics evolve)
+→ Only create new topic if it's a genuinely SEPARATE issue
+
+### Message is in a different language:
+→ Persian, English, or mixed are all valid
+→ Search queries should use the language of key terms
+→ Topic names can be in any language (prefer the language used in messages)
+
+## CONFIDENCE THRESHOLDS
+
+| Confidence | Action |
+|------------|--------|
+| ≥ 0.80 | ASSIGN - High confidence match |
+| 0.65-0.79 | ASSIGN if context supports, else investigate more |
+| 0.50-0.64 | Likely CREATE unless context strongly suggests existing topic |
+| < 0.50 | CREATE new topic |
+
+## CRITICAL RULES
+
+1. **Never create duplicate topics** - If find_topics returns a match ≥ 0.50, strongly consider using it
+2. **Never create categories** - "Bug Fixes", "General Discussion", "Misc" are FORBIDDEN
+3. **Always provide reasoning** - Explain why you chose to assign or create
+4. **Short messages inherit context** - "ok", "done", "👍" should use the topic from recent conversation
+5. **When in doubt, gather more context** - Call get_context or find_topics again with different parameters
+
+## EXAMPLES
+
+### Example 1: Clear match
+Message: "the Stripe webhook is returning 401"
+→ get_context (check recent discussion)
+→ find_topics("Stripe webhook 401 authentication")
+→ If match with confidence 0.85 → ASSIGN
+→ If no match → CREATE "Stripe webhook authentication failure"
+
+### Example 2: Short confirmation
+Message: "حله"
+→ get_context shows recent discussion about "PostgreSQL migration"
+→ ASSIGN to "PostgreSQL migration" (don't search, use context)
+
+### Example 3: Ambiguous
+Message: "this is taking forever"
+→ get_context (what are they referring to?)
+→ If recent messages discuss "CI pipeline" → ASSIGN to that topic
+→ If no context → Ask yourself: can I categorize this? If not, use fallback
+
+### Example 4: New subject
+Message: "we need to add rate limiting to the public API"
+→ get_context (is this continuing a discussion?)
+→ find_topics("API rate limiting")
+→ No good matches → CREATE "Public API rate limiting implementation"
+
+## OUTPUT
+
+Always end with the \`categorize\` tool. Include:
+- action: "assign" or "create"
+- For assign: topic_id, topic_name
+- For create: new_topic with specific name, description, and keywords
+- reasoning: Brief explanation of your decision`;
 // ============================================================================
 // Helper Functions
 // ============================================================================
 
-/**
- * Calculate minutes between two Slack timestamps
- */
 const getMinutesBetween = (ts1, ts2) => 
   Math.round((parseFloat(ts1) - parseFloat(ts2)) / 60);
 
-/**
- * Truncate text with ellipsis
- */
 const truncate = (text, maxLength = TEXT_PREVIEW_LENGTH) => {
   if (!text) return '';
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 };
 
-/**
- * Extract topic info from a Weaviate topic object
- */
 const extractTopicInfo = (topic) => {
   if (!topic?.[0]) return null;
   return {
@@ -623,38 +415,58 @@ const extractTopicInfo = (topic) => {
   };
 };
 
-/**
- * Map raw Weaviate topic to clean topic object
- */
-const mapTopic = (t, includeKeywords = false) => ({
-  id: t._additional.id,
-  name: t.name,
-  description: t.description,
-  messageCount: t.messageCount,
-  ...(includeKeywords && { keywords: t.keywords }),
-});
-
-/**
- * Generate context hint based on time gap
- */
-const generateContextHint = (minutesSinceLast, topicName) => {
-  if (minutesSinceLast < 5) {
-    const topicPart = topicName ? ` about "${topicName}"` : '';
-    return `Last message was ${minutesSinceLast} min ago${topicPart}. If current message is a short response, it likely belongs to the same topic.`;
-  }
-  if (minutesSinceLast < 30) {
-    return `Last message was ${minutesSinceLast} min ago. Check if current message continues that subject or starts a new one.`;
-  }
-  return `Last message was ${minutesSinceLast} min ago. This might be a new conversation - analyze the content carefully.`;
-};
-
 // ============================================================================
-// Topic Matching Functions
+// Improved Embedding Strategy
 // ============================================================================
 
 /**
- * Common abbreviations and their expansions for fuzzy matching
+ * Build structured embedding text for topics
+ * Optimized for better semantic retrieval
  */
+function buildTopicEmbeddingText(topic) {
+  const parts = [
+    `TOPIC: ${topic.name}`,
+    `DESCRIPTION: ${topic.description || topic.name}`,
+    `KEYWORDS: ${(topic.keywords || []).join(', ')}`,
+  ];
+  
+  // Add representative messages (critical for retrieval!)
+  if (topic.sampleMessages?.length > 0) {
+    parts.push(`EXAMPLE MESSAGES:`);
+    topic.sampleMessages.slice(0, 5).forEach(msg => {
+      parts.push(`- ${msg}`);
+    });
+  }
+  
+  // Add users for context
+  if (topic.users?.length > 0) {
+    parts.push(`USERS: ${topic.users.join(', ')}`);
+  }
+  
+  return parts.join('\n');
+}
+
+/**
+ * Build embedding text for messages with context window
+ */
+function buildMessageEmbeddingText(message, context) {
+  const parts = [`MESSAGE: ${message.text}`];
+  
+  // Add conversation context for short messages
+  if (message.text.length < 50 && context?.recent?.length > 0) {
+    parts.push(`CONTEXT:`);
+    context.recent.slice(0, 3).forEach(msg => {
+      parts.push(`- ${msg.text}`);
+    });
+  }
+  
+  return parts.join('\n');
+}
+
+// ============================================================================
+// Text Processing Utilities
+// ============================================================================
+
 const ABBREVIATIONS = {
   'db': 'database',
   'k8s': 'kubernetes',
@@ -676,34 +488,23 @@ const ABBREVIATIONS = {
   'prod': 'production',
   'dev': 'development',
   'qa': 'quality assurance',
-  'msg': 'message',
-  'msgs': 'messages',
 };
 
-/**
- * Normalize text for comparison (lowercase, expand abbreviations, remove special chars)
- */
 function normalizeText(text) {
   if (!text) return '';
   let normalized = text.toLowerCase().trim();
   
-  // Expand abbreviations
   for (const [abbr, full] of Object.entries(ABBREVIATIONS)) {
     const regex = new RegExp(`\\b${abbr}\\b`, 'gi');
     normalized = normalized.replace(regex, full);
   }
   
-  // Remove special characters but keep spaces
   normalized = normalized.replace(/[^a-z0-9\s]/g, ' ');
-  // Collapse multiple spaces
   normalized = normalized.replace(/\s+/g, ' ').trim();
   
   return normalized;
 }
 
-/**
- * Calculate Levenshtein distance between two strings
- */
 function levenshteinDistance(str1, str2) {
   const m = str1.length;
   const n = str2.length;
@@ -724,9 +525,6 @@ function levenshteinDistance(str1, str2) {
   return dp[m][n];
 }
 
-/**
- * Calculate fuzzy similarity between two strings (0-1)
- */
 function fuzzySimilarity(str1, str2) {
   const s1 = normalizeText(str1);
   const s2 = normalizeText(str2);
@@ -741,9 +539,6 @@ function fuzzySimilarity(str1, str2) {
   return 1 - (distance / maxLen);
 }
 
-/**
- * Calculate keyword overlap score between two keyword arrays
- */
 function keywordOverlap(keywords1, keywords2) {
   if (!keywords1?.length || !keywords2?.length) return 0;
   
@@ -764,9 +559,6 @@ function keywordOverlap(keywords1, keywords2) {
   return matches / unionSize;
 }
 
-/**
- * Extract keywords from text
- */
 function extractKeywords(text) {
   if (!text) return [];
   
@@ -782,14 +574,13 @@ function extractKeywords(text) {
     'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through',
     'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up',
     'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further',
-    'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how',
+    'then', 'once', 'here', 'there', 'ok', 'okay', 'yes', 'no', 'حله', 'اوکی',
   ]);
   
   const words = normalizeText(text)
     .split(/\s+/)
     .filter(word => word.length > 2 && !stopWords.has(word));
   
-  // Count frequency and return top words
   const freq = {};
   for (const word of words) {
     freq[word] = (freq[word] || 0) + 1;
@@ -801,117 +592,10 @@ function extractKeywords(text) {
     .map(([word]) => word);
 }
 
-/**
- * Generate combined search text for topic embedding
- * Includes name, description, keywords, and users for better semantic matching
- */
-function getTopicEmbeddingText({ name, description, keywords, users }) {
-  const parts = [name];
-  if (description) parts.push(description);
-  if (keywords?.length) parts.push(`Keywords: ${keywords.join(', ')}`);
-  if (users?.length) parts.push(`Users: ${users.join(', ')}`);
-  return parts.join(' | ');
-}
-
-/**
- * Analyze if a new topic should be created or use existing
- */
-async function analyzeTopicCreation(proposedTopic, existingTopics, options = {}) {
-  const {
-    fuzzyThreshold = 0.6,
-    keywordThreshold = 0.4,
-  } = options;
-
-  const suggestions = [];
-  const proposedNormalized = normalizeText(proposedTopic.name);
-  const proposedKeywords = proposedTopic.keywords || extractKeywords(proposedTopic.description || proposedTopic.name);
-
-  for (const existing of existingTopics) {
-    const existingId = existing._additional?.id || existing.id;
-    const existingName = existing.name;
-    const existingDescription = existing.description || '';
-    const existingKeywords = existing.keywords || [];
-
-    // Calculate fuzzy name similarity
-    const nameSimilarity = fuzzySimilarity(proposedTopic.name, existingName);
-    
-    // Calculate description similarity
-    const descSimilarity = proposedTopic.description 
-      ? fuzzySimilarity(proposedTopic.description, existingDescription)
-      : 0;
-    
-    // Calculate keyword overlap
-    const kwOverlap = keywordOverlap(proposedKeywords, existingKeywords);
-    
-    // Combined score (weighted)
-    const combinedScore = (nameSimilarity * 0.5) + (descSimilarity * 0.2) + (kwOverlap * 0.3);
-    
-    const matchTypes = [];
-    if (nameSimilarity >= fuzzyThreshold) matchTypes.push('name');
-    if (descSimilarity >= fuzzyThreshold) matchTypes.push('description');
-    if (kwOverlap >= keywordThreshold) matchTypes.push('keywords');
-
-    if (matchTypes.length > 0 || combinedScore >= 0.5) {
-      suggestions.push({
-        topic: {
-          id: existingId,
-          name: existingName,
-          description: existingDescription,
-          keywords: existingKeywords,
-        },
-        combinedScore,
-        scores: {
-          name: nameSimilarity,
-          description: descSimilarity,
-          keywords: kwOverlap,
-        },
-        matchTypes,
-        recommendation: combinedScore >= 0.7 ? 'use_existing' : 'consider_merge',
-      });
-    }
-  }
-
-  // Sort by combined score
-  suggestions.sort((a, b) => b.combinedScore - a.combinedScore);
-
-  const shouldCreate = suggestions.length === 0 || suggestions[0].combinedScore < 0.5;
-  
-  return {
-    shouldCreate,
-    confidence: shouldCreate ? 0.8 : 1 - suggestions[0].combinedScore,
-    suggestions,
-    reasoning: shouldCreate
-      ? 'No similar topics found - safe to create new topic'
-      : `Found similar topic "${suggestions[0].topic.name}" (${(suggestions[0].combinedScore * 100).toFixed(0)}% match)`,
-  };
-}
-
-/**
- * Validate if a new topic would be a duplicate
- */
-async function validateNewTopic(proposedTopic, options = {}) {
-  // Fetch all existing topics
-  const existingTopics = await fetchAllTopics();
-  
-  if (existingTopics.length === 0) {
-    return {
-      shouldCreate: true,
-      confidence: 1.0,
-      suggestions: [],
-      reasoning: 'No existing topics - this will be the first one',
-    };
-  }
-
-  return analyzeTopicCreation(proposedTopic, existingTopics, options);
-}
-
 // ============================================================================
 // Database Queries
 // ============================================================================
 
-/**
- * Fetch topic info for a message by timestamp
- */
 async function fetchMessageTopic(timestamp) {
   const result = await client.graphql
     .get()
@@ -925,9 +609,6 @@ async function fetchMessageTopic(timestamp) {
   return extractTopicInfo(found?.topic);
 }
 
-/**
- * Fetch topics for multiple messages (batch lookup)
- */
 async function fetchMessageTopics(messages) {
   const topicsMap = {};
   
@@ -945,9 +626,6 @@ async function fetchMessageTopics(messages) {
   return topicsMap;
 }
 
-/**
- * Fetch thread messages from database
- */
 async function fetchThreadFromDB(threadTs) {
   const result = await client.graphql
     .get()
@@ -966,24 +644,6 @@ async function fetchThreadFromDB(threadTs) {
   return result.data?.Get?.SlackMessage || [];
 }
 
-/**
- * Search topics using hybrid search
- */
-async function searchTopics(query, limit = 5) {
-  const result = await client.graphql
-    .get()
-    .withClassName('Topic')
-    .withFields(TOPIC_FIELDS)
-    .withHybrid({ query, alpha: 0.5 })
-    .withLimit(limit)
-    .do();
-
-  return result.data?.Get?.Topic || [];
-}
-
-/**
- * Fetch all topics
- */
 async function fetchAllTopics(limit = MAX_TOPICS_LIMIT) {
   const result = await client.graphql
     .get()
@@ -995,9 +655,6 @@ async function fetchAllTopics(limit = MAX_TOPICS_LIMIT) {
   return result.data?.Get?.Topic || [];
 }
 
-/**
- * Fetch a single topic by ID
- */
 async function getTopicById(topicId) {
   try {
     const result = await client.data
@@ -1006,9 +663,7 @@ async function getTopicById(topicId) {
       .withId(topicId)
       .do();
     
-    if (!result || !result.properties) {
-      return null;
-    }
+    if (!result || !result.properties) return null;
     
     return {
       id: result.id,
@@ -1016,6 +671,7 @@ async function getTopicById(topicId) {
       description: result.properties.description,
       keywords: result.properties.keywords || [],
       users: result.properties.users || [],
+      sampleMessages: result.properties.sampleMessages || [],
       messageCount: result.properties.messageCount || 0,
     };
   } catch (error) {
@@ -1024,538 +680,455 @@ async function getTopicById(topicId) {
 }
 
 // ============================================================================
-// Tool Handlers
+// RRF (Reciprocal Rank Fusion) Search
+// ============================================================================
+
+/**
+ * Perform hybrid search on topics with BM25 and Vector search
+ */
+async function hybridSearchTopics(query, limit = 10) {
+  try {
+    const result = await client.graphql
+      .get()
+      .withClassName('Topic')
+      .withFields(`
+        name
+        description
+        keywords
+        users
+        sampleMessages
+        messageCount
+        _additional { id score }
+      `)
+      .withHybrid({
+        query: query,
+        alpha: 0.5, // Balance between BM25 and Vector
+      })
+      .withLimit(limit)
+      .do();
+
+    return (result.data?.Get?.Topic || []).map((topic, index) => ({
+      ...topic,
+      hybridRank: index + 1,
+      hybridScore: topic._additional?.score || 0,
+    }));
+  } catch (error) {
+    console.error('Hybrid search error:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Perform semantic (vector) search on topics
+ */
+async function semanticSearchTopics(query, limit = 10) {
+  try {
+    const result = await client.graphql
+      .get()
+      .withClassName('Topic')
+      .withFields(`
+        name
+        description
+        keywords
+        users
+        sampleMessages
+        messageCount
+        _additional { id distance certainty }
+      `)
+      .withNearText({ concepts: [query] })
+      .withLimit(limit)
+      .do();
+
+    return (result.data?.Get?.Topic || []).map((topic, index) => ({
+      ...topic,
+      vectorRank: index + 1,
+      vectorScore: topic._additional?.certainty || (1 - (topic._additional?.distance || 1)),
+    }));
+  } catch (error) {
+    console.error('Semantic search error:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Perform keyword (BM25) search on topics
+ */
+async function keywordSearchTopics(query, limit = 10) {
+  try {
+    const result = await client.graphql
+      .get()
+      .withClassName('Topic')
+      .withFields(`
+        name
+        description
+        keywords
+        users
+        sampleMessages
+        messageCount
+        _additional { id score }
+      `)
+      .withBm25({
+        query: query,
+        properties: ['combinedSearchText'],  // Single field - contains name, description, keywords, samples
+      })
+      .withLimit(limit)
+      .do();
+
+    return (result.data?.Get?.Topic || []).map((topic, index) => ({
+      ...topic,
+      bm25Rank: index + 1,
+      bm25Score: topic._additional?.score || 0,
+    }));
+  } catch (error) {
+    console.error('Keyword search error:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Reciprocal Rank Fusion (RRF) to merge multiple search results
+ * RRF_score = Σ 1/(k + rank_i)
+ */
+function reciprocalRankFusion(searchResults, k = RRF_K) {
+  const topicScores = new Map();
+  const topicData = new Map();
+  
+  // Process each search result set
+  for (const results of searchResults) {
+    for (const topic of results) {
+      const id = topic._additional?.id;
+      if (!id) continue;
+      
+      // Calculate RRF contribution
+      const rank = topic.hybridRank || topic.vectorRank || topic.bm25Rank || 999;
+      const rrfScore = 1 / (k + rank);
+      
+      // Accumulate scores
+      const currentScore = topicScores.get(id) || 0;
+      topicScores.set(id, currentScore + rrfScore);
+      
+      // Store topic data (first occurrence wins)
+      if (!topicData.has(id)) {
+        topicData.set(id, {
+          id,
+          name: topic.name,
+          description: topic.description,
+          keywords: topic.keywords || [],
+          users: topic.users || [],
+          sampleMessages: topic.sampleMessages || [],
+          messageCount: topic.messageCount || 0,
+          ranks: {},
+        });
+      }
+      
+      // Track individual ranks for debugging
+      const data = topicData.get(id);
+      if (topic.hybridRank) data.ranks.hybrid = topic.hybridRank;
+      if (topic.vectorRank) data.ranks.vector = topic.vectorRank;
+      if (topic.bm25Rank) data.ranks.bm25 = topic.bm25Rank;
+    }
+  }
+  
+  // Sort by RRF score
+  const sortedTopics = Array.from(topicScores.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([id, rrfScore]) => ({
+      ...topicData.get(id),
+      rrfScore,
+    }));
+  
+  return sortedTopics;
+}
+
+/**
+ * Calculate final confidence score using weighted factors
+ */
+function calculateConfidence(topic, query, messageKeywords) {
+  const topicKeywords = topic.keywords || [];
+  
+  // Factor 1: RRF score (normalized to 0-1)
+  const rrfNormalized = Math.min(topic.rrfScore * 20, 1); // Normalize assuming max ~0.05
+  
+  // Factor 2: Keyword overlap
+  const kwOverlap = keywordOverlap(messageKeywords, topicKeywords);
+  
+  // Factor 3: Name similarity
+  const nameSimilarity = fuzzySimilarity(query, topic.name);
+  
+  // Factor 4: Recency boost (more messages = more active)
+  const recencyBoost = Math.min((topic.messageCount || 0) / 50, 1);
+  
+  // Weighted average
+  const confidence = 
+    (rrfNormalized * 0.4) +
+    (kwOverlap * 0.3) +
+    (nameSimilarity * 0.2) +
+    (recencyBoost * 0.1);
+  
+  return {
+    confidence,
+    factors: {
+      rrfScore: rrfNormalized,
+      keywordOverlap: kwOverlap,
+      nameSimilarity,
+      recencyBoost,
+    },
+  };
+}
+
+// ============================================================================
+// Current Message Context (set by categorizeMessage)
+// ============================================================================
+
+let currentMessage = null;
+let currentChannelInfo = null;
+
+// ============================================================================
+// Tool Handlers for 3 Optimized Tools
 // ============================================================================
 
 const toolHandlers = {
   /**
-   * Get N messages before current message from Slack API
+   * TOOL 1: get_context
+   * Returns ALL context in a single call
    */
-  async get_conversation_context({ count = 5 }) {
+  async get_context({ message_count = 5 }) {
     const channelId = currentChannelInfo?.id;
     const messageTs = currentMessage?.ts;
     const threadTs = currentMessage?.thread_ts;
-
-    if (!channelId || !messageTs) {
-      return { messages: [], note: 'No channel or message context available.' };
-    }
-
-    // Check if this is a thread reply
     const isThreadReply = threadTs && threadTs !== messageTs;
 
-    if (isThreadReply) {
-      // Fetch all messages in the thread (including parent)
-      const threadMessages = await fetchThreadMessages(channelId, threadTs);
+    if (!channelId || !messageTs) {
+      return { error: 'No channel or message context available.' };
+    }
+
+    // Parallel fetch all context
+    const [recentMessages, threadMessages, channelContext] = await Promise.all([
+      // Fetch recent channel messages
+      fetchMessagesBefore(channelId, messageTs, Math.min(message_count, 10)),
+      // Fetch thread if applicable
+      isThreadReply ? fetchThreadMessages(channelId, threadTs) : Promise.resolve([]),
+      // Get in-memory channel context
+      Promise.resolve(conversationContext[channelId] || null),
+    ]);
+
+    // Enrich recent messages with their topics
+    const topicsMap = await fetchMessageTopics(recentMessages);
+
+    // Build current message info
+    const currentMessageInfo = {
+      text: currentMessage.text,
+      user: currentMessage.user,
+      user_name: currentMessage.user_name,
+      is_thread_reply: isThreadReply,
+      length: currentMessage.text.length,
+      is_short: currentMessage.text.length < 15,
+    };
+
+    // Build thread parent info (if thread reply)
+    let threadParent = null;
+    if (isThreadReply && threadMessages.length > 0) {
+      const parent = threadMessages.find(m => m.ts === threadTs) || threadMessages[0];
       
-      if (threadMessages.length === 0) {
-        return { messages: [], note: 'Could not fetch thread messages.', isThread: true };
-      }
-
-      // Filter out the current message and map the results
-      const contextMessages = threadMessages
-        .filter(m => m.ts !== messageTs)  // Exclude current message
-        .map((m) => ({
-          text: m.text,
-          user: m.user,
-          user_name: m.user_name,
-          minutesAgo: getMinutesBetween(messageTs, m.ts),
-          isParent: m.ts === threadTs,
-        }));
-
-      return {
-        isThread: true,
-        threadTs: threadTs,
-        totalThreadMessages: threadMessages.length,
-        parentMessage: threadMessages[0] ? {
-          text: truncate(threadMessages[0].text, 200),
-          user: threadMessages[0].user,
-          user_name: threadMessages[0].user_name,
-        } : null,
-        messages: contextMessages,
-        note: `This is a thread reply. Showing ${contextMessages.length} previous messages in this thread.`,
+      // Check if parent has a topic assigned
+      const parentTopic = await fetchMessageTopic(parent.ts);
+      
+      threadParent = {
+        text: truncate(parent.text, 200),
+        user: parent.user,
+        user_name: parent.user_name,
+        topic: parentTopic || null,
+        thread_message_count: threadMessages.length,
       };
     }
 
-    // Not a thread - fetch previous channel messages
-    const messages = await fetchMessagesBefore(channelId, messageTs, count);
+    // Build recent messages with topics
+    const enrichedRecentMessages = recentMessages.map((m) => ({
+      text: truncate(m.text, 150),
+      user: m.user,
+      user_name: m.user_name,
+      minutes_ago: getMinutesBetween(messageTs, m.ts),
+      topic_id: topicsMap[m.ts]?.id || null,
+      topic_name: topicsMap[m.ts]?.name || null,
+    }));
+
+    // Build channel info
+    const channel = {
+      name: currentChannelInfo.name,
+      id: currentChannelInfo.id,
+      current_topic: channelContext?.currentTopicId ? {
+        id: channelContext.currentTopicId,
+        name: channelContext.currentTopicName,
+      } : null,
+      last_activity_minutes_ago: enrichedRecentMessages.length > 0 
+        ? enrichedRecentMessages[enrichedRecentMessages.length - 1].minutes_ago 
+        : null,
+    };
+
+    return {
+      current_message: currentMessageInfo,
+      thread_parent: threadParent,
+      recent_messages: enrichedRecentMessages,
+      channel,
+      // Provide recommendation based on context
+      hint: isThreadReply && threadParent?.topic
+        ? `Thread reply - use parent's topic: "${threadParent.topic.name}"`
+        : currentMessageInfo.is_short && channel.current_topic
+        ? `Short message - likely continues current topic: "${channel.current_topic.name}"`
+        : 'Analyze message content to find or create appropriate topic',
+    };
+  },
+
+  /**
+   * TOOL 2: find_topics
+   * Unified search with RRF fusion and confidence scores
+   */
+  async find_topics({ query, include_all = false }) {
+    console.log('find_topics', query, include_all);
+    const messageKeywords = extractKeywords(query);
     
-    if (messages.length === 0) {
-      return { messages: [], note: 'No previous messages found.', isThread: false };
-    }
+    // Run parallel searches
+    const [hybridResults, vectorResults, bm25Results, allTopics] = await Promise.all([
+      hybridSearchTopics(query, 15),
+      semanticSearchTopics(query, 15),
+      keywordSearchTopics(query, 15),
+      include_all ? fetchAllTopics() : Promise.resolve([]),
+    ]);
 
-    return {
-      isThread: false,
-      messages: messages.map((m) => ({
-        text: m.text,
-        user: m.user,
-        user_name: m.user_name,
-        minutesAgo: getMinutesBetween(messageTs, m.ts),
-      })),
-    };
-  },
+    // Apply RRF fusion
+    const fusedResults = reciprocalRankFusion([hybridResults, vectorResults, bm25Results]);
 
-  /**
-   * Get thread parent info
-   */
-  async get_thread_parent() {
-    const threadTs = currentMessage?.thread_ts;
-    const isThreadReply = threadTs && threadTs !== currentMessage?.ts;
-
-    if (!isThreadReply) {
-      return { isThreadReply: false, message: 'This is not a thread reply.' };
-    }
-
-    try {
-      const messages = await fetchThreadFromDB(threadTs);
-
-      if (messages.length === 0) {
-        return this._getThreadParentFromMemory(threadTs);
-      }
-
-      const parent = messages.find((m) => m.timestamp === threadTs) || messages[0];
-      const topic = extractTopicInfo(parent.topic);
-
-      return {
-        isThreadReply: true,
-        parentFound: true,
-        parentTopicId: topic?.id,
-        parentTopicName: topic?.name,
-        parentText: truncate(parent.text, 200),
-        threadMessageCount: messages.length,
-        recommendation: topic
-          ? `This is a thread reply. Use the same topic as parent: "${topic.name}"`
-          : 'Thread parent found but no topic assigned yet.',
-      };
-    } catch (error) {
-      return { isThreadReply: true, parentFound: false, error: error.message };
-    }
-  },
-
-  /**
-   * Fallback: get thread parent from in-memory context
-   */
-  _getThreadParentFromMemory(threadTs) {
-    const channelContext = conversationContext[currentChannelInfo?.id];
-    const parentInMemory = channelContext?.recentMessages?.find(
-      (m) => m.timestamp === threadTs
-    );
-
-    if (!parentInMemory) {
-      return { isThreadReply: true, parentFound: false, message: 'Thread parent not found yet.' };
-    }
-
-    return {
-      isThreadReply: true,
-      parentFound: true,
-      parentTopicId: parentInMemory.topicId,
-      parentTopicName: parentInMemory.topicName,
-      parentText: parentInMemory.text,
-      recommendation: `This is a reply to: "${truncate(parentInMemory.text, 100)}". Use topic: "${parentInMemory.topicName}".`,
-    };
-  },
-
-  /**
-   * Get current channel's active topic
-   */
-  async get_current_channel_topic() {
-    const context = conversationContext[currentChannelInfo?.id];
-
-    if (!context?.currentTopicId) {
-      return { hasTopic: false, message: 'No topic set for current channel conversation yet.' };
-    }
-
-    const timeSinceLast = this._getTimeSinceLastMessage(context);
-
-    return {
-      hasTopic: true,
-      topicId: context.currentTopicId,
-      topicName: context.currentTopicName,
-      timeSinceLastMessage: timeSinceLast,
-      recommendation: `Current conversation topic is "${context.currentTopicName}". Use same topic if this continues it.`,
-    };
-  },
-
-  /**
-   * Helper: calculate time since last message in context
-   */
-  _getTimeSinceLastMessage(context) {
-    if (!context.recentMessages?.length || !currentMessage) return 'unknown';
-    
-    const lastMsg = context.recentMessages[context.recentMessages.length - 1];
-    const minutes = getMinutesBetween(currentMessage.ts, lastMsg.timestamp);
-    return `${minutes} minutes`;
-  },
-
-  /**
-   * Search for existing topics
-   */
-  async search_existing_topics({ query, limit = 5 }) {
-    try {
-      const topics = await searchTopics(query, limit);
-
-      if (topics.length === 0) {
-        return { found: false, message: 'No matching topics found.' };
-      }
-
-      return {
-        found: true,
-        topics: topics.map((t) => mapTopic(t, true)),
-      };
-    } catch (error) {
-      return { found: false, error: error.message };
-    }
-  },
-
-  /**
-   * Get all existing topics
-   */
-  async get_all_topics() {
-    try {
-      const topics = await fetchAllTopics();
-
-      if (topics.length === 0) {
-        return { count: 0, message: 'No topics exist yet. You may need to create the first one.' };
-      }
-
-      return {
-        count: topics.length,
-        topics: topics.map((t) => mapTopic(t)),
-      };
-    } catch (error) {
-      return { count: 0, error: error.message };
-    }
-  },
-
-  /**
-   * Hybrid search (keyword + semantic)
-   */
-  async hybrid_search({ query, limit = 10 }) {
-    const results = await hybridSearchMessages(query, 0.5, limit);
-    return {
-      count: results.length,
-      messages: results.map((m) => ({
-        text: truncate(m.text, 200),
-        user: m.user,
-        topic: m.topic?.[0]?.name || null,
-        score: m.relevanceScore,
-      })),
-    };
-  },
-
-  /**
-   * Semantic search (by meaning)
-   */
-  async semantic_search({ query, limit = 10 }) {
-    const results = await semanticSearchMessages(query, limit);
-    return {
-      count: results.length,
-      messages: results.map((m) => ({
-        text: truncate(m.text, 200),
-        user: m.user,
-        topic: m.topic?.[0]?.name || null,
-        similarity: m.similarity,
-      })),
-    };
-  },
-
-  /**
-   * Keyword search (exact match)
-   */
-  async keyword_search({ query, limit = 10 }) {
-    const results = await keywordSearchMessages(query, limit);
-    return {
-      count: results.length,
-      messages: results.map((m) => ({
-        text: truncate(m.text, 200),
-        user: m.user,
-        topic: m.topic?.[0]?.name || null,
-        score: m.bm25Score,
-      })),
-    };
-  },
-
-  /**
-   * Get messages from a specific topic
-   */
-  async get_topic_messages({ topic_id, limit = 5 }) {
-    const results = await getMessagesByTopic(topic_id, limit);
-    return {
-      count: results.length,
-      messages: results.map((m) => ({
-        text: truncate(m.text, 200),
-        user: m.user,
-      })),
-    };
-  },
-
-  /**
-   * Assign message to existing topic
-   */
-  async assign_to_topic(args) {
-    return { action: 'assign', ...args };
-  },
-
-  /**
-   * Create a new topic
-   */
-  async create_new_topic(args) {
-    return { action: 'create', ...args };
-  },
-
-  /**
-   * Validate a proposed new topic for duplicates
-   */
-  async validate_new_topic({ name, description = '', keywords = [] }) {
-    if (!name) {
-      return { error: 'Topic name is required' };
-    }
-
-    try {
-      const result = await validateNewTopic(
-        { name, description, keywords },
-        { semanticThreshold: 0.6, fuzzyThreshold: 0.5, keywordThreshold: 0.3 }
-      );
-
-      if (result.shouldCreate) {
-        return {
-          canCreate: true,
-          confidence: result.confidence,
-          reasoning: result.reasoning,
-          message: 'OK to create this topic - no significant duplicates found.',
-        };
-      }
-
-      // Found potential duplicates
-      const topSuggestion = result.suggestions[0];
-      return {
-        canCreate: false,
-        hasDuplicate: true,
-        duplicateWarning: `⚠️ Similar topic exists: "${topSuggestion.topic.name}"`,
-        existingTopic: {
-          id: topSuggestion.topic.id,
-          name: topSuggestion.topic.name,
-          description: topSuggestion.topic.description,
-          similarity: `${(topSuggestion.combinedScore * 100).toFixed(0)}%`,
-          matchTypes: topSuggestion.matchTypes,
-        },
-        recommendation: topSuggestion.recommendation === 'use_existing'
-          ? `USE EXISTING: Assign to "${topSuggestion.topic.name}" instead of creating duplicate`
-          : `CONSIDER MERGE: "${name}" overlaps with "${topSuggestion.topic.name}"`,
-        reasoning: result.reasoning,
-        otherSimilar: result.suggestions.slice(1, 3).map(s => ({
-          name: s.topic.name,
-          similarity: `${(s.combinedScore * 100).toFixed(0)}%`,
-        })),
-      };
-    } catch (error) {
-      return { error: error.message };
-    }
-  },
-
-  /**
-   * Find the best matching topic for a message using multi-strategy matching
-   */
-  async find_best_topic_match({ message_text }) {
-    // Use provided text or fall back to current message
-    const text = message_text || currentMessage?.text;
-    
-    if (!text) {
-      return { error: 'No message text provided and no current message available' };
-    }
-
-    try {
-      // Fetch all existing topics
-      const existingTopics = await fetchAllTopics();
-      
-      if (existingTopics.length === 0) {
-        return {
-          found: false,
-          message: 'No topics exist yet. You will need to create the first one.',
-          recommendation: 'create_new',
-        };
-      }
-
-      // Extract keywords from message for matching
-      const messageKeywords = extractKeywords(text);
-      
-      // Score each topic against the message
-      const scoredTopics = [];
-      
-      for (const topic of existingTopics) {
-        const topicId = topic._additional?.id;
-        const topicName = topic.name;
-        const topicDescription = topic.description || '';
-        const topicKeywords = topic.keywords || [];
-        
-        // Calculate fuzzy name similarity (message text vs topic name)
-        const nameSimilarity = fuzzySimilarity(text, topicName);
-        
-        // Calculate description similarity
-        const descSimilarity = topicDescription 
-          ? fuzzySimilarity(text, topicDescription)
-          : 0;
-        
-        // Calculate keyword overlap
-        const kwOverlap = keywordOverlap(messageKeywords, topicKeywords);
-        
-        // Combined score (weighted for message-to-topic matching)
-        // More weight on keywords and description for message matching
-        const combinedScore = (nameSimilarity * 0.2) + (descSimilarity * 0.3) + (kwOverlap * 0.5);
-        
-        if (combinedScore > 0.1) { // Only include topics with some relevance
-          scoredTopics.push({
-            topic: {
-              id: topicId,
-              name: topicName,
-              description: topicDescription,
-              keywords: topicKeywords,
-              messageCount: topic.messageCount || 0,
-            },
-            scores: {
-              name: nameSimilarity,
-              description: descSimilarity,
-              keywords: kwOverlap,
-            },
-            combinedScore,
-            confidence: combinedScore,
-          });
-        }
-      }
-      
-      // Sort by combined score
-      scoredTopics.sort((a, b) => b.combinedScore - a.combinedScore);
-      
-      if (scoredTopics.length === 0) {
-        return {
-          found: false,
-          message: 'No matching topics found for this message content.',
-          recommendation: 'create_new',
-          existingTopicCount: existingTopics.length,
-        };
-      }
-      
-      const bestMatch = scoredTopics[0];
-      const confidencePercent = (bestMatch.combinedScore * 100).toFixed(0);
-      
-      // Determine recommendation based on confidence
-      let recommendation;
-      if (bestMatch.combinedScore >= 0.75) {
-        recommendation = 'assign';
-      } else if (bestMatch.combinedScore >= 0.5) {
-        recommendation = 'likely_assign';
-      } else if (bestMatch.combinedScore >= 0.3) {
-        recommendation = 'review';
-      } else {
-        recommendation = 'consider_new';
-      }
+    // Calculate confidence scores for top results
+    const scoredMatches = fusedResults.slice(0, 10).map(topic => {
+      const { confidence, factors } = calculateConfidence(topic, query, messageKeywords);
       
       return {
-        found: true,
-        bestMatch: {
-          id: bestMatch.topic.id,
-          name: bestMatch.topic.name,
-          description: bestMatch.topic.description,
-          messageCount: bestMatch.topic.messageCount,
-          confidence: `${confidencePercent}%`,
-          confidenceValue: bestMatch.combinedScore,
-          scores: {
-            nameMatch: `${(bestMatch.scores.name * 100).toFixed(0)}%`,
-            descriptionMatch: `${(bestMatch.scores.description * 100).toFixed(0)}%`,
-            keywordOverlap: `${(bestMatch.scores.keywords * 100).toFixed(0)}%`,
-          },
-        },
-        recommendation,
-        recommendationText: recommendation === 'assign' 
-          ? `HIGH CONFIDENCE: Assign to "${bestMatch.topic.name}"`
-          : recommendation === 'likely_assign'
-          ? `GOOD MATCH: "${bestMatch.topic.name}" is likely the right topic`
-          : recommendation === 'review'
-          ? `POSSIBLE MATCH: Review if "${bestMatch.topic.name}" fits`
-          : `LOW CONFIDENCE: Consider creating a new topic`,
-        otherMatches: scoredTopics.slice(1, 4).map(t => ({
-          id: t.topic.id,
-          name: t.topic.name,
-          confidence: `${(t.combinedScore * 100).toFixed(0)}%`,
-        })),
-        messageKeywords,
+        id: topic.id,
+        name: topic.name,
+        description: topic.description,
+        keywords: topic.keywords,
+        confidence: parseFloat(confidence.toFixed(3)),
+        match_reasons: buildMatchReasons(factors, topic, messageKeywords),
+        message_count: topic.messageCount,
+        sample_messages: (topic.sampleMessages || []).slice(0, 3),
       };
-    } catch (error) {
-      return { error: error.message };
+    });
+
+    // Generate recommendation
+    const recommendation = generateRecommendation(scoredMatches);
+
+    const result = {
+      matches: scoredMatches,
+      recommendation,
+      query_keywords: messageKeywords,
+    };
+
+    // Include all topics if requested
+    if (include_all && allTopics.length > 0) {
+      result.all_topics = allTopics.map(t => ({
+        id: t._additional?.id,
+        name: t.name,
+        description: t.description,
+        message_count: t.messageCount,
+      }));
+      result.total_topic_count = allTopics.length;
     }
+
+    return result;
   },
 
   /**
-   * Evaluate if an existing topic is specific enough or too broad/categorical
+   * TOOL 3: categorize
+   * Final decision - assign or create
    */
-  async evaluate_topic_specificity({ topic_id, proposed_message }) {
-    // Get the topic and its messages
-    const topicMessages = await getMessagesByTopic(topic_id, 10);
-    const topic = await getTopicById(topic_id);
-    
-    if (!topic) {
-      return { error: 'Topic not found' };
-    }
-    
-    // Analyze specificity
-    const issues = [];
-    
-    // Check 1: Does topic name sound like a category?
-    const categoryPatterns = [
-      /issues?$/i,
-      /problems?$/i,
-      /stuff$/i,
-      /things?$/i,
-      /general/i,
-      /misc/i,
-      /various/i,
-      /and\s+\w+\s+(issues?|problems?)/i,  // "X and Y issues"
-    ];
-    
-    for (const pattern of categoryPatterns) {
-      if (pattern.test(topic.name)) {
-        issues.push(`Topic name "${topic.name}" sounds like a category, not a specific issue`);
-        break;
+  async categorize({ action, topic_id, topic_name, new_topic, reasoning }) {
+    if (action === 'assign') {
+      if (!topic_id) {
+        return { error: 'topic_id is required when action is "assign"' };
       }
-    }
-    
-    // Check 2: Do existing messages seem to be about different things?
-    if (topicMessages.length >= 3) {
-      // This is a simplified check - in production you'd use embeddings
-      const uniqueSubjects = new Set();
-      for (const msg of topicMessages) {
-        // Extract key nouns/subjects (simplified)
-        const keywords = extractKeywords(msg.text);
-        uniqueSubjects.add(keywords.slice(0, 2).join(' '));
+      return {
+        action: 'assign',
+        topic_id,
+        topic_name: topic_name || 'Unknown',
+        reasoning,
+      };
+    } else if (action === 'create') {
+      if (!new_topic || !new_topic.name) {
+        return { error: 'new_topic with name is required when action is "create"' };
       }
-      
-      if (uniqueSubjects.size > topicMessages.length * 0.6) {
-        issues.push(`Topic contains ${topicMessages.length} messages about seemingly different subjects`);
-      }
+      return {
+        action: 'create',
+        name: new_topic.name,
+        description: new_topic.description || `Messages about ${new_topic.name}`,
+        keywords: new_topic.keywords || [],
+        reasoning,
+      };
+    } else {
+      return { error: `Invalid action: ${action}. Must be "assign" or "create"` };
     }
-    
-    // Check 3: Would the proposed message fit naturally?
-    const messageKeywords = extractKeywords(proposed_message);
-    const topicKeywords = topic.keywords || [];
-    const overlap = keywordOverlap(messageKeywords, topicKeywords);
-    
-    if (overlap < 0.2) {
-      issues.push(`Low keyword overlap (${(overlap * 100).toFixed(0)}%) - message may not naturally fit this topic`);
-    }
-    
-    const isSpecific = issues.length === 0;
-    
-    return {
-      topicId: topic_id,
-      topicName: topic.name,
-      isSpecificEnough: isSpecific,
-      issues: issues,
-      recommendation: isSpecific 
-        ? `Topic is specific - OK to assign if message is about "${topic.name}"`
-        : `Topic may be too broad. Consider creating a more specific topic for this message.`,
-      existingMessageSample: topicMessages.slice(0, 3).map(m => truncate(m.text, 100)),
-    };
   },
 };
+
+/**
+ * Build human-readable match reasons
+ */
+function buildMatchReasons(factors, topic, messageKeywords) {
+  const reasons = [];
+  
+  if (factors.rrfScore > 0.5) reasons.push('semantic_match');
+  if (factors.keywordOverlap > 0.3) {
+    const overlapping = (topic.keywords || [])
+      .filter(k => messageKeywords.some(mk => 
+        normalizeText(k) === normalizeText(mk) || fuzzySimilarity(k, mk) > 0.8
+      ));
+    if (overlapping.length > 0) {
+      reasons.push(`keyword_overlap:${overlapping.slice(0, 3).join(',')}`);
+    }
+  }
+  if (factors.nameSimilarity > 0.4) reasons.push('name_similarity');
+  if (factors.recencyBoost > 0.5) reasons.push('high_activity');
+  
+  return reasons.length > 0 ? reasons : ['partial_match'];
+}
+
+/**
+ * Generate action recommendation based on matches
+ */
+function generateRecommendation(matches) {
+  if (matches.length === 0) {
+    return {
+      action: 'create',
+      confidence: 0,
+      reason: 'No existing topics found - create a new specific topic',
+    };
+  }
+
+  const bestMatch = matches[0];
+  
+  if (bestMatch.confidence >= 0.80) {
+    return {
+      action: 'assign',
+      confidence: bestMatch.confidence,
+      suggested_topic_id: bestMatch.id,
+      suggested_topic_name: bestMatch.name,
+      reason: `High confidence match with "${bestMatch.name}"`,
+    };
+  } else if (bestMatch.confidence >= 0.50) {
+    return {
+      action: 'review',
+      confidence: bestMatch.confidence,
+      suggested_topic_id: bestMatch.id,
+      suggested_topic_name: bestMatch.name,
+      reason: `Possible match with "${bestMatch.name}" - review context to decide`,
+    };
+  } else {
+    return {
+      action: 'create',
+      confidence: bestMatch.confidence,
+      reason: `Low confidence matches - consider creating a new specific topic`,
+    };
+  }
+}
 
 // ============================================================================
 // Tool Executor
@@ -1571,41 +1144,24 @@ async function executeToolCall(toolName, args) {
   return handler.call(toolHandlers, args);
 }
 
+// ============================================================================
+// Database Operations
+// ============================================================================
+
 /**
- * Create topic in database with duplicate detection
+ * Create topic in database with improved embedding
  */
 async function createTopicInDB(name, description, keywords, options = {}) {
-  const { skipValidation = false, verbose = true, users = [] } = options;
+  const { users = [], sampleMessages = [] } = options;
   
-  // Validate topic before creation to prevent duplicates
-  if (!skipValidation) {
-    try {
-      const existingTopics = await fetchAllTopics();
-      const validation = await analyzeTopicCreation(
-        { name, description, keywords },
-        existingTopics,
-        { semanticThreshold: 0.7, fuzzyThreshold: 0.6, keywordThreshold: 0.4 }
-      );
-      
-      // If we shouldn't create this topic, return the existing one
-      if (!validation.shouldCreate && validation.suggestions.length > 0) {
-        const bestMatch = validation.suggestions[0];
-        if (bestMatch.recommendation === 'use_existing' || bestMatch.combinedScore >= 0.75) {
-          if (verbose) {
-            console.log(`   ⚠️  Topic "${name}" is similar to existing "${bestMatch.topic.name}" (${(bestMatch.combinedScore * 100).toFixed(0)}% match)`);
-            console.log(`   → Using existing topic instead of creating duplicate`);
-          }
-          return bestMatch.topic.id;
-        }
-      }
-    } catch (error) {
-      // If validation fails, proceed with creation
-      console.error(`   ⚠️  Topic validation error: ${error.message}, proceeding with creation`);
-    }
-  }
-  
-  // Generate combined search text for better semantic matching (includes users)
-  const combinedSearchText = getTopicEmbeddingText({ name, description, keywords, users });
+  // Build structured embedding text
+  const combinedSearchText = buildTopicEmbeddingText({ 
+    name, 
+    description, 
+    keywords, 
+    users,
+    sampleMessages,
+  });
   
   const result = await client.data
     .creator()
@@ -1614,13 +1170,15 @@ async function createTopicInDB(name, description, keywords, options = {}) {
       name,
       description,
       keywords,
-      users: users || [],  // List of user names associated with this topic
+      users: users || [],
+      sampleMessages: sampleMessages || [],
       combinedSearchText,
       messageCount: 0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     })
     .do();
+    
   return result.id;
 }
 
@@ -1628,17 +1186,16 @@ async function createTopicInDB(name, description, keywords, options = {}) {
  * Store message and link to topic
  */
 async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
-  // Get user name from message (enriched by slack-tester.js)
   const userName = message.user_name || message.user_real_name || message.user;
   
-  // Create message with user name
+  // Create message
   const msgResult = await client.data
     .creator()
     .withClassName('SlackMessage')
     .withProperties({
       text: message.text,
       user: message.user,
-      userName: userName,  // Include user's display name
+      userName: userName,
       timestamp: message.ts,
       channelId: channelInfo.id,
       channelName: channelInfo.name,
@@ -1662,7 +1219,7 @@ async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
     )
     .do();
 
-  // Update topic: message count + add user to users list + regenerate embedding
+  // Update topic with new message info
   const currentTopic = await client.data
     .getterById()
     .withClassName('Topic')
@@ -1675,12 +1232,17 @@ async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
     ? existingUsers 
     : [...existingUsers, userName];
   
-  // Regenerate combined search text with updated users for better embedding
-  const updatedCombinedSearchText = getTopicEmbeddingText({
+  // Add message to sample messages (keep last 10)
+  const existingSamples = currentTopic.properties.sampleMessages || [];
+  const updatedSamples = [...existingSamples, truncate(message.text, 100)].slice(-10);
+  
+  // Regenerate embedding text with updated data
+  const updatedCombinedSearchText = buildTopicEmbeddingText({
     name: currentTopic.properties.name,
     description: currentTopic.properties.description,
     keywords: currentTopic.properties.keywords,
     users: updatedUsers,
+    sampleMessages: updatedSamples,
   });
 
   await client.data
@@ -1688,13 +1250,12 @@ async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
     .withClassName('Topic')
     .withId(topicId)
     .withProperties({
-      // Preserve existing properties
       name: currentTopic.properties.name,
       description: currentTopic.properties.description,
       keywords: currentTopic.properties.keywords,
       createdAt: currentTopic.properties.createdAt,
-      // Update these
       users: updatedUsers,
+      sampleMessages: updatedSamples,
       combinedSearchText: updatedCombinedSearchText,
       messageCount: (currentTopic.properties.messageCount || 0) + 1,
       updatedAt: new Date().toISOString(),
@@ -1719,7 +1280,6 @@ async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
     topicName,
   });
 
-  // Keep only last 20 messages in memory
   if (conversationContext[channelId].recentMessages.length > 20) {
     conversationContext[channelId].recentMessages.shift();
   }
@@ -1730,11 +1290,75 @@ async function storeMessageWithTopic(message, channelInfo, topicId, topicName) {
   return msgResult.id;
 }
 
+// ============================================================================
+// Logging Helpers
+// ============================================================================
+
 /**
- * Main categorization function using agentic loop
+ * Log tool results in a readable format
  */
+function logToolResult(toolName, result) {
+  switch (toolName) {
+    case 'get_context':
+      // Show what context was found
+      if (result.thread_parent) {
+        console.log(`         🧵 Thread parent: "${truncate(result.thread_parent.text, 50)}"`);
+        if (result.thread_parent.topic) {
+          console.log(`            └─ Topic: ${result.thread_parent.topic.name}`);
+        }
+      }
+      if (result.recent_messages?.length > 0) {
+        console.log(`         📨 Recent messages (${result.recent_messages.length}):`);
+        result.recent_messages.slice(0, 3).forEach((m, i) => {
+          const topicInfo = m.topic_name ? ` → [${m.topic_name}]` : '';
+          console.log(`            ${i + 1}. "${truncate(m.text, 40)}"${topicInfo}`);
+        });
+      } else {
+        console.log(`         📨 No recent messages found`);
+      }
+      if (result.channel?.current_topic) {
+        console.log(`         📺 Channel topic: ${result.channel.current_topic.name}`);
+      }
+      if (result.hint) {
+        console.log(`         💡 ${result.hint}`);
+      }
+      break;
+
+    case 'find_topics':
+      // Show search results
+      if (result.matches?.length > 0) {
+        console.log(`         🔍 Found ${result.matches.length} matching topics:`);
+        result.matches.slice(0, 3).forEach((m, i) => {
+          const conf = (m.confidence * 100).toFixed(0);
+          const reasons = m.match_reasons?.slice(0, 2).join(', ') || '';
+          console.log(`            ${i + 1}. ${m.name} (${conf}%) ${reasons ? `[${reasons}]` : ''}`);
+        });
+      } else {
+        console.log(`         🔍 No matching topics found`);
+      }
+      if (result.recommendation) {
+        const conf = (result.recommendation.confidence * 100).toFixed(0);
+        console.log(`         📊 Recommendation: ${result.recommendation.action.toUpperCase()} (${conf}%)`);
+        if (result.recommendation.reason) {
+          console.log(`            └─ ${result.recommendation.reason}`);
+        }
+      }
+      break;
+
+    default:
+      // Generic fallback for other tools
+      if (result.error) {
+        console.log(`         ❌ Error: ${result.error}`);
+      }
+  }
+}
+
+// ============================================================================
+// Main Categorization Function
+// ============================================================================
+
 async function categorizeMessage(message, channelInfo, options = {}) {
-  const { verbose = true, maxIterations = 10 } = options;
+  const { verbose = true, maxIterations = 5 } = options;
   const startTime = Date.now();
 
   if (!message.text || message.text.trim().length === 0) {
@@ -1746,16 +1370,15 @@ async function categorizeMessage(message, channelInfo, options = {}) {
   currentMessage = message;
   currentChannelInfo = channelInfo;
 
-  // Define these BEFORE using them in logging
   const isShortMessage = message.text.length < 15;
   const isThreadReply = message.thread_ts && message.thread_ts !== message.ts;
 
   if (verbose) {
     console.log(`\n${'═'.repeat(70)}`);
-    console.log(`🤖 SMART CATEGORIZER - New Message`);
+    console.log(`🤖 SMART CATEGORIZER (Optimized 3-Tool Architecture)`);
     console.log(`${'═'.repeat(70)}`);
     console.log(`   📝 Text: "${message.text.substring(0, 80)}${message.text.length > 80 ? '...' : ''}"`);
-    console.log(`   📏 Length: ${message.text.length} chars (${isShortMessage ? 'SHORT - likely confirmation' : 'SUBSTANTIVE'})`);
+    console.log(`   📏 Length: ${message.text.length} chars (${isShortMessage ? 'SHORT' : 'SUBSTANTIVE'})`);
     console.log(`   👤 User: ${message.user}`);
     console.log(`   📺 Channel: ${channelInfo.name}`);
     console.log(`   🧵 Thread Reply: ${isThreadReply ? 'YES' : 'NO'}`);
@@ -1768,29 +1391,13 @@ async function categorizeMessage(message, channelInfo, options = {}) {
 **Length:** ${message.text.length} characters
 **User:** ${message.user}
 **Channel:** ${channelInfo.name}
-**Thread Reply:** ${isThreadReply ? 'YES - this replies to another message' : 'NO'}
-**Message Type:** ${isShortMessage ? 'SHORT (likely confirmation/reaction)' : 'SUBSTANTIVE (has real content)'}
+**Thread Reply:** ${isThreadReply ? 'YES' : 'NO'}
+**Message Type:** ${isShortMessage ? 'SHORT (likely confirmation/reaction)' : 'SUBSTANTIVE'}
 
-## YOUR INSTRUCTIONS
-
-${isThreadReply 
-  ? `This is a THREAD REPLY.
-1. Call get_thread_parent to find what this replies to
-2. Use the SAME topic as the parent message`
-  : isShortMessage 
-    ? `This is a SHORT message (probably "ok", "yes", "حله", "مرسی", etc.)
-1. Call get_conversation_context to see recent messages
-2. This is likely a response - inherit the topic from the most recent message`
-    : `This is a SUBSTANTIVE message with real content.
-1. First, understand what SUBJECT this message discusses
-2. Call get_conversation_context to see the recent conversation
-3. Call get_all_topics to see existing topics
-4. Call search_existing_topics with keywords from this message
-5. Decide: Does this match an existing topic, or is it a new subject?
-
-Key question: What is this message ABOUT? Find or create the right topic.`}
-
-DO NOT make a decision until you have gathered sufficient context using the tools.`;
+Follow the workflow:
+1. Call get_context first
+2. Call find_topics with relevant query
+3. Call categorize to make final decision`;
 
   const messages = [
     { role: 'system', content: SYSTEM_PROMPT },
@@ -1804,10 +1411,8 @@ DO NOT make a decision until you have gathered sufficient context using the tool
     iterations++;
 
     if (verbose) {
-      console.log(`\n   ${'─'.repeat(50)}`);
-      console.log(`   📍 ITERATION ${iterations}/${maxIterations}`);
-      console.log(`   ${'─'.repeat(50)}`);
-    };
+      console.log(`\n   📍 Iteration ${iterations}/${maxIterations}`);
+    }
 
     try {
       const response = await openai.chat.completions.create({
@@ -1815,17 +1420,15 @@ DO NOT make a decision until you have gathered sufficient context using the tool
         messages,
         tools,
         tool_choice: 'auto',
-        temperature: 0.2,
-        max_tokens: 1000,
+        temperature: 0.1,
+        max_tokens: 800,
       });
 
       const assistantMessage = response.choices[0].message;
       messages.push(assistantMessage);
 
-      // Log assistant's thinking if it has content
       if (verbose && assistantMessage.content) {
-        console.log(`\n      💭 Agent thinking:`);
-        console.log(`         ${assistantMessage.content.split('\n').join('\n         ')}`);
+        console.log(`      💭 ${assistantMessage.content.substring(0, 100)}...`);
       }
 
       if (assistantMessage.tool_calls && assistantMessage.tool_calls.length > 0) {
@@ -1834,10 +1437,7 @@ DO NOT make a decision until you have gathered sufficient context using the tool
           const args = JSON.parse(toolCall.function.arguments || '{}');
 
           if (verbose) {
-            console.log(`\n      🔧 Tool: ${toolName}`);
-            if (Object.keys(args).length > 0) {
-              console.log(`         Args: ${JSON.stringify(args)}`);
-            }
+            console.log(`      🔧 ${toolName}${args.query ? `: "${args.query.substring(0, 50)}..."` : ''}`);
           }
 
           const result = await executeToolCall(toolName, args);
@@ -1845,24 +1445,12 @@ DO NOT make a decision until you have gathered sufficient context using the tool
           if (result.action === 'assign' || result.action === 'create') {
             decision = result;
             if (verbose) {
-              console.log(`\n      ✅ DECISION MADE`);
-              console.log(`         Action: ${result.action === 'assign' ? 'Assign to existing topic' : 'Create new topic'}`);
-              console.log(`         Topic: ${result.action === 'assign' ? result.topic_name : result.name}`);
-              console.log(`         Reasoning: ${result.reasoning}`);
+              console.log(`      ✅ Decision: ${result.action === 'assign' ? 'ASSIGN' : 'CREATE'} → ${result.action === 'assign' ? result.topic_name : result.name}`);
             }
           } else {
-            // Log the tool result
+            // Log useful details from each tool
             if (verbose) {
-              console.log(`         📋 Result:`);
-              const resultStr = JSON.stringify(result, null, 2);
-              const lines = resultStr.split('\n');
-              // Show first 15 lines, summarize if longer
-              if (lines.length > 15) {
-                console.log(`         ${lines.slice(0, 15).join('\n         ')}`);
-                console.log(`         ... (${lines.length - 15} more lines)`);
-              } else {
-                console.log(`         ${lines.join('\n         ')}`);
-              }
+              logToolResult(toolName, result);
             }
             
             messages.push({
@@ -1873,54 +1461,23 @@ DO NOT make a decision until you have gathered sufficient context using the tool
           }
         }
       } else if (response.choices[0].finish_reason === 'stop' && !decision) {
-        // Agent stopped without using a decision tool - prompt it to decide
-        if (verbose) {
-          console.log(`\n      ⚠️  Agent stopped without making a decision`);
-          console.log(`         Prompting agent to make a final choice...`);
-        }
-        
         messages.push({
           role: 'user',
-          content: `You have gathered context but haven't made a final decision yet.
-
-Based on what you learned, you MUST now call either:
-- assign_to_topic (if you found a matching existing topic)
-- create_new_topic (if this is a new subject)
-
-Make your decision now.`,
+          content: 'You must make a final decision. Call the categorize tool now with action="assign" or action="create".',
         });
-        
-        // Continue to next iteration to let agent decide
-        continue;
       }
     } catch (error) {
-      console.error(`\n      ❌ ERROR in iteration ${iterations}`);
-      console.error(`         Message: ${error.message}`);
-      if (error.status) console.error(`         HTTP Status: ${error.status}`);
-      if (error.code) console.error(`         Code: ${error.code}`);
-      
-      if (iterations >= maxIterations) {
-        console.error(`         Max iterations reached, throwing error`);
-        throw error;
-      }
-      console.log(`         Retrying...`);
+      console.error(`      ❌ Error: ${error.message}`);
+      if (iterations >= maxIterations) throw error;
     }
   }
 
-  // If no decision after all iterations, create a fallback based on message analysis
+  // Fallback if no decision made
   if (!decision) {
-    if (verbose) {
-      console.log(`\n   ⚠️  FALLBACK MODE`);
-      console.log(`   ${'─'.repeat(50)}`);
-      console.log(`   Max iterations (${maxIterations}) reached without decision.`);
-      console.log(`   Using fallback logic...`);
-    }
+    if (verbose) console.log(`   ⚠️  Fallback mode activated`);
     
-    // Simple fallback: analyze message content
-    const text = message.text.toLowerCase();
     const channelContext = conversationContext[channelInfo.id];
     
-    // For short messages, use recent topic if available
     if (message.text.length < 15 && channelContext?.currentTopicId) {
       decision = {
         action: 'assign',
@@ -1928,12 +1485,7 @@ Make your decision now.`,
         topic_name: channelContext.currentTopicName,
         reasoning: 'Fallback: Short message assigned to recent topic',
       };
-      if (verbose) {
-        console.log(`   → Short message detected`);
-        console.log(`   → Assigning to recent topic: "${channelContext.currentTopicName}"`);
-      }
     } else {
-      // Create a general topic as last resort
       decision = {
         action: 'create',
         name: 'General Discussion',
@@ -1941,9 +1493,6 @@ Make your decision now.`,
         keywords: ['general', 'chat', 'discussion'],
         reasoning: 'Fallback: Could not determine specific topic',
       };
-      if (verbose) {
-        console.log(`   → Creating fallback "General Discussion" topic`);
-      }
     }
   }
 
@@ -1954,10 +1503,10 @@ Make your decision now.`,
     topicId = decision.topic_id;
     topicName = decision.topic_name;
   } else {
-    // Get user name for initial topic creation
     const userName = message.user_name || message.user_real_name || message.user;
     topicId = await createTopicInDB(decision.name, decision.description, decision.keywords, {
       users: userName ? [userName] : [],
+      sampleMessages: [truncate(message.text, 100)],
     });
     topicName = decision.name;
     if (verbose) console.log(`      🆕 Created topic: ${topicId}`);
@@ -1968,15 +1517,9 @@ Make your decision now.`,
   const totalTime = Date.now() - startTime;
   if (verbose) {
     console.log(`\n${'═'.repeat(70)}`);
-    console.log(`   ✨ CATEGORIZATION COMPLETE`);
-    console.log(`${'═'.repeat(70)}`);
-    console.log(`   📌 Topic: ${topicName}`);
-    console.log(`   🆔 Topic ID: ${topicId}`);
-    console.log(`   📝 Message ID: ${messageId}`);
-    console.log(`   🔄 Iterations: ${iterations}`);
-    console.log(`   ⏱️  Time: ${totalTime}ms`);
-    console.log(`   📊 Action: ${decision.action === 'assign' ? 'Assigned to existing' : 'Created new topic'}`);
-    console.log(`   💡 Reasoning: ${decision.reasoning}`);
+    console.log(`   ✨ COMPLETE: ${topicName}`);
+    console.log(`   📊 ${iterations} iterations | ${totalTime}ms | ${decision.action.toUpperCase()}`);
+    console.log(`   💬 ${decision.reasoning}`);
     console.log(`${'═'.repeat(70)}\n`);
   }
 
@@ -1991,15 +1534,16 @@ Make your decision now.`,
   };
 }
 
-/**
- * Get all topics (compatibility)
- */
+// ============================================================================
+// Exports
+// ============================================================================
+
 async function getAllTopics() {
   try {
     const result = await client.graphql
       .get()
       .withClassName('Topic')
-      .withFields('name description keywords users combinedSearchText messageCount createdAt updatedAt _additional { id }')
+      .withFields('name description keywords users sampleMessages combinedSearchText messageCount createdAt updatedAt _additional { id }')
       .withLimit(100)
       .do();
     return result.data.Get.Topic || [];
@@ -2009,244 +1553,18 @@ async function getAllTopics() {
   }
 }
 
-/**
- * Reset conversation context (useful for testing)
- */
 function resetContext() {
   Object.keys(conversationContext).forEach(key => delete conversationContext[key]);
 }
 
-// ============================================================================
-// FAST SINGLE-SHOT CATEGORIZER
-// ============================================================================
-
-/**
- * Build pre-loaded context for fast categorization
- */
-async function buildCategorizationContext(message, channelInfo) {
-  const isThreadReply = message.thread_ts && message.thread_ts !== message.ts;
-  const isShortMessage = message.text.length < 15;
-
-  // Fetch all context in parallel
-  const [recentMessages, allTopics, threadContext] = await Promise.all([
-    // Get recent messages from Slack
-    fetchMessagesBefore(channelInfo.id, message.ts, 5),
-    // Get all existing topics
-    fetchAllTopics(),
-    // Get thread parent if applicable
-    isThreadReply ? fetchThreadFromDB(message.thread_ts) : Promise.resolve([]),
-  ]);
-
-  // Enrich recent messages with their topics
-  const topicsMap = await fetchMessageTopics(recentMessages);
-
-  const enrichedRecentMessages = recentMessages.map((m) => ({
-    text: truncate(m.text, 150),
-    user: m.user,
-    minutesAgo: getMinutesBetween(message.ts, m.ts),
-    topicId: topicsMap[m.ts]?.id || null,
-    topicName: topicsMap[m.ts]?.name || null,
-  }));
-
-  // Process thread context
-  let threadParent = null;
-  if (isThreadReply && threadContext.length > 0) {
-    const parent = threadContext.find((m) => m.timestamp === message.thread_ts) || threadContext[0];
-    const topic = extractTopicInfo(parent.topic);
-    threadParent = {
-      text: truncate(parent.text, 200),
-      topicId: topic?.id,
-      topicName: topic?.name,
-    };
-  }
-
-  return {
-    message: {
-      text: message.text,
-      user: message.user,
-      ts: message.ts,
-      length: message.text.length,
-      isShortMessage,
-      isThreadReply,
-    },
-    channel: {
-      id: channelInfo.id,
-      name: channelInfo.name,
-    },
-    recentMessages: enrichedRecentMessages,
-    topics: allTopics.map((t) => ({
-      id: t._additional.id,
-      name: t.name,
-      description: t.description,
-      messageCount: t.messageCount,
-      keywords: t.keywords,
-    })),
-    threadParent,
-  };
-}
-
-/**
- * Build the user message with all context injected
- */
-function buildFastCategorizerPrompt(context) {
-  const { message, channel, recentMessages, topics, threadParent } = context;
-
-  const messageType = message.isShortMessage ? 'SHORT (likely confirmation/reaction)' : 'SUBSTANTIVE';
-
-  // Thread context section
-  let threadSection = 'Not a thread reply.';
-  if (threadParent) {
-    threadSection = `This is a THREAD REPLY.
-Parent message: "${threadParent.text}"
-Parent topic: ${threadParent.topicName || 'uncategorized'} ${threadParent.topicId ? `(ID: ${threadParent.topicId})` : ''}
-→ Use the same topic as parent.`;
-  }
-
-  // Recent messages section
-  let recentSection = 'No recent messages.';
-  if (recentMessages.length > 0) {
-    recentSection = recentMessages
-      .map(
-        (m, i) =>
-          `${i + 1}. [${m.minutesAgo} min ago] ${m.user}: "${m.text}"
-   Topic: ${m.topicName || 'uncategorized'} ${m.topicId ? `(ID: ${m.topicId})` : ''}`
-      )
-      .join('\n');
-  }
-
-  // Topics section
-  let topicsSection = 'No topics exist yet. You will need to create the first one.';
-  if (topics.length > 0) {
-    topicsSection = topics
-      .map(
-        (t) =>
-          `- **${t.name}** (ID: ${t.id})
-  ${t.description || 'No description'}
-  Messages: ${t.messageCount || 0} | Keywords: ${t.keywords?.join(', ') || 'none'}`
-      )
-      .join('\n');
-  }
-
-  return `# MESSAGE TO CATEGORIZE
-
-Text: "${message.text}"
-User: ${message.user}
-Channel: ${channel.name}
-Timestamp: ${message.ts}
-Message length: ${message.length} characters
-Type: ${messageType}
-
-# THREAD CONTEXT
-${threadSection}
-
-# RECENT CONVERSATION (last ${recentMessages.length} messages in this channel)
-${recentSection}
-
-# ALL EXISTING TOPICS (${topics.length} total)
-${topicsSection}
-
-# YOUR TASK
-
-Analyze the message and context above. Output your decision as JSON.`;
-}
-
-/**
- * Parse LLM response into decision object
- */
-function parseFastCategorizerResponse(responseText) {
-  try {
-    // Try to extract JSON from the response
-    let jsonStr = responseText.trim();
-
-    // Handle markdown code blocks
-    const jsonMatch = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/);
-    if (jsonMatch) {
-      jsonStr = jsonMatch[1].trim();
-    }
-
-    const parsed = JSON.parse(jsonStr);
-
-    // Validate required fields
-    if (parsed.action === 'assign') {
-      if (!parsed.topic_id || !parsed.topic_name) {
-        throw new Error('Missing topic_id or topic_name for assign action');
-      }
-      return {
-        action: 'assign',
-        topic_id: parsed.topic_id,
-        topic_name: parsed.topic_name,
-        confidence: parsed.confidence || 0.8,
-        reasoning: parsed.reasoning || 'No reasoning provided',
-      };
-    } else if (parsed.action === 'create') {
-      if (!parsed.topic_name) {
-        throw new Error('Missing topic_name for create action');
-      }
-      return {
-        action: 'create',
-        name: parsed.topic_name,
-        description: parsed.topic_description || `Messages about ${parsed.topic_name}`,
-        keywords: parsed.topic_keywords || [],
-        confidence: parsed.confidence || 0.7,
-        reasoning: parsed.reasoning || 'New topic needed',
-      };
-    } else {
-      throw new Error(`Invalid action: ${parsed.action}`);
-    }
-  } catch (error) {
-    throw new Error(`Failed to parse LLM response: ${error.message}\nResponse: ${responseText}`);
-  }
-}
-
-/**
- * Decide whether to use fast or full agent mode
- */
-function shouldUseFastMode(message, context) {
-  // Always use fast mode for thread replies - simple decision
-  if (context.message.isThreadReply && context.threadParent?.topicId) {
-    return true;
-  }
-
-  // Always use fast mode for short messages with recent context
-  if (context.message.isShortMessage && context.recentMessages.length > 0) {
-    return true;
-  }
-
-  // Use agent mode if no context and many topics (needs search)
-  if (context.recentMessages.length === 0 && context.topics.length > 20) {
-    return false;
-  }
-
-  // Use agent mode for very long/complex messages
-  if (message.text.length > 500) {
-    return false;
-  }
-
-  // Default: use fast mode
-  return true;
-}
-
-/**
- * Smart categorization - automatically chooses fast or agent mode
- */
-async function categorizeMessageSmart(message, channelInfo, options = {}) {
-  const { verbose = true } = options;
-
-  if (!message.text || message.text.trim().length === 0) {
-    if (verbose) console.log('  ⏭️  Skipping empty message');
-    return null;
-  }
-
-  return categorizeMessage(message, channelInfo, options);
-
-}
+// Alias for backwards compatibility
+const categorizeMessageSmart = categorizeMessage;
 
 export { 
   categorizeMessage, 
   categorizeMessageSmart,
   getAllTopics, 
   resetContext,
-  buildCategorizationContext,
-  shouldUseFastMode,
   createTopicInDB,
+  buildTopicEmbeddingText,
 };
