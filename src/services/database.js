@@ -277,6 +277,70 @@ export async function storeMessageWithTopic(message, channelInfo, topicId, topic
 }
 
 /**
+ * Update a topic's properties in the database
+ * Also regenerates combinedSearchText for vector DB
+ * @param {string} topicId - Topic UUID
+ * @param {Object} updates - Properties to update (name, description, keywords)
+ * @returns {Promise<Object>} Updated topic
+ */
+export async function updateTopic(topicId, updates) {
+  // Get current topic data
+  const currentTopic = await client.data
+    .getterById()
+    .withClassName('Topic')
+    .withId(topicId)
+    .do();
+
+  if (!currentTopic || !currentTopic.properties) {
+    throw new Error(`Topic not found: ${topicId}`);
+  }
+
+  // Merge updates with current properties
+  const updatedName = updates.name ?? currentTopic.properties.name;
+  const updatedDescription = updates.description ?? currentTopic.properties.description;
+  const updatedKeywords = updates.keywords ?? currentTopic.properties.keywords;
+  const updatedUsers = updates.users ?? currentTopic.properties.users ?? [];
+  const updatedSampleMessages = updates.sampleMessages ?? currentTopic.properties.sampleMessages ?? [];
+
+  // Rebuild combinedSearchText with updated name and description
+  const updatedCombinedSearchText = buildTopicEmbeddingText({
+    name: updatedName,
+    description: updatedDescription,
+    keywords: updatedKeywords,
+    users: updatedUsers,
+    sampleMessages: updatedSampleMessages,
+  });
+
+  // Update topic with all properties
+  await client.data
+    .updater()
+    .withClassName('Topic')
+    .withId(topicId)
+    .withProperties({
+      name: updatedName,
+      description: updatedDescription,
+      keywords: updatedKeywords,
+      users: updatedUsers,
+      sampleMessages: updatedSampleMessages,
+      combinedSearchText: updatedCombinedSearchText,
+      messageCount: currentTopic.properties.messageCount || 0,
+      createdAt: currentTopic.properties.createdAt,
+      updatedAt: new Date().toISOString(),
+    })
+    .do();
+
+  return {
+    id: topicId,
+    name: updatedName,
+    description: updatedDescription,
+    keywords: updatedKeywords,
+    users: updatedUsers,
+    sampleMessages: updatedSampleMessages,
+    messageCount: currentTopic.properties.messageCount || 0,
+  };
+}
+
+/**
  * Get all topics from database
  * @returns {Promise<Array>} All topics
  */

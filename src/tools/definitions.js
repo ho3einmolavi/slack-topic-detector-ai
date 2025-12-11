@@ -63,6 +63,14 @@ export const tools = [
             type: 'string',
             description: 'Required if action="assign". The name of the topic (for logging)',
           },
+          improved_name: {
+            type: 'string',
+            description: 'Optional if action="assign". A better/more accurate topic name based on accumulated messages',
+          },
+          improved_description: {
+            type: 'string',
+            description: 'Optional if action="assign". A better/more accurate topic description/summary based on accumulated messages',
+          },
           new_topic: {
             type: 'object',
             description: 'Required if action="create". The new topic details',

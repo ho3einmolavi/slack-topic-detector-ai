@@ -1,16 +1,31 @@
 {
-  "fetched_at": "2025-12-09T01:09:26.245Z",
+  "fetched_at": "2025-12-11T00:10:46.952Z",
   "period": {
-    "from": "2025-10-10T01:09:23.000Z",
-    "to": "2025-12-09T01:09:26.246Z"
+    "from": "2025-10-12T00:10:43.000Z",
+    "to": "2025-12-11T00:10:46.957Z"
   },
   "channel": {
     "id": "C09UBEXBD8C",
     "name": "mpdm-hossein.m--asghar--farzin964--abbas--workformlocalhossein--workformstage-1",
     "type": "mpim"
   },
+  "total_messages": 112,
   "total_users": 4,
   "users": {
+    "U093YSSUWBG": {
+      "id": "U093YSSUWBG",
+      "name": "hossein.m",
+      "real_name": "Hossein Molavi",
+      "display_name": "Hossein Molavi",
+      "is_bot": false
+    },
+    "U09FLV6BPQB": {
+      "id": "U09FLV6BPQB",
+      "name": "farzin964",
+      "real_name": "Farzin",
+      "display_name": "Farzin",
+      "is_bot": false
+    },
     "U05SL9R85PF": {
       "id": "U05SL9R85PF",
       "name": "asghar",
@@ -23,20 +38,6 @@
       "name": "abbas",
       "real_name": "Abbas Hasanzadeh",
       "display_name": "Abbas",
-      "is_bot": false
-    },
-    "U09FLV6BPQB": {
-      "id": "U09FLV6BPQB",
-      "name": "farzin964",
-      "real_name": "Farzin",
-      "display_name": "Farzin",
-      "is_bot": false
-    },
-    "U093YSSUWBG": {
-      "id": "U093YSSUWBG",
-      "name": "hossein.m",
-      "real_name": "Hossein Molavi",
-      "display_name": "Hossein Molavi",
       "is_bot": false
     }
   },
@@ -4607,6 +4608,1247 @@
       ],
       "user_name": "Asghar",
       "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "text": "*Update: Topic Detection R&D Progress*\nBuilt a working prototype for automatic topic detection using Slack messages + RAG + AI Agent.\n*What I tried:*\n• Started with semantic search only → poor results\n• Added agentic loop with tool-calling → significantly better\n• Iterated heavily on context gathering, tool design, and system prompts\n*Current state:*\n• Working solution with 13 specialized tools\n• Handles Persian + English messages\n• Thread-aware categorization\n• Duplicate topic prevention with fuzzy matching\n*Next steps:*\n• Further tuning on edge cases\n• Need a feedback loop for learning from corrections\n• More testing before production-ready\nDocumentation + test project available if anyone wants to dig in.\n\n\nand this is the repo: <https://github.com/ho3einmolavi/slack-topic-detector-ai>",
+      "files": [
+        {
+          "id": "F0A2981UKMK",
+          "created": 1765246459,
+          "timestamp": 1765246459,
+          "name": "SMART-CATEGORIZER-DOCS.md",
+          "title": "SMART-CATEGORIZER-DOCS.md",
+          "mimetype": "text/plain",
+          "filetype": "markdown",
+          "pretty_type": "Markdown (raw)",
+          "user": "U093YSSUWBG",
+          "user_team": "T46P0EFR8",
+          "editable": true,
+          "size": 56588,
+          "mode": "snippet",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A2981UKMK/smart-categorizer-docs.md",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A2981UKMK/download/smart-categorizer-docs.md",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A2981UKMK/smart-categorizer-docs.md",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A2981UKMK-ae28a3b621",
+          "edit_link": "https://refactco.slack.com/files/U09UB8X70VA/F0A2981UKMK/smart-categorizer-docs.md/edit",
+          "preview": "# 🤖 Smart Categorizer Agent - Complete Documentation\n\n> An intelligent Slack message categorization system that uses LLM-powered agents to automatically organize messages into topics.\n\n---",
+          "preview_highlight": "<div class=\"CodeMirror cm-s-default CodeMirrorServer\">\n<div class=\"CodeMirror-code\">\n<div><pre><span class=\"cm-header cm-header-1\">#</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">�</span><span class=\"cm-header cm-header-1\">�</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">S</span><span class=\"cm-header cm-header-1\">m</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">C</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">g</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\">i</span><span class=\"cm-header cm-header-1\">z</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">A</span><span class=\"cm-header cm-header-1\">g</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">n</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">-</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">C</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">m</span><span class=\"cm-header cm-header-1\">p</span><span class=\"cm-header cm-header-1\">l</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">D</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">c</span><span class=\"cm-header cm-header-1\">u</span><span class=\"cm-header cm-header-1\">m</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">n</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">i</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">n</span></pre></div>\n<div><pre>&#8203;</pre></div>\n<div><pre><span class=\"cm-quote cm-quote-1\">&gt;</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">A</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">S</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">c</span><span class=\"cm-quote cm-quote-1\">k</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">c</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">z</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">y</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">h</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">u</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">L</span><span class=\"cm-quote cm-quote-1\">L</span><span class=\"cm-quote cm-quote-1\">M</span><span class=\"cm-quote cm-quote-1\">-</span><span class=\"cm-quote cm-quote-1\">p</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">w</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">d</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">u</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">c</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">y</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">z</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">p</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">c</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\">.</span></pre></div>\n<div><pre>&#8203;</pre></div>\n<div><pre><span class=\"cm-hr\">-</span><span class=\"cm-hr\">-</span><span class=\"cm-hr\">-</span></pre></div>\n</div>\n</div>\n",
+          "lines": 752,
+          "lines_more": 747,
+          "preview_is_truncated": true,
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        },
+        {
+          "id": "F0A269EHA0K",
+          "created": 1765246463,
+          "timestamp": 1765246463,
+          "name": "SMART-CATEGORIZER-FLOWCHARTS.md",
+          "title": "SMART-CATEGORIZER-FLOWCHARTS.md",
+          "mimetype": "text/plain",
+          "filetype": "markdown",
+          "pretty_type": "Markdown (raw)",
+          "user": "U093YSSUWBG",
+          "user_team": "T46P0EFR8",
+          "editable": true,
+          "size": 11608,
+          "mode": "snippet",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A269EHA0K/smart-categorizer-flowcharts.md",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A269EHA0K/download/smart-categorizer-flowcharts.md",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A269EHA0K/smart-categorizer-flowcharts.md",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A269EHA0K-afc8634846",
+          "edit_link": "https://refactco.slack.com/files/U09UB8X70VA/F0A269EHA0K/smart-categorizer-flowcharts.md/edit",
+          "preview": "# 📊 Smart Categorizer - Visual Flowcharts\n\n> Mermaid diagrams for the Smart Categorizer Agent. View in GitHub, GitLab, or any Mermaid-compatible viewer.\n\n---",
+          "preview_highlight": "<div class=\"CodeMirror cm-s-default CodeMirrorServer\">\n<div class=\"CodeMirror-code\">\n<div><pre><span class=\"cm-header cm-header-1\">#</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">�</span><span class=\"cm-header cm-header-1\">�</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">S</span><span class=\"cm-header cm-header-1\">m</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">C</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">g</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\">i</span><span class=\"cm-header cm-header-1\">z</span><span class=\"cm-header cm-header-1\">e</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">-</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">V</span><span class=\"cm-header cm-header-1\">i</span><span class=\"cm-header cm-header-1\">s</span><span class=\"cm-header cm-header-1\">u</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">l</span><span class=\"cm-header cm-header-1\"> </span><span class=\"cm-header cm-header-1\">F</span><span class=\"cm-header cm-header-1\">l</span><span class=\"cm-header cm-header-1\">o</span><span class=\"cm-header cm-header-1\">w</span><span class=\"cm-header cm-header-1\">c</span><span class=\"cm-header cm-header-1\">h</span><span class=\"cm-header cm-header-1\">a</span><span class=\"cm-header cm-header-1\">r</span><span class=\"cm-header cm-header-1\">t</span><span class=\"cm-header cm-header-1\">s</span></pre></div>\n<div><pre>&#8203;</pre></div>\n<div><pre><span class=\"cm-quote cm-quote-1\">&gt;</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">M</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">d</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">d</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">s</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">f</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">h</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">S</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">C</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">z</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">A</span><span class=\"cm-quote cm-quote-1\">g</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">.</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">V</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">w</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">G</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">H</span><span class=\"cm-quote cm-quote-1\">u</span><span class=\"cm-quote cm-quote-1\">b</span><span class=\"cm-quote cm-quote-1\">,</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">G</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">L</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">b</span><span class=\"cm-quote cm-quote-1\">,</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">n</span><span class=\"cm-quote cm-quote-1\">y</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">M</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">d</span><span class=\"cm-quote cm-quote-1\">-</span><span class=\"cm-quote cm-quote-1\">c</span><span class=\"cm-quote cm-quote-1\">o</span><span class=\"cm-quote cm-quote-1\">m</span><span class=\"cm-quote cm-quote-1\">p</span><span class=\"cm-quote cm-quote-1\">a</span><span class=\"cm-quote cm-quote-1\">t</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">b</span><span class=\"cm-quote cm-quote-1\">l</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\"> </span><span class=\"cm-quote cm-quote-1\">v</span><span class=\"cm-quote cm-quote-1\">i</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">w</span><span class=\"cm-quote cm-quote-1\">e</span><span class=\"cm-quote cm-quote-1\">r</span><span class=\"cm-quote cm-quote-1\">.</span></pre></div>\n<div><pre>&#8203;</pre></div>\n<div><pre><span class=\"cm-hr\">-</span><span class=\"cm-hr\">-</span><span class=\"cm-hr\">-</span></pre></div>\n</div>\n</div>\n",
+          "lines": 470,
+          "lines_more": 465,
+          "preview_is_truncated": true,
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        }
+      ],
+      "upload": false,
+      "user": "U093YSSUWBG",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "izpzm",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Update: Topic Detection R&D Progress",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\nBuilt a working prototype for automatic topic detection using Slack messages + RAG + AI Agent.\n"
+                },
+                {
+                  "type": "text",
+                  "text": "What I tried:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Started with semantic search only → poor results"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Added agentic loop with tool-calling → significantly better"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Iterated heavily on context gathering, tool design, and system prompts"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Current state:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Working solution with 13 specialized tools"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Handles Persian + English messages"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Thread-aware categorization"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Duplicate topic prevention with fuzzy matching"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Next steps:",
+                  "style": {
+                    "bold": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Further tuning on edge cases"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Need a feedback loop for learning from corrections"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "More testing before production-ready"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Documentation + test project available if anyone wants to dig in.\n\n\nand this is the repo: "
+                },
+                {
+                  "type": "link",
+                  "url": "https://github.com/ho3einmolavi/slack-topic-detector-ai"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "message",
+      "ts": "1765246471.567929",
+      "edited": {
+        "user": "U093YSSUWBG",
+        "ts": "1765247326.000000"
+      },
+      "client_msg_id": "943b87f6-6e0c-4536-8ce1-f436fb551e56",
+      "reactions": [
+        {
+          "name": "clap",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765246909.289229",
+      "client_msg_id": "2b6fdbac-cd8b-4231-b04a-d829f66e11df",
+      "text": "Guys. I’m running late and may not be able to make today’s daily meeting. I’ll share my update as soon as I’m online and start working.",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "jhni1",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Guys. I’m running late and may not be able to make today’s daily meeting. I’ll share my update as soon as I’m online and start working."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "+1",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "text": "",
+      "files": [
+        {
+          "id": "F0A2HA7TKB6",
+          "created": 1765262255,
+          "timestamp": 1765262255,
+          "name": "image.png",
+          "title": "image.png",
+          "mimetype": "image/png",
+          "filetype": "png",
+          "pretty_type": "PNG",
+          "user": "U09FLV6BPQB",
+          "user_team": "T46P0EFR8",
+          "editable": false,
+          "size": 78320,
+          "mode": "hosted",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A2HA7TKB6/image.png",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A2HA7TKB6/download/image.png",
+          "media_display_type": "unknown",
+          "thumb_64": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_64.png",
+          "thumb_80": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_80.png",
+          "thumb_360": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_360.png",
+          "thumb_360_w": 360,
+          "thumb_360_h": 87,
+          "thumb_480": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_480.png",
+          "thumb_480_w": 480,
+          "thumb_480_h": 116,
+          "thumb_160": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_160.png",
+          "thumb_720": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_720.png",
+          "thumb_720_w": 720,
+          "thumb_720_h": 174,
+          "thumb_800": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_800.png",
+          "thumb_800_w": 800,
+          "thumb_800_h": 193,
+          "thumb_960": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_960.png",
+          "thumb_960_w": 960,
+          "thumb_960_h": 231,
+          "thumb_1024": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2HA7TKB6-696e07d0a0/image_1024.png",
+          "thumb_1024_w": 1024,
+          "thumb_1024_h": 247,
+          "original_w": 1427,
+          "original_h": 344,
+          "thumb_tiny": "AwAMADCnk527+M9cnFByGB38jODmjADHjNDYBOFHU0ABGFzv9MYNJn1ZsZp2weTv7ggfnn/Co6AHFi2NzMevWkBI6EikooA//9k=",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A2HA7TKB6/image.png",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A2HA7TKB6-2dc251c6cd",
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        }
+      ],
+      "upload": false,
+      "user": "U09FLV6BPQB",
+      "display_as_bot": false,
+      "type": "message",
+      "ts": "1765262262.826969",
+      "client_msg_id": "b680d3c3-c7d0-4e89-946b-8ff8844c4774",
+      "thread_ts": "1765262262.826969",
+      "reply_count": 3,
+      "reply_users_count": 2,
+      "latest_reply": "1765262786.343289",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765271464.849579",
+      "client_msg_id": "4478ba67-21a8-47e9-a51c-284544af7972",
+      "text": "سلام دوستان من پروداکشن رو با آخرین ورژن آپدیت کردم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "JOC60",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "سلام دوستان من پروداکشن رو با آخرین ورژن آپدیت کردم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "raised_hands",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765271490.300239",
+      "client_msg_id": "4229dc38-6a11-42f7-b7a7-6622d24a39c2",
+      "text": "```[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] ❌ Failed to execute GMAIL_FETCH_MESSAGE_BY_MESSAGE_ID:\n[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] Error: 404 Client Error: Not Found for url: <https://www.googleapis.com/gmail/v1/users/me/messages/19af50921c099f2b?format=full>\n    at ComposioToolsService.executeAction (/app/dist/src/composio/composio-tools.service.js:72:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async GmailAdapterService.fetchMessagesByIds (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:280:32)\n    at async GmailAdapterService.fetchGmailMessages (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:263:28)\n    at async GmailAdapterService.processWebhook (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:168:24)\n    at async WebhooksService.processGmailWebhook (/app/dist/src/webhooks/webhooks.service.js:297:24)\n[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] Unknown error type detected```",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765271490.300239",
+      "reply_count": 7,
+      "reply_users_count": 3,
+      "latest_reply": "1765272300.954309",
+      "reply_users": [
+        "U09FLV6BPQB",
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "ysGhi",
+          "elements": [
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] ❌ Failed to execute GMAIL_FETCH_MESSAGE_BY_MESSAGE_ID:\n[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] Error: 404 Client Error: Not Found for url: "
+                },
+                {
+                  "type": "link",
+                  "url": "https://www.googleapis.com/gmail/v1/users/me/messages/19af50921c099f2b?format=full"
+                },
+                {
+                  "type": "text",
+                  "text": "\n    at ComposioToolsService.executeAction (/app/dist/src/composio/composio-tools.service.js:72:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async GmailAdapterService.fetchMessagesByIds (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:280:32)\n    at async GmailAdapterService.fetchGmailMessages (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:263:28)\n    at async GmailAdapterService.processWebhook (/app/dist/src/source-adapter/adapters/gmail-adapter.service.js:168:24)\n    at async WebhooksService.processGmailWebhook (/app/dist/src/webhooks/webhooks.service.js:297:24)\n[Nest] 1  - 12/09/2025, 9:08:03 AM   ERROR [ComposioToolsService] Unknown error type detected"
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765272135.585149",
+      "client_msg_id": "dca52830-be68-44b7-8b4f-45e1f9535ffe",
+      "text": "این هم یک خطا دیگه که روی استیج هست\n```[Nest] 1  - 12/09/2025, 8:28:53 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on POST /api/v1/webhooks/pm/cmi1mmjdw0004p401zay6\ntp9c: \"UserIntegration cmi1mmjdw0004p401zay6tp9c not found\"\n[Nest] 1  - 12/09/2025, 9:07:46 AM   ERROR [PrismaQuery] Error: Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbE\nrror { severity: \"FATAL\", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: \"terminating connection due to administr\nator command\", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, c\nonstraint: None, file: Some(\"postgres.c\"), line: Some(3315), routine: Some(\"ProcessInterrupts\") }) }```",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765272135.585149",
+      "reply_count": 1,
+      "reply_users_count": 1,
+      "latest_reply": "1765275275.661949",
+      "reply_users": [
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "ZulaT",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "این هم یک خطا دیگه که روی استیج هست\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[Nest] 1  - 12/09/2025, 8:28:53 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on POST /api/v1/webhooks/pm/cmi1mmjdw0004p401zay6\ntp9c: \"UserIntegration cmi1mmjdw0004p401zay6tp9c not found\"\n[Nest] 1  - 12/09/2025, 9:07:46 AM   ERROR [PrismaQuery] Error: Error in PostgreSQL connection: Error { kind: Db, cause: Some(DbE\nrror { severity: \"FATAL\", parsed_severity: Some(Fatal), code: SqlState(E57P01), message: \"terminating connection due to administr\nator command\", detail: None, hint: None, position: None, where_: None, schema: None, table: None, column: None, datatype: None, c\nonstraint: None, file: Some(\"postgres.c\"), line: Some(3315), routine: Some(\"ProcessInterrupts\") }) }"
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765272504.386749",
+      "client_msg_id": "9c8516be-7bbc-416a-9397-3aef95111e65",
+      "text": "```[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] Failed to parse even after sanitization for match_projects_for_event\nSyntaxError: Expected ',' or ']' after array element in JSON at position 644\n    at JSON.parse (&lt;anonymous&gt;)\n    at IntegrationEventLlmService.parseProjectMatchResult (/app/dist/src/integration/services/integration-event-llm.service.js:75\n:29)\n    at LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:140:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.j\ns:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37\n:33)\n[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] ❌ Structured JSON generation failed (anthropic/claude-sonnet-4-5-2025092\n9):\n[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] InternalServerErrorException: Unable to parse LLM response for match_proj\nects_for_event even after sanitization\n    at LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:151:31)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.j\ns:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37\n:33) {\n  response: {\n    message: 'Unable to parse LLM response for match_projects_for_event even after sanitization',\n    error: 'Internal Server Error',\n    statusCode: 500\n  },\n  status: 500,\n  options: {}\n}```",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765272504.386749",
+      "reply_count": 8,
+      "reply_users_count": 2,
+      "latest_reply": "1765273453.074649",
+      "reply_users": [
+        "U09FLV6BPQB",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "RUSNq",
+          "elements": [
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] Failed to parse even after sanitization for match_projects_for_event\nSyntaxError: Expected ',' or ']' after array element in JSON at position 644\n    at JSON.parse (<anonymous>)\n    at IntegrationEventLlmService.parseProjectMatchResult (/app/dist/src/integration/services/integration-event-llm.service.js:75\n:29)\n    at LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:140:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.j\ns:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37\n:33)\n[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] ❌ Structured JSON generation failed (anthropic/claude-sonnet-4-5-2025092\n9):\n[Nest] 1  - 12/09/2025, 9:23:56 AM   ERROR [LlmService] InternalServerErrorException: Unable to parse LLM response for match_proj\nects_for_event even after sanitization\n    at LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:151:31)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.j\ns:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37\n:33) {\n  response: {\n    message: 'Unable to parse LLM response for match_projects_for_event even after sanitization',\n    error: 'Internal Server Error',\n    statusCode: 500\n  },\n  status: 500,\n  options: {}\n}"
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274682.242109",
+      "client_msg_id": "31304e33-1c78-4d9b-ad1a-c255802d097d",
+      "text": "{\n  \"data\": {\n    \"message\": \"{\\n  \\\"error\\\": {\\n    \\\"code\\\": 404,\\n    \\\"message\\\": \\\"Requested entity was not found.\\\",\\n    \\\"errors\\\": [\\n      {\\n        \\\"message\\\": \\\"Requested entity was not found.\\\",\\n        \\\"domain\\\": \\\"global\\\",\\n        \\\"reason\\\": \\\"notFound\\\"\\n      }\\n    ],\\n    \\\"status\\\": \\\"NOT_FOUND\\\"\\n  }\\n}\\n\",\n    \"status_code\": 404\n  },\n  \"successful\": false,\n  \"error\": \"404 Client Error: Not Found for url: <https://www.googleapis.com/gmail/v1/users/me/messages/19adfaa517b53ab8?format=full>\",\n  \"log_id\": \"log_3i09uQFZF-hc\"\n}",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "zCMX6",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "{\n  \"data\": {\n    \"message\": \"{\\n  \\\"error\\\": {\\n    \\\"code\\\": 404,\\n    \\\"message\\\": \\\"Requested entity was not found.\\\",\\n    \\\"errors\\\": [\\n      {\\n        \\\"message\\\": \\\"Requested entity was not found.\\\",\\n        \\\"domain\\\": \\\"global\\\",\\n        \\\"reason\\\": \\\"notFound\\\"\\n      }\\n    ],\\n    \\\"status\\\": \\\"NOT_FOUND\\\"\\n  }\\n}\\n\",\n    \"status_code\": 404\n  },\n  \"successful\": false,\n  \"error\": \"404 Client Error: Not Found for url: "
+                },
+                {
+                  "type": "link",
+                  "url": "https://www.googleapis.com/gmail/v1/users/me/messages/19adfaa517b53ab8?format=full"
+                },
+                {
+                  "type": "text",
+                  "text": "\",\n  \"log_id\": \"log_3i09uQFZF-hc\"\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765274762.516409",
+      "client_msg_id": "fe760d12-8197-4d55-a087-09acfe5dc24e",
+      "text": "حسین یه هادل خودم و خودت بریم؟",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "hz78L",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "حسین یه هادل خودم و خودت بریم؟"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274804.096929",
+      "client_msg_id": "690d9390-6d84-45fa-90df-b315d20188a9",
+      "text": "this error is becuase a message in user inbox is completly deleted",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Snhgh",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "this error is becuase a message in user inbox is completly deleted"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274815.963709",
+      "client_msg_id": "ef32e9c7-b164-4ac8-a3ae-9ed5ddacb337",
+      "text": "و روی پروداکشن",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "FDspa",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "و روی پروداکشن"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274830.350729",
+      "client_msg_id": "a3bf0767-a448-40f6-9ea3-e65d7c850837",
+      "text": "داریم به rate limit مامپوزیو میریسیم",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "xR6zf",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "داریم به rate limit مامپوزیو میریسیم"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274834.094159",
+      "client_msg_id": "6ccc04da-0d24-4b11-91e1-687b50b0b465",
+      "text": "ارور میپه",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "G3y2K",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "ارور میپه"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765274836.240109",
+      "client_msg_id": "5a43d99c-d893-4573-97e7-3789310f8230",
+      "text": "میده",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Syz9z",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "میده"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765284690.698149",
+      "client_msg_id": "44b5bb31-358c-4d5f-8b08-6bf50cde9995",
+      "text": "تغییرات جدید رو بردم روی پروداکشن\n\nلاگ هارو چک کردم. خطایی وجود نداره",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "GZXrs",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "تغییرات جدید رو بردم روی پروداکشن\n\nلاگ هارو چک کردم. خطایی وجود نداره"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765284944.483149",
+      "client_msg_id": "5ff2da8c-a2ba-4121-8e52-5e7deb1608fc",
+      "text": "فقط تعداد ایمیل ها بالاست",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "Db4sa",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "فقط تعداد ایمیل ها بالاست"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765285091.860399",
+      "client_msg_id": "e20edd18-e754-4d0c-9438-d19a1188f219",
+      "text": "هی داره پردازش میکنه",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "LpYdC",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "هی داره پردازش میکنه"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765286475.905139",
+      "client_msg_id": "535ecc98-8229-4543-86d1-32f55f06e466",
+      "text": ":wrench: Gmail Webhook Deduplication\nAdded deduplication logic for Gmail integration events. The system now checks if an email (by messageId) has already been processed before creating a new IntegrationEvent.\nWhat changed:\n• Before creating events, we query existing events by userIntegrationId + externalId (Gmail messageId)\n• Duplicate emails are skipped with logging\n• Prevents duplicate events when Gmail sends the same notification multiple times\nResult: No more duplicate integration events for the same email :tada:",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "cGHiP",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "emoji",
+                  "name": "wrench",
+                  "unicode": "1f527"
+                },
+                {
+                  "type": "text",
+                  "text": " Gmail Webhook Deduplication\nAdded deduplication logic for Gmail integration events. The system now checks if an email (by messageId) has already been processed before creating a new IntegrationEvent.\nWhat changed:\n"
+                }
+              ]
+            },
+            {
+              "type": "rich_text_list",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Before creating events, we query existing events by userIntegrationId + externalId (Gmail messageId)"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Duplicate emails are skipped with logging"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Prevents duplicate events when Gmail sends the same notification multiple times"
+                    }
+                  ]
+                }
+              ],
+              "style": "bullet",
+              "indent": 0,
+              "border": 0
+            },
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Result: No more duplicate integration events for the same email "
+                },
+                {
+                  "type": "emoji",
+                  "name": "tada",
+                  "unicode": "1f389"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "clap",
+          "users": [
+            "U05SL9R85PF"
+          ],
+          "count": 1
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765288063.023379",
+      "client_msg_id": "8d8da3c6-3747-4947-ac88-4a574dceb88f",
+      "text": "وقتی یه پروژه رو از آسانا اد کردم:",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "684hT",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "وقتی یه پروژه رو از آسانا اد کردم:"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U05SL9R85PF",
+      "type": "message",
+      "ts": "1765288066.678609",
+      "client_msg_id": "bda755df-c4f6-47f0-bdcd-9693bfbee220",
+      "text": "```{\n    \"statusCode\": 500,\n    \"message\": \"Failed to create Asana webhook: 400 Bad Request - {\\\"errors\\\":[{\\\"message\\\":\\\"The remote server which is intended to receive the webhook responded with an incorrect status code: 404\\\",\\\"help\\\":\\\"For more information on API status codes and how to handle them, read the docs on errors: <https://developers.asana.com/docs/errors>\\\"}]}\",\n    \"error\": \"Internal Server Error\",\n    \"timestamp\": \"2025-12-09T13:45:58.573Z\",\n    \"path\": \"/api/v1/projects/create/ASANA\"\n}```",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765288066.678609",
+      "reply_count": 18,
+      "reply_users_count": 3,
+      "latest_reply": "1765296611.689429",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG",
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "83hmV",
+          "elements": [
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "{\n    \"statusCode\": 500,\n    \"message\": \"Failed to create Asana webhook: 400 Bad Request - {\\\"errors\\\":[{\\\"message\\\":\\\"The remote server which is intended to receive the webhook responded with an incorrect status code: 404\\\",\\\"help\\\":\\\"For more information on API status codes and how to handle them, read the docs on errors: "
+                },
+                {
+                  "type": "link",
+                  "url": "https://developers.asana.com/docs/errors"
+                },
+                {
+                  "type": "text",
+                  "text": "\\\"}]}\",\n    \"error\": \"Internal Server Error\",\n    \"timestamp\": \"2025-12-09T13:45:58.573Z\",\n    \"path\": \"/api/v1/projects/create/ASANA\"\n}"
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "text": "حسین این کال هایی هست که داره میاد\nبلحاظ زمانی همچنان غیرعادی هست زمان بین شون",
+      "files": [
+        {
+          "id": "F0A2JFA43NE",
+          "created": 1765303036,
+          "timestamp": 1765303036,
+          "name": "Screenshot 2025-12-09 at 8.57.11 PM.png",
+          "title": "Screenshot 2025-12-09 at 8.57.11 PM.png",
+          "mimetype": "image/png",
+          "filetype": "png",
+          "pretty_type": "PNG",
+          "user": "U05SL9R85PF",
+          "user_team": "T46P0EFR8",
+          "editable": false,
+          "size": 212368,
+          "mode": "hosted",
+          "is_external": false,
+          "external_type": "",
+          "is_public": false,
+          "public_url_shared": false,
+          "display_as_bot": false,
+          "username": "",
+          "url_private": "https://files.slack.com/files-pri/T46P0EFR8-F0A2JFA43NE/screenshot_2025-12-09_at_8.57.11___pm.png",
+          "url_private_download": "https://files.slack.com/files-pri/T46P0EFR8-F0A2JFA43NE/download/screenshot_2025-12-09_at_8.57.11___pm.png",
+          "media_display_type": "unknown",
+          "thumb_64": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_64.png",
+          "thumb_80": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_80.png",
+          "thumb_360": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_360.png",
+          "thumb_360_w": 360,
+          "thumb_360_h": 94,
+          "thumb_480": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_480.png",
+          "thumb_480_w": 480,
+          "thumb_480_h": 126,
+          "thumb_160": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_160.png",
+          "thumb_720": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_720.png",
+          "thumb_720_w": 720,
+          "thumb_720_h": 189,
+          "thumb_800": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_800.png",
+          "thumb_800_w": 800,
+          "thumb_800_h": 210,
+          "thumb_960": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_960.png",
+          "thumb_960_w": 960,
+          "thumb_960_h": 252,
+          "thumb_1024": "https://files.slack.com/files-tmb/T46P0EFR8-F0A2JFA43NE-268f2a72b5/screenshot_2025-12-09_at_8.57.11___pm_1024.png",
+          "thumb_1024_w": 1024,
+          "thumb_1024_h": 268,
+          "original_w": 2572,
+          "original_h": 674,
+          "thumb_tiny": "AwANADCmdu3I4PoaQjgc5/pS496UFgMBiB6ZoAbxtHrmg8Hrn3p3OMbjjGKQ5JJJyT3oAMD+8O3rSfLtxg7s9c8Yp2WwRuODTSKAP//Z",
+          "permalink": "https://refactco.slack.com/files/U09UB8X70VA/F0A2JFA43NE/screenshot_2025-12-09_at_8.57.11___pm.png",
+          "permalink_public": "https://slack-files.com/T46P0EFR8-F0A2JFA43NE-3277c3d22c",
+          "is_starred": false,
+          "skipped_shares": true,
+          "has_rich_preview": false,
+          "file_access": "visible"
+        }
+      ],
+      "upload": false,
+      "user": "U05SL9R85PF",
+      "display_as_bot": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "q7p3r",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "حسین این کال هایی هست که داره میاد\nبلحاظ زمانی همچنان غیرعادی هست زمان بین شون"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "message",
+      "ts": "1765303073.085159",
+      "client_msg_id": "33ff7bd4-6e14-44e5-b3ce-86c5b0b6e8ad",
+      "thread_ts": "1765303073.085159",
+      "reply_count": 3,
+      "reply_users_count": 2,
+      "latest_reply": "1765310054.953079",
+      "reply_users": [
+        "U05SL9R85PF",
+        "U093YSSUWBG"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "user_name": "Asghar",
+      "user_real_name": "Asghar Mirzaie",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765346800.531729",
+      "client_msg_id": "cc6b303d-1167-447b-86be-8fbcf2a6d5b0",
+      "text": "```[Nest] 1  - 12/10/2025, 4:01:44 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on GET /api/vendor/phpunit/phpunit/src/Util/PHP/e\nval-stdin.php: \"Cannot GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php\"\n[Nest] 1  - 12/10/2025, 4:22:49 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on GET /api/vendor/phpunit/phpunit/src/Util/PHP/e\nval-stdin.php: \"Cannot GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php\"```",
+      "team": "T46P0EFR8",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "IGeE9",
+          "elements": [
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[Nest] 1  - 12/10/2025, 4:01:44 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on GET /api/vendor/phpunit/phpunit/src/Util/PHP/e\nval-stdin.php: \"Cannot GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php\"\n[Nest] 1  - 12/10/2025, 4:22:49 AM   ERROR [HttpExceptionFilter] HTTP 404 Error on GET /api/vendor/phpunit/phpunit/src/Util/PHP/e\nval-stdin.php: \"Cannot GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php\""
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U09FLV6BPQB",
+      "type": "message",
+      "ts": "1765347374.827239",
+      "client_msg_id": "b32982e4-0cb6-4a3c-a384-a00498a78b5c",
+      "text": "```[Nest] 1  - 12/09/2025, 7:20:34 PM   ERROR [IntegrationEventProcessor] ❌ Failed to process integration event cmiyytozo000bs901xelljli3 after 164ms:\nBadRequestException: Failed to generate text: model: claude-haiku-4-5-20251015\n    at LlmService.generateText (/app/dist/src/ai/llm/llm.service.js:37:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:116:28)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.js:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37:33)\n[Nest] 1  - 12/09/2025, 7:20:34 PM   ERROR [IntegrationEventProcessor] ❌ Integration event job 57 failed after 1 attempts:\nBadRequestException: Failed to generate text: model: claude-haiku-4-5-20251015\n    at LlmService.generateText (/app/dist/src/ai/llm/llm.service.js:37:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:116:28)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.js:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37:33)```",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765347374.827239",
+      "reply_count": 1,
+      "reply_users_count": 1,
+      "latest_reply": "1765347451.994709",
+      "reply_users": [
+        "U09FLV6BPQB"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "fwEeO",
+          "elements": [
+            {
+              "type": "rich_text_preformatted",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "[Nest] 1  - 12/09/2025, 7:20:34 PM   ERROR [IntegrationEventProcessor] ❌ Failed to process integration event cmiyytozo000bs901xelljli3 after 164ms:\nBadRequestException: Failed to generate text: model: claude-haiku-4-5-20251015\n    at LlmService.generateText (/app/dist/src/ai/llm/llm.service.js:37:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:116:28)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.js:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37:33)\n[Nest] 1  - 12/09/2025, 7:20:34 PM   ERROR [IntegrationEventProcessor] ❌ Integration event job 57 failed after 1 attempts:\nBadRequestException: Failed to generate text: model: claude-haiku-4-5-20251015\n    at LlmService.generateText (/app/dist/src/ai/llm/llm.service.js:37:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async LlmService.generateStructuredJson (/app/dist/src/ai/llm/llm.service.js:116:28)\n    at async IntegrationEventLlmService.matchProjectsForEvent (/app/dist/src/integration/services/integration-event-llm.service.js:64:28)\n    at async IntegrationEventProcessor.handleProcessEvent (/app/dist/src/integration/processors/integration-event.processor.js:37:33)"
+                }
+              ],
+              "border": 0
+            }
+          ]
+        }
+      ],
+      "user_name": "Farzin",
+      "user_real_name": "Farzin",
+      "user_is_bot": false
+    },
+    {
+      "user": "U093YSSUWBG",
+      "type": "message",
+      "ts": "1765378534.555589",
+      "client_msg_id": "b055963a-9dbc-432d-a113-726ca2fe3780",
+      "text": "Gmail webhook deduplication fix\n\nFixed Gmail webhook deduplication by using RFC Message-ID instead of Gmail's internal message ID.\n\nProblem:\n- Gmail webhooks were creating duplicate `IntegrationEvent` records for the same email\n- The deduplication logic was using Gmail's internal message ID, which can change or be inconsistent\n\nSolution:\n- Updated `GmailAdapterService` to extract the RFC Message-ID from email headers when fetching messages\n- Now using RFC Message-ID as `externalId` for deduplication (with fallback to Gmail message ID if unavailable)\n- RFC Message-ID is a standard email header that uniquely identifies emails across systems\n\nChanges:\n- `fetchMessagesByIds()` now extracts RFC Message-ID from headers when fetching with `format: 'full'`\n- `processWebhook()` uses `rfcMessageId` as `externalId` (preferred) with fallback to `messageId`\n- Both IDs are stored in metadata for reference",
+      "team": "T46P0EFR8",
+      "thread_ts": "1765378534.555589",
+      "reply_count": 4,
+      "reply_users_count": 2,
+      "latest_reply": "1765382724.554609",
+      "reply_users": [
+        "U093YSSUWBG",
+        "U05SL9R85PF"
+      ],
+      "is_locked": false,
+      "subscribed": false,
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "WzDUT",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Gmail webhook deduplication fix\n\nFixed Gmail webhook deduplication by using RFC Message-ID instead of Gmail's internal message ID.\n\nProblem:\n- Gmail webhooks were creating duplicate `IntegrationEvent` records for the same email\n- The deduplication logic was using Gmail's internal message ID, which can change or be inconsistent\n\nSolution:\n- Updated `GmailAdapterService` to extract the RFC Message-ID from email headers when fetching messages\n- Now using RFC Message-ID as `externalId` for deduplication (with fallback to Gmail message ID if unavailable)\n- RFC Message-ID is a standard email header that uniquely identifies emails across systems\n\nChanges:\n- `fetchMessagesByIds()` now extracts RFC Message-ID from headers when fetching with `format: 'full'`\n- `processWebhook()` uses `rfcMessageId` as `externalId` (preferred) with fallback to `messageId`\n- Both IDs are stored in metadata for reference"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions": [
+        {
+          "name": "clap",
+          "users": [
+            "U09FLV6BPQB",
+            "U05SL9R85PF"
+          ],
+          "count": 2
+        }
+      ],
+      "user_name": "Hossein Molavi",
+      "user_real_name": "Hossein Molavi",
       "user_is_bot": false
     }
   ]

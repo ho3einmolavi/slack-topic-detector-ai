@@ -11,5 +11,6 @@ export {
   getAllTopics,
   resetContext,
   createTopicInDB,
+  updateTopic,
   buildTopicEmbeddingText,
 } from './src/index.js';

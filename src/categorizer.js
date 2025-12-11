@@ -7,7 +7,7 @@ import { MODEL } from './config/constants.js';
 import { SYSTEM_PROMPT } from './prompts/system-prompt.js';
 import { tools, executeToolCall, setCurrentContext } from './tools/index.js';
 import { conversationContext } from './context/conversation.js';
-import { createTopicInDB, storeMessageWithTopic } from './services/database.js';
+import { createTopicInDB, storeMessageWithTopic, updateTopic } from './services/database.js';
 import { truncate } from './utils/text.js';
 import { logToolResult } from './utils/logger.js';
 
@@ -106,6 +106,10 @@ Follow the workflow:
             decision = result;
             if (verbose) {
               console.log(`      ✅ Decision: ${result.action === 'assign' ? 'ASSIGN' : 'CREATE'} → ${result.action === 'assign' ? result.topic_name : result.name}`);
+              if (result.action === 'assign') {
+                const hasImprovements = result.improved_name || result.improved_description;
+                console.log(`      📊 Improvements: ${hasImprovements ? 'YES' : 'NO'}${result.improved_name ? ` | New name: "${result.improved_name}"` : ''}${result.improved_description ? ' | +description' : ''}`);
+              }
             }
           } else {
             if (verbose) {
@@ -161,6 +165,41 @@ Follow the workflow:
   if (decision.action === 'assign') {
     topicId = decision.topic_id;
     topicName = decision.topic_name;
+    
+    // Update topic name/description if improvements were provided
+    if (decision.improved_name || decision.improved_description) {
+      if (verbose) {
+        console.log(`\n      ┌─────────────────────────────────────────────────────────────`);
+        console.log(`      │ 🔄 TOPIC IMPROVEMENT DETECTED`);
+        console.log(`      ├─────────────────────────────────────────────────────────────`);
+        if (decision.improved_name) {
+          console.log(`      │ 📛 Name: "${topicName}" → "${decision.improved_name}"`);
+        }
+        if (decision.improved_description) {
+          console.log(`      │ 📝 Description: "${decision.improved_description.substring(0, 60)}${decision.improved_description.length > 60 ? '...' : ''}"`);
+        }
+        console.log(`      └─────────────────────────────────────────────────────────────`);
+      }
+      
+      const updates = {};
+      if (decision.improved_name) {
+        updates.name = decision.improved_name;
+        topicName = decision.improved_name; // Use improved name
+      }
+      if (decision.improved_description) {
+        updates.description = decision.improved_description;
+      }
+      
+      await updateTopic(topicId, updates);
+      
+      if (verbose) {
+        console.log(`      ✅ Topic updated in DB & vector embeddings regenerated`);
+      }
+    } else {
+      if (verbose) {
+        console.log(`      ℹ️  No topic improvements suggested (name/description unchanged)`);
+      }
+    }
   } else {
     const userName = message.user_name || message.user_real_name || message.user;
     topicId = await createTopicInDB(decision.name, decision.description, decision.keywords, {

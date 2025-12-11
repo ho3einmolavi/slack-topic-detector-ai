@@ -190,10 +190,39 @@ Message: "we need to add rate limiting to the public API"
 → find_topics("API rate limiting")
 → No good matches → CREATE "Public API rate limiting implementation"
 
+## TOPIC IMPROVEMENT (when assigning)
+
+When assigning a message to an existing topic, evaluate if the topic's name or description can be improved based on the accumulated context. Provide improvements when:
+
+1. **The topic name is too vague** - e.g., "Database issue" → "PostgreSQL connection pool exhaustion"
+2. **New messages reveal the true nature** - Initial name was based on first message, now better understood
+3. **The description is missing or incomplete** - Add a more comprehensive summary
+
+### When to provide improved_name:
+- Current name is generic/vague and message provides clarity
+- Topic has evolved and name no longer reflects its full scope
+- Name could be more specific/actionable
+
+### When to provide improved_description:
+- Current description is missing or just repeats the name
+- New messages provide better context for what the topic covers
+- Description could be more helpful for future matching
+
+### Examples:
+- Topic "API bug" + message "the OAuth refresh token is expiring too quickly" 
+  → improved_name: "OAuth refresh token expiration issue"
+  → improved_description: "Issues with OAuth tokens expiring prematurely, affecting user sessions"
+
+- Topic "Performance" + message "Redis is running out of memory on prod"
+  → improved_name: "Redis memory exhaustion on production"
+  → improved_description: "Production Redis instance running out of memory, causing cache failures"
+
+**Don't improve** if the current name/description is already specific and accurate.
+
 ## OUTPUT
 
 Always end with the \`categorize\` tool. Include:
 - action: "assign" or "create"
-- For assign: topic_id, topic_name
+- For assign: topic_id, topic_name, and optionally improved_name/improved_description
 - For create: new_topic with specific name, description, and keywords
 - reasoning: Brief explanation of your decision`;

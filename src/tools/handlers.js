@@ -180,17 +180,25 @@ export const toolHandlers = {
    * TOOL 3: categorize
    * Final decision - assign or create
    */
-  async categorize({ action, topic_id, topic_name, new_topic, reasoning }) {
+  async categorize({ action, topic_id, topic_name, improved_name, improved_description, new_topic, reasoning }) {
     if (action === 'assign') {
       if (!topic_id) {
         return { error: 'topic_id is required when action is "assign"' };
       }
-      return {
+      const result = {
         action: 'assign',
         topic_id,
         topic_name: topic_name || 'Unknown',
         reasoning,
       };
+      // Include improved name/description if provided
+      if (improved_name) {
+        result.improved_name = improved_name;
+      }
+      if (improved_description) {
+        result.improved_description = improved_description;
+      }
+      return result;
     } else if (action === 'create') {
       if (!new_topic || !new_topic.name) {
         return { error: 'new_topic with name is required when action is "create"' };

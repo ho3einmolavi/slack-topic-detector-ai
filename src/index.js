@@ -12,6 +12,7 @@ export { categorizeMessage, categorizeMessageSmart } from './categorizer.js';
 export { 
   getAllTopics, 
   createTopicInDB, 
+  updateTopic,
   getTopicById,
   fetchAllTopics 
 } from './services/database.js';
