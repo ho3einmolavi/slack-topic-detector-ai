@@ -98,26 +98,30 @@ Features:
   - Cards view
   - Timeline view
   - Compact table view
-- Charts and analytics
-- Dark mode support
-- Export functionality
+- **Charts and analytics**
+- **Dark mode support**
+- **Export functionality**
 
 ## 🎯 How It Works
 
 1. **Context Gathering**: Fetches conversation history, thread info, and channel state
-2. **Topic Search**: Uses hybrid search (semantic + keyword) with RRF fusion
-3. **Confidence Scoring**: Calculates match confidence using multiple factors
+2. **Iterative Search**: 
+   - Uses hybrid search (semantic + keyword) with RRF fusion
+   - **Iterates** with different queries if initial search yields low confidence
+3. **Confidence Scoring**: Calculates match confidence using multiple factors (Semantic, Keyword, Name Similarity)
 4. **Decision Making**: AI agent decides to assign to existing topic or create new one
+   - **Anti-Duplication**: Prioritizes existing topics over creating duplicates
+   - **Specific Topics**: Enforces specific, actionable topics (no generic categories)
 5. **Storage**: Message stored and linked to topic with updated embeddings
 
 ### Search Strategy
 
 The system uses **Reciprocal Rank Fusion (RRF)** to combine:
 - Hybrid search (BM25 + Vector)
-- Pure semantic/vector search
+- Pure semantic/vector search (Weighted highly for meaning capture)
 - BM25 keyword search
 
-This ensures both exact keyword matches and semantic similarity are considered.
+This ensures both exact keyword matches and semantic similarity are considered, with a bias towards semantic understanding to catch topics with different wording.
 
 ## 📝 Scripts
 
