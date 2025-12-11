@@ -164,6 +164,55 @@ async function getMessagesFromConversation(conversationId, conversationName) {
   return messages;
 }
 
+async function getThreadReplies(channelId, threadTs) {
+  const replies = [];
+  let cursor = null;
+
+  do {
+    const params = {
+      channel: channelId,
+      ts: threadTs,
+      limit: 200
+    };
+    if (cursor) params.cursor = cursor;
+
+    try {
+      const response = await slackApiCall('conversations.replies', params);
+      // Filter out the parent message which is usually the first one in the response
+      const threadMessages = response.messages.filter(m => m.ts !== threadTs);
+      replies.push(...threadMessages);
+      cursor = response.response_metadata?.next_cursor || null;
+      
+      // Small delay to avoid rate limits
+      await new Promise(resolve => setTimeout(resolve, 50)); 
+    } catch (error) {
+      console.log(`    ⚠️  Could not fetch thread ${threadTs}: ${error.message}`);
+      break;
+    }
+  } while (cursor);
+
+  return replies;
+}
+
+async function fetchRepliesForMessages(channelId, messages) {
+  console.log(`\n🧵 Fetching thread replies...`);
+  
+  // Find messages that are thread parents
+  const threadParents = messages.filter(m => m.thread_ts && m.thread_ts === m.ts && m.reply_count > 0);
+  console.log(`  📊 Found ${threadParents.length} threads`);
+
+  let processed = 0;
+  for (const message of threadParents) {
+    message.replies = await getThreadReplies(channelId, message.ts);
+    
+    processed++;
+    if (processed % 5 === 0 || processed === threadParents.length) {
+      process.stdout.write(`\r  🧵 Fetching threads: ${processed}/${threadParents.length}`);
+    }
+  }
+  console.log(''); // New line
+}
+
 async function main() {
   try {
     console.log('🚀 Starting Slack message fetch...\n');
@@ -176,8 +225,21 @@ async function main() {
     // Fetch messages from the channel
     const messages = await getMessagesFromConversation(CHANNEL_ID, channel.name);
 
+    // Fetch replies for threads
+    await fetchRepliesForMessages(CHANNEL_ID, messages);
+
+    // Collect all messages (main + replies) for user enrichment
+    const allMessages = [...messages];
+    messages.forEach(m => {
+      if (m.replies) {
+        allMessages.push(...m.replies);
+      }
+    });
+
     // Enrich messages with user data (names)
-    await enrichMessagesWithUsers(messages);
+    // We pass allMessages to collect users, but we only need to enrich the objects
+    // Since objects are passed by reference, enriching items in allMessages will update the original messages and their replies
+    await enrichMessagesWithUsers(allMessages);
 
     // Build users lookup object from cache
     const users = {};
@@ -201,6 +263,9 @@ async function main() {
       users: users,
       messages: messages.reverse()
     };
+    
+    // ... rest of the file
+
 
     // Save to JSON file
     const outputFile = 'slack-messages.json';
