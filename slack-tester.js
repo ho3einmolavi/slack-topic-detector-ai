@@ -5,7 +5,7 @@ dotenv.config();
 
 const SLACK_API_KEY = process.env.SLACK_API_KEY;
 const SLACK_API_BASE = 'https://slack.com/api';
-const CHANNEL_ID = 'C09UBEXBD8C'; // From URL: https://app.slack.com/client/T46P0EFR8/C0594LCK43H
+const CHANNEL_ID = 'C0594LCK43H'; // From URL: https://app.slack.com/client/T46P0EFR8/C0594LCK43H
 
 // Calculate timestamp for 2 months ago (approximately 60 days)
 const twoMonthsAgo = Math.floor((Date.now() - (60 * 24 * 60 * 60 * 1000)) / 1000);

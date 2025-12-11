@@ -119,7 +119,6 @@ export async function getTopicById(topicId) {
       description: result.properties.description,
       keywords: result.properties.keywords || [],
       users: result.properties.users || [],
-      sampleMessages: result.properties.sampleMessages || [],
       messageCount: result.properties.messageCount || 0,
     };
   } catch (error) {
@@ -136,14 +135,13 @@ export async function getTopicById(topicId) {
  * @returns {Promise<string>} Created topic ID
  */
 export async function createTopicInDB(name, description, keywords, options = {}) {
-  const { users = [], sampleMessages = [] } = options;
+  const { users = [] } = options;
   
   const combinedSearchText = buildTopicEmbeddingText({ 
     name, 
     description, 
     keywords, 
     users,
-    sampleMessages,
   });
   
   const result = await client.data
@@ -154,7 +152,6 @@ export async function createTopicInDB(name, description, keywords, options = {})
       description,
       keywords,
       users: users || [],
-      sampleMessages: sampleMessages || [],
       combinedSearchText,
       messageCount: 0,
       createdAt: new Date().toISOString(),
@@ -220,15 +217,11 @@ export async function storeMessageWithTopic(message, channelInfo, topicId, topic
     ? existingUsers 
     : [...existingUsers, userName];
   
-  const existingSamples = currentTopic.properties.sampleMessages || [];
-  const updatedSamples = [...existingSamples, truncate(message.text, 100)].slice(-10);
-  
   const updatedCombinedSearchText = buildTopicEmbeddingText({
     name: currentTopic.properties.name,
     description: currentTopic.properties.description,
     keywords: currentTopic.properties.keywords,
     users: updatedUsers,
-    sampleMessages: updatedSamples,
   });
 
   await client.data
@@ -241,7 +234,6 @@ export async function storeMessageWithTopic(message, channelInfo, topicId, topic
       keywords: currentTopic.properties.keywords,
       createdAt: currentTopic.properties.createdAt,
       users: updatedUsers,
-      sampleMessages: updatedSamples,
       combinedSearchText: updatedCombinedSearchText,
       messageCount: (currentTopic.properties.messageCount || 0) + 1,
       updatedAt: new Date().toISOString(),
@@ -300,7 +292,6 @@ export async function updateTopic(topicId, updates) {
   const updatedDescription = updates.description ?? currentTopic.properties.description;
   const updatedKeywords = updates.keywords ?? currentTopic.properties.keywords;
   const updatedUsers = updates.users ?? currentTopic.properties.users ?? [];
-  const updatedSampleMessages = updates.sampleMessages ?? currentTopic.properties.sampleMessages ?? [];
 
   // Rebuild combinedSearchText with updated name and description
   const updatedCombinedSearchText = buildTopicEmbeddingText({
@@ -308,7 +299,6 @@ export async function updateTopic(topicId, updates) {
     description: updatedDescription,
     keywords: updatedKeywords,
     users: updatedUsers,
-    sampleMessages: updatedSampleMessages,
   });
 
   // Update topic with all properties
@@ -321,7 +311,6 @@ export async function updateTopic(topicId, updates) {
       description: updatedDescription,
       keywords: updatedKeywords,
       users: updatedUsers,
-      sampleMessages: updatedSampleMessages,
       combinedSearchText: updatedCombinedSearchText,
       messageCount: currentTopic.properties.messageCount || 0,
       createdAt: currentTopic.properties.createdAt,
@@ -335,7 +324,6 @@ export async function updateTopic(topicId, updates) {
     description: updatedDescription,
     keywords: updatedKeywords,
     users: updatedUsers,
-    sampleMessages: updatedSampleMessages,
     messageCount: currentTopic.properties.messageCount || 0,
   };
 }
@@ -349,7 +337,7 @@ export async function getAllTopics() {
     const result = await client.graphql
       .get()
       .withClassName('Topic')
-      .withFields('name description keywords users sampleMessages combinedSearchText messageCount createdAt updatedAt _additional { id }')
+      .withFields('name description keywords users combinedSearchText messageCount createdAt updatedAt _additional { id }')
       .withLimit(100)
       .do();
     return result.data.Get.Topic || [];

@@ -16,7 +16,8 @@
     "weaviate:status": "./weaviate-manager.sh status",
     "weaviate:logs": "docker logs -f weaviate",
     "dashboard": "open dashboard.html",
-    "fetch-messages": "node slack-tester.js"
+    "fetch-messages": "node slack-tester.js",
+    "chat": "node src/cli/chat.js"
   },
   "dependencies": {
     "weaviate-ts-client": "^2.0.0",

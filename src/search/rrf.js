@@ -37,7 +37,6 @@ export function reciprocalRankFusion(searchResults, k = RRF_K) {
           description: topic.description,
           keywords: topic.keywords || [],
           users: topic.users || [],
-          sampleMessages: topic.sampleMessages || [],
           messageCount: topic.messageCount || 0,
           ranks: {},
         });

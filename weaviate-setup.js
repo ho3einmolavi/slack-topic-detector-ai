@@ -134,25 +134,13 @@ async function setupSchema() {
             },
           },
         },
-        {
-          name: 'sampleMessages',
-          dataType: ['text[]'],
-          description: 'Sample messages from this topic for context',
-          indexFilterable: false,
-          indexSearchable: true,  // Enable BM25 on sample messages
-          moduleConfig: {
-            'text2vec-openai': {
-              skip: true,
-            },
-          },
-        },
         // =====================================================================
         // VECTORIZED FIELD (single source of truth for embeddings)
         // =====================================================================
         {
           name: 'combinedSearchText',
           dataType: ['text'],
-          description: 'SINGLE vectorized field: TOPIC + DESCRIPTION + KEYWORDS + EXAMPLES',
+          description: 'SINGLE vectorized field: TOPIC + DESCRIPTION + KEYWORDS',
           indexFilterable: false,
           indexSearchable: true,  // Also enable BM25 on this
           moduleConfig: {
@@ -321,7 +309,7 @@ async function setupSchema() {
     console.log('  - Topic: ONLY "combinedSearchText" is vectorized');
     console.log('  - SlackMessage: ONLY "text" is vectorized');
     console.log('\nBM25 searchable fields:');
-    console.log('  - Topic: name, description, keywords, sampleMessages, combinedSearchText');
+    console.log('  - Topic: name, description, keywords, combinedSearchText');
     console.log('  - SlackMessage: text, userName, channelName\n');
 
     return true;

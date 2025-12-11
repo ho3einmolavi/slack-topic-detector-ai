@@ -14,7 +14,6 @@ export const TOPIC_FIELDS = `
   description
   keywords
   users
-  sampleMessages
   combinedSearchText
   messageCount
   _additional { id }

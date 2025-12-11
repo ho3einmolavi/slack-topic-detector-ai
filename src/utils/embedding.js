@@ -15,14 +15,6 @@ export function buildTopicEmbeddingText(topic) {
     `KEYWORDS: ${(topic.keywords || []).join(', ')}`,
   ];
   
-  // Add representative messages (critical for retrieval!)
-  if (topic.sampleMessages?.length > 0) {
-    parts.push(`EXAMPLE MESSAGES:`);
-    topic.sampleMessages.slice(0, 5).forEach(msg => {
-      parts.push(`- ${msg}`);
-    });
-  }
-  
   // Add users for context
   if (topic.users?.length > 0) {
     parts.push(`USERS: ${topic.users.join(', ')}`);

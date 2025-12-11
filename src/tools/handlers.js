@@ -149,7 +149,6 @@ export const toolHandlers = {
         confidence: parseFloat(confidence.toFixed(3)),
         match_reasons: buildMatchReasons(factors, topic, messageKeywords),
         message_count: topic.messageCount,
-        sample_messages: (topic.sampleMessages || []).slice(0, 3),
       };
     });
 

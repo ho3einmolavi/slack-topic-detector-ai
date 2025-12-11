@@ -204,7 +204,6 @@ Follow the workflow:
     const userName = message.user_name || message.user_real_name || message.user;
     topicId = await createTopicInDB(decision.name, decision.description, decision.keywords, {
       users: userName ? [userName] : [],
-      sampleMessages: [truncate(message.text, 100)],
     });
     topicName = decision.name;
     if (verbose) console.log(`      🆕 Created topic: ${topicId}`);

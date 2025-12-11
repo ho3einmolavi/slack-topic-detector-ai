@@ -19,7 +19,6 @@ export async function keywordSearchTopics(query, limit = 10) {
         description
         keywords
         users
-        sampleMessages
         messageCount
         _additional { id score }
       `)

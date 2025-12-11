@@ -1913,7 +1913,6 @@
                                     description
                                     keywords
                                     users
-                                    sampleMessages
                                     messageCount
                                     createdAt
                                     updatedAt
@@ -2289,15 +2288,6 @@
                                 ${topic.keywords.map(kw => `<span class="keyword">#${escapeHtml(kw)}</span>`).join('')}
                             </div>
                         ` : ''}
-                        ${topic.sampleMessages && topic.sampleMessages.length > 0 ? `
-                            <div class="sample-messages">
-                                <div class="sample-messages-title">💬 Sample Messages (${topic.sampleMessages.length})</div>
-                                ${topic.sampleMessages.slice(0, 3).map(msg => `
-                                    <div class="sample-message" title="${escapeHtml(msg)}">${escapeHtml(msg)}</div>
-                                `).join('')}
-                                ${topic.sampleMessages.length > 3 ? `<div style="font-size: 0.8em; color: #999; margin-top: 6px;">+${topic.sampleMessages.length - 3} more samples...</div>` : ''}
-                            </div>
-                        ` : ''}
                     </div>
                 `;
             }).join('');
@@ -2411,18 +2401,6 @@
                         ` : ''}
                         ${topic.keywords && topic.keywords.length > 0 ? `
                             <p style="margin-top: 12px;"><strong>Keywords:</strong> ${topic.keywords.map(kw => `<span class="keyword">#${escapeHtml(kw)}</span>`).join(' ')}</p>
-                        ` : ''}
-                        ${topic.sampleMessages && topic.sampleMessages.length > 0 ? `
-                            <div style="margin-top: 15px;">
-                                <p><strong>📝 Sample Messages (${topic.sampleMessages.length}):</strong></p>
-                                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
-                                    ${topic.sampleMessages.map(msg => `
-                                        <div style="background: white; padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary); font-size: 0.9em; color: #444; line-height: 1.5;">
-                                            "${escapeHtml(msg)}"
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
                         ` : ''}
                     </div>
                 </div>
