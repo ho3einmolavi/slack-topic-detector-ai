@@ -12,6 +12,7 @@ import { keywordOverlap, fuzzySimilarity, normalizeText } from '../utils/index.j
  * @returns {Array} Fused and sorted results
  */
 export function reciprocalRankFusion(searchResults, k = RRF_K) {
+  console.log(`[RRF] Fusing ${searchResults.length} result sets`);
   const topicScores = new Map();
   const topicData = new Map();
   
@@ -58,6 +59,7 @@ export function reciprocalRankFusion(searchResults, k = RRF_K) {
       rrfScore,
     }));
   
+  console.log(`[RRF] Fusion complete. Total unique topics: ${sortedTopics.length}`);
   return sortedTopics;
 }
 
@@ -69,6 +71,7 @@ export function reciprocalRankFusion(searchResults, k = RRF_K) {
  * @returns {Object} Confidence score and factors
  */
 export function calculateConfidence(topic, query, messageKeywords) {
+  // console.log(`[calculateConfidence] Topic: "${topic.name}"`);
   const topicKeywords = topic.keywords || [];
   
   // Factor 1: RRF score (normalized to 0-1)
@@ -92,6 +95,8 @@ export function calculateConfidence(topic, query, messageKeywords) {
     (nameSimilarity * 0.15) +
     (recencyBoost * 0.1);
   
+  // console.log(`[calculateConfidence] Score for "${topic.name}": ${confidence.toFixed(3)} (RRF: ${rrfNormalized.toFixed(2)}, KW: ${kwOverlap.toFixed(2)})`);
+
   return {
     confidence,
     factors: {
@@ -135,7 +140,9 @@ export function buildMatchReasons(factors, topic, messageKeywords) {
  * @returns {Object} Recommendation
  */
 export function generateRecommendation(matches) {
+  console.log(`[generateRecommendation] Evaluating ${matches.length} matches`);
   if (matches.length === 0) {
+    console.log('[generateRecommendation] No matches found -> create');
     return {
       action: 'create',
       confidence: 0,
@@ -144,6 +151,7 @@ export function generateRecommendation(matches) {
   }
 
   const bestMatch = matches[0];
+  console.log(`[generateRecommendation] Best match: "${bestMatch.name}" (Confidence: ${bestMatch.confidence})`);
   
   if (bestMatch.confidence >= 0.80) {
     return {

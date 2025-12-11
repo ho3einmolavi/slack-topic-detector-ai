@@ -123,8 +123,9 @@ export const toolHandlers = {
    * Unified search with RRF fusion and confidence scores
    */
   async find_topics({ query, include_all = false }) {
-    console.log('find_topics', query, include_all);
+    console.log(`[find_topics] Starting search for query: "${query}" (include_all: ${include_all})`);
     const messageKeywords = extractKeywords(query);
+    console.log(`[find_topics] Extracted keywords:`, messageKeywords);
     
     // Run parallel searches
     const [hybridResults, vectorResults, bm25Results, allTopics] = await Promise.all([
@@ -133,6 +134,8 @@ export const toolHandlers = {
       keywordSearchTopics(query, 15),
       include_all ? fetchAllTopics() : Promise.resolve([]),
     ]);
+
+    console.log(`[find_topics] Search results - Hybrid: ${hybridResults.length}, Vector: ${vectorResults.length}, BM25: ${bm25Results.length}`);
 
     // Apply RRF fusion
     const fusedResults = reciprocalRankFusion([hybridResults, vectorResults, bm25Results]);
@@ -152,8 +155,11 @@ export const toolHandlers = {
       };
     });
 
+    console.log(`[find_topics] Top ${scoredMatches.length} scored matches:`, scoredMatches.map(m => `${m.name} (${m.confidence})`).join(', '));
+
     // Generate recommendation
     const recommendation = generateRecommendation(scoredMatches);
+    console.log(`[find_topics] Final recommendation:`, recommendation);
 
     const result = {
       matches: scoredMatches,
