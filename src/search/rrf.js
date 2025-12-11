@@ -72,7 +72,8 @@ export function calculateConfidence(topic, query, messageKeywords) {
   const topicKeywords = topic.keywords || [];
   
   // Factor 1: RRF score (normalized to 0-1)
-  const rrfNormalized = Math.min(topic.rrfScore * 20, 1);
+  // Increased multiplier from 20 to 40 to better reward strong single-source matches (e.g. pure semantic match)
+  const rrfNormalized = Math.min(topic.rrfScore * 40, 1);
   
   // Factor 2: Keyword overlap
   const kwOverlap = keywordOverlap(messageKeywords, topicKeywords);
@@ -84,10 +85,11 @@ export function calculateConfidence(topic, query, messageKeywords) {
   const recencyBoost = Math.min((topic.messageCount || 0) / 50, 1);
   
   // Weighted average
+  // Increased RRF weight (0.5) to trust semantic search more than strict keyword matching
   const confidence = 
-    (rrfNormalized * 0.4) +
-    (kwOverlap * 0.3) +
-    (nameSimilarity * 0.2) +
+    (rrfNormalized * 0.5) +
+    (kwOverlap * 0.25) +
+    (nameSimilarity * 0.15) +
     (recencyBoost * 0.1);
   
   return {
