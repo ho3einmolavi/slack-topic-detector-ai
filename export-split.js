@@ -105,21 +105,36 @@ async function exportSplitData() {
     const messages = messageResult.data?.Get?.SlackMessage || [];
     console.log(`Found ${messages.length} messages.`);
 
-    // Prepare Messages for JSON
-    const messageRows = messages.map(msg => ({
-      timestamp: msg.timestamp,
-      text: msg.text,
-      user_id: msg.user,
-      user_name: msg.userName,
-      channel_id: msg.channelId,
-      channel_name: msg.channelName,
-      thread_ts: msg.threadTs,
-      processed_at: msg.processedAt,
-      topic_id: msg.topic?.[0]?._additional?.id || null // Reference topic by ID only
+    // Group messages by topic ID
+    const messagesByTopic = {};
+
+    messages.forEach(msg => {
+      const topicId = msg.topic?.[0]?._additional?.id || 'Unassigned';
+      
+      if (!messagesByTopic[topicId]) {
+        messagesByTopic[topicId] = [];
+      }
+
+      messagesByTopic[topicId].push({
+        timestamp: msg.timestamp,
+        text: msg.text,
+        user_id: msg.user,
+        user_name: msg.userName,
+        channel_id: msg.channelId,
+        channel_name: msg.channelName,
+        thread_ts: msg.threadTs,
+        processed_at: msg.processedAt
+      });
+    });
+
+    // Convert to array format [{ topicId, messages: [] }]
+    const groupedMessages = Object.keys(messagesByTopic).map(topicId => ({
+      topicId: topicId,
+      messages: messagesByTopic[topicId]
     }));
 
-    fs.writeFileSync('messages_export.json', JSON.stringify(messageRows, null, 2));
-    console.log('✅ exported messages_export.json');
+    fs.writeFileSync('messages_export.json', JSON.stringify(groupedMessages, null, 2));
+    console.log('✅ exported messages_export.json (grouped by topic)');
 
   } catch (error) {
     console.error('Export failed:', error);
